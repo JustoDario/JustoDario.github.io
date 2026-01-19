@@ -100,9 +100,18 @@ body {
 .carousel-track img, .carousel-track .video-container {
     min-width: 100%;
     height: 450px; 
-    object-fit: contain; 
+    object-fit: contain;
+    display: flex;        /* Añadido para centrar */
+    align-items: center;  /* Añadido para centrar */
+    justify-content: center; /* Añadido para centrar */
 }
 
+/* NUEVO: Esto hace que el video ocupe todo el espacio disponible */
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
 /* Botones Navegación Interna */
 .nav-btn {
     position: absolute; top: 50%; transform: translateY(-50%);

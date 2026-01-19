@@ -8,16 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (nextBtn && prevBtn && track) {
             nextBtn.addEventListener('click', () => {
-                track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+                // Usamos scrollBy con el ancho exacto del track
+                track.scrollBy({ left: track.offsetWidth, behavior: 'smooth' });
             });
             prevBtn.addEventListener('click', () => {
-                track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
+                track.scrollBy({ left: -track.offsetWidth, behavior: 'smooth' });
             });
         }
     });
 
     // 2. Botones EXTERIORES (Cambiar de Proyecto/Experiencia)
-    // FIX: Ahora sumamos el GAP (40px) para que el scroll sea exacto
     const sectionContainers = document.querySelectorAll('.section-slider-container');
     sectionContainers.forEach(container => {
         const mainSlider = container.querySelector('.main-slider');
@@ -25,17 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevSec = container.querySelector('.sec-prev');
 
         if (nextSec && prevSec && mainSlider) {
-            const gap = 40; // El espacio definido en el CSS
+            const gap = 40; 
 
             nextSec.addEventListener('click', () => {
-                // Scroll = Ancho de la tarjeta visible + el espacio entre ellas
-                const scrollAmount = mainSlider.clientWidth + gap;
-                mainSlider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                // Obtenemos el ancho real de una tarjeta (slider-item)
+                const itemWidth = mainSlider.querySelector('.slider-item').offsetWidth;
+                mainSlider.scrollBy({ left: itemWidth + gap, behavior: 'smooth' });
             });
 
             prevSec.addEventListener('click', () => {
-                const scrollAmount = mainSlider.clientWidth + gap;
-                mainSlider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                const itemWidth = mainSlider.querySelector('.slider-item').offsetWidth;
+                mainSlider.scrollBy({ left: -(itemWidth + gap), behavior: 'smooth' });
             });
         }
     });
@@ -45,7 +45,16 @@ document.addEventListener('DOMContentLoaded', () => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
-            if (target) target.scrollIntoView({ behavior: 'smooth' });
+            if (target) {
+                const headerOffset = 80; // Ajuste para que no tape el título la navbar
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
         });
     });
 });
