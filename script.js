@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Lógica para botones INTERIORES (Cambiar fotos/vídeos dentro de un proyecto)
+    // 1. Botones INTERIORES
     const carouselContainers = document.querySelectorAll('.carousel-container');
     carouselContainers.forEach(container => {
         const track = container.querySelector('.media-carousel');
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Lógica para botones EXTERIORES (Cambiar de Experiencia o de Proyecto)
+    // 2. Botones EXTERIORES
     const sectionContainers = document.querySelectorAll('.section-slider-container');
     sectionContainers.forEach(container => {
         const mainSlider = container.querySelector('.main-slider');
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 3. Smooth scroll para Navbar
+    // 3. Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
