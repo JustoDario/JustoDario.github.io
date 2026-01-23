@@ -1,43 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Justo Dario Valverde | Robotics Software Engineering Student</title>
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Justo Dario Valverde Torres | Robotics Software Engineering Student</title>
 
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
     <nav class="navbar">
-        <div class="container">
+        <div class="container nav-inner">
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about" data-i18n="nav.about">About</a></li>
+                <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+                <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+                <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+                <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
             </ul>
+
+            <!-- Language toggle -->
+            <button id="langToggle" class="lang-toggle" aria-label="Switch language">ES</button>
         </div>
     </nav>
 
     <section class="hero">
         <div class="container hero-grid">
             <div class="hero-image">
-                <img src="./assets/mylatestphoto.jpeg" alt="Justo Dario Valverde" class="profile-pic">
+                <img src="./assets/mylatestphoto.jpeg" alt="Justo Dario Valverde" class="profile-pic" />
             </div>
+
             <div class="hero-text">
-                <h1>Justo <span class="highlight">Dario Valverde</span></h1>
-                <h2>Robotics Engineering Student at URJC</h2>
-                <p>Passionate about robotics, programming and real world solutions</p>
+                <h1>Justo <span class="highlight">Dario Valverde Torres</span></h1>
+                <h2 data-i18n="hero.subtitle">Robotics Engineering Student at URJC</h2>
+                <p data-i18n="hero.tagline">Passionate about robotics, programming and real world solutions</p>
+
                 <div class="hero-btns">
-                    <a href="#projects" class="btn btn-primary">View My Work</a>
-                    <a href="./assets/cv.pdf" target="_blank" class="btn btn-outline">CV <i class="fas fa-download"></i></a>
+                    <a href="#projects" class="btn btn-primary" data-i18n="hero.viewWork">View My Work</a>
+                    <a href="./assets/cv.pdf" target="_blank" class="btn btn-outline" data-i18n="hero.cv">
+                        CV <i class="fas fa-download"></i>
+                    </a>
                 </div>
+
                 <div class="social-links">
-                    <a href="https://github.com/JustoDario" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/justodariovalverde/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/JustoDario" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/justodariovalverde/" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -45,76 +58,107 @@
 
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
+            <h2 class="section-title" data-i18n="about.title">About Me</h2>
+
             <div class="about-content">
-                <p>Hi, I’m Justo, a Robotics Software Engineering student passionate about building real robots and learning how autonomous systems work in practice. I’m always looking for hands-on opportunities involving mapping, perception, and robot control.</p>
+                <p data-i18n="about.p1">
+                    Hi, I’m Justo, a Robotics Software Engineering student passionate about building real robots and learning how autonomous systems work in practice. I’m always looking for hands-on opportunities involving mapping, perception, and robot control.
+                </p>
 
-                <p>Currently, I lead the SCARA project at RoboTech (URJC Student Association), and I’m also part of Técnico Solar Boat’s Autonomous Systems team, where I’m responsible for developing the mapping pipeline.</p>
+                <p data-i18n="about.p2">
+                    Currently, I lead the SCARA project at RoboTech (URJC Student Association), and I’m also part of Técnico Solar Boat’s Autonomous Systems team, where I’m responsible for developing the mapping pipeline.
+                </p>
 
-                <p>This year, I’m drafting a publication-style project paper on reactive locomotion control for low-cost quadrupeds, based on my latest personal project: a servo-actuated quadruped “robot cat”.</p>
+                <p data-i18n="about.p3">
+                    This year, I’m drafting a publication-style project paper on reactive locomotion control for low-cost quadrupeds, based on my latest personal project: a servo-actuated quadruped “robot cat”.
+                </p>
 
-                <p>Outside robotics, I enjoy hands-on building, boxing, fishing, video games, creative 3D design, and international experiences (I’m currently on Erasmus in Lisbon and actively seeking Summer 2026 internships).</p>
+                <p data-i18n="about.p4">
+                    Outside robotics, I enjoy hands-on building, boxing, fishing, video games, creative 3D design, and international experiences (I’m currently on Erasmus in Lisbon and actively seeking Summer 2026 internships).
+                </p>
             </div>
         </div>
     </section>
 
     <section id="experience" class="section bg-light">
         <div class="container section-slider-container">
-            <h2 class="section-title">Experience</h2>
-            
+            <h2 class="section-title" data-i18n="experience.title">Experience</h2>
+
             <button class="section-nav-btn sec-prev"><i class="fas fa-arrow-left"></i></button>
             <button class="section-nav-btn sec-next"><i class="fas fa-arrow-right"></i></button>
 
             <div class="main-slider">
                 <div class="slider-item">
                     <div class="exp-header">
-                        <h3>Robotech Student Association: Treasurer & Scara Project Head</h3>
+                        <h3 data-i18n="exp.scara.title">RoboTech Student Association: Treasurer & SCARA Project Lead</h3>
                         <span class="date">Jan 2025 - Present</span>
                     </div>
+
                     <div class="carousel-container">
                         <button class="nav-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
                         <div class="media-carousel">
                             <div class="carousel-track">
-                                <img src="./assets/scarav1-2.jpg" alt="Robotech 1">
+                                <img src="./assets/scarav1-2.jpg" alt="Robotech 1" />
                                 <div class="video-container">
-                                    <iframe 
-                                        src="https://www.youtube.com/embed/Tudj6pG5uQk" 
-                                        frameborder="0" 
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowfullscreen>
-                                    </iframe>
+                                    <iframe
+                                        src="https://www.youtube.com/embed/Tudj6pG5uQk"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                    ></iframe>
                                 </div>
                             </div>
                         </div>
                         <button class="nav-btn next-btn"><i class="fas fa-chevron-right"></i></button>
                     </div>
-                    <p class="media-caption">The Scara Project aims to combine advanced control systems with sophisticated artificial intelligent decision systems to enable our SCARA robot to play chess autonomously</p>
+
+                    <p class="media-caption" data-i18n="exp.scara.caption">
+                        The SCARA Project aims to combine advanced control systems with AI-based decision making to enable our robot to play chess autonomously.
+                    </p>
+
+                    <!-- ✅ Botón bonito hacia la web -->
+                    <div class="cta-row">
+                        <a class="btn btn-outline btn-small" href="https://robotech-urjc.github.io/mainweb/" target="_blank" data-i18n="exp.scara.btn">
+                            Visit RoboTech Website <i class="fas fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="slider-item">
                     <div class="exp-header">
-                        <h3>Tecnico Solar Boat:Autonomous Systems Dept. Member - Mapping Responsible</h3>
+                        <h3 data-i18n="exp.tsb.title">Técnico Solar Boat: Autonomous Systems Member — Mapping Responsible</h3>
                         <span class="date">Aug 2025 - Present</span>
                     </div>
+
                     <div class="carousel-container">
                         <button class="nav-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
                         <div class="media-carousel">
                             <div class="carousel-track">
-                                <img src="./assets/inflationlayeradded.png" alt="Mapping">
-                                <img src="./assets/tsbsimulation.png" alt="Simulation">
+                                <img src="./assets/inflationlayeradded.png" alt="Mapping" />
+                                <img src="./assets/tsbsimulation.png" alt="Simulation" />
                                 <div class="video-container">
-                                    <iframe 
-                                        src="https://www.youtube.com/embed/_bkvL-_BGiE" 
-                                        frameborder="0" 
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowfullscreen>
-                                    </iframe>
+                                    <iframe
+                                        src="https://www.youtube.com/embed/_bkvL-_BGiE"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                    ></iframe>
                                 </div>
                             </div>
                         </div>
                         <button class="nav-btn next-btn"><i class="fas fa-chevron-right"></i></button>
                     </div>
-                    <p class="media-caption">Responsible for mapping implementation within the autonomous navigation stack.</p>
+
+                    <p class="media-caption" data-i18n="exp.tsb.caption">
+                        Responsible for the mapping implementation within the autonomous navigation stack.
+                    </p>
+
+                    <!-- ✅ Botón bonito hacia la web -->
+                    <div class="cta-row">
+                        <a class="btn btn-outline btn-small" href="https://tecnicosolarboat.com/" target="_blank" data-i18n="exp.tsb.btn">
+                            Visit Técnico Solar Boat Website <i class="fas fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,74 +166,78 @@
 
     <section id="projects" class="section">
         <div class="container section-slider-container">
-            <h2 class="section-title">Projects</h2>
-            
+            <h2 class="section-title" data-i18n="projects.title">Projects</h2>
+
             <button class="section-nav-btn sec-prev"><i class="fas fa-arrow-left"></i></button>
             <button class="section-nav-btn sec-next"><i class="fas fa-arrow-right"></i></button>
 
             <div class="main-slider">
                 <div class="slider-item">
-                    <h3>Quadruped Robot</h3>
+                    <h3 data-i18n="proj.quad.title">Quadruped Robot</h3>
+
                     <div class="carousel-container">
                         <button class="nav-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
                         <div class="media-carousel">
                             <div class="carousel-track">
-                                <img src="./assets/cocov1.jpg" alt="Quadruped 1">
-                                <img src="./assets/rpycoco.png" alt="Quadruped 2">
+                                <img src="./assets/cocov1.jpg" alt="Quadruped 1" />
+                                <img src="./assets/rpycoco.png" alt="Quadruped 2" />
                                 <div class="video-container">
-                                    <iframe 
-                                        src="https://www.youtube.com/embed/99Eip2nVok4?list=PLTqfDJQvAVGBfJapdJ470H2NgLTNVdJaQ" 
-                                        frameborder="0" 
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowfullscreen>
-                                    </iframe>
+                                    <iframe
+                                        src="https://www.youtube.com/embed/99Eip2nVok4?list=PLTqfDJQvAVGBfJapdJ470H2NgLTNVdJaQ"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                    ></iframe>
                                 </div>
                                 <div class="video-container">
-                                    <iframe 
-                                        src="https://www.youtube.com/embed/0X7ajcaga7c?list=PLTqfDJQvAVGBfJapdJ470H2NgLTNVdJaQ" 
-                                        frameborder="0" 
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowfullscreen>
-                                    </iframe>
+                                    <iframe
+                                        src="https://www.youtube.com/embed/0X7ajcaga7c?list=PLTqfDJQvAVGBfJapdJ470H2NgLTNVdJaQ"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                    ></iframe>
                                 </div>
                             </div>
                         </div>
                         <button class="nav-btn next-btn"><i class="fas fa-chevron-right"></i></button>
                     </div>
-                    <p>12-DOF servo-actuated Quadruped robot developed in ROS2.</p>
+
+                    <p data-i18n="proj.quad.desc">12-DOF servo-actuated quadruped robot developed in ROS 2.</p>
                 </div>
 
                 <div class="slider-item">
                     <h3>Teleoperated Car</h3>
+
                     <div class="carousel-container">
                         <button class="nav-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
                         <div class="media-carousel">
                             <div class="carousel-track">
-                                <img src="./assets/rcv1.jpeg" alt="Car 1">
-                                <img src="./assets/rcv2.jpeg" alt="Car 2">
-                                <img src="./assets/rc3.jpg" alt="Car 3">
+                                <img src="./assets/rcv1.jpeg" alt="Car 1" />
+                                <img src="./assets/rcv2.jpeg" alt="Car 2" />
+                                <img src="./assets/rc3.jpg" alt="Car 3" />
                                 <div class="video-container">
-                                    <iframe 
-                                        src="https://www.youtube.com/embed/l9EiiZqZ7Z4" 
-                                        frameborder="0" 
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowfullscreen>
-                                    </iframe>
+                                    <iframe
+                                        src="https://www.youtube.com/embed/l9EiiZqZ7Z4"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                    ></iframe>
                                 </div>
                             </div>
                         </div>
                         <button class="nav-btn next-btn"><i class="fas fa-chevron-right"></i></button>
                     </div>
                 </div>
+
                 <div class="slider-item">
                     <h3>Mapfre Hackathon: Mental health care app</h3>
                     <div class="carousel-container">
                         <button class="nav-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
                         <div class="media-carousel">
                             <div class="carousel-track">
-                                <img src="./assets/urjchackaton1.jpeg" alt="H1 1">
-                                <img src="./assets/urjchackaton2.png" alt="H1 2">
-                                <img src="./assets/mapfreapp1.png" alt="H1 3">
+                                <img src="./assets/urjchackaton1.jpeg" alt="H1 1" />
+                                <img src="./assets/urjchackaton2.png" alt="H1 2" />
+                                <img src="./assets/mapfreapp1.png" alt="H1 3" />
                             </div>
                         </div>
                         <button class="nav-btn next-btn"><i class="fas fa-chevron-right"></i></button>
@@ -202,8 +250,8 @@
                         <button class="nav-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
                         <div class="media-carousel">
                             <div class="carousel-track">
-                                <img src="./assets/radiacodehackaton.jpeg" alt="H2 1">
-                                <img src="./assets/radiacodeapp1.png" alt="H2 2">
+                                <img src="./assets/radiacodehackaton.jpeg" alt="H2 1" />
+                                <img src="./assets/radiacodeapp1.png" alt="H2 2" />
                             </div>
                         </div>
                         <button class="nav-btn next-btn"><i class="fas fa-chevron-right"></i></button>
@@ -211,14 +259,14 @@
                 </div>
 
                 <div class="slider-item">
-                    <h3>Qubic and Vottun Hackathon: App for easily sending and receiving criptocurrencies just by using a QR code</h3>
+                    <h3>Qubic and Vottun Hackathon: Crypto QR transfers</h3>
                     <div class="carousel-container">
                         <button class="nav-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
                         <div class="media-carousel">
                             <div class="carousel-track">
-                                <img src="./assets/qubichackaton.jpeg" alt="H3 1">
-                                <img src="./assets/demoqubic1.jpg" alt="H3 2">
-                                <img src="./assets/demoqubic2.jpg" alt="H3 3">
+                                <img src="./assets/qubichackaton.jpeg" alt="H3 1" />
+                                <img src="./assets/demoqubic1.jpg" alt="H3 2" />
+                                <img src="./assets/demoqubic2.jpg" alt="H3 3" />
                             </div>
                         </div>
                         <button class="nav-btn next-btn"><i class="fas fa-chevron-right"></i></button>
@@ -230,36 +278,45 @@
 
     <section id="education" class="section bg-light">
         <div class="container">
-            <h2 class="section-title">Education</h2>
+            <h2 class="section-title" data-i18n="education.title">Education</h2>
             <div class="timeline-item">
                 <h3>B.Sc. Robotics Engineering</h3>
-                <p class="company">Universidad Rey Juan Carlos (2022 - 2026)</p>
-                <p>Focus on control, software architecture and hardware-software integration.</p>
+                <p class="company" data-i18n="education.uni">Universidad Rey Juan Carlos (2023 - Present)</p>
+                <p data-i18n="education.desc">Focus on control, software architecture and hardware-software integration.</p>
             </div>
         </div>
     </section>
 
     <section id="skills" class="section">
         <div class="container">
-            <h2 class="section-title">Skills & Technologies</h2>
+            <h2 class="section-title" data-i18n="skills.title">Skills & Technologies</h2>
             <div class="skills-grid">
-                <div class="skill-card"><img src="./assets/ros2logo.png" alt="ROS2"><span>ROS2</span></div>
-                <div class="skill-card"><img src="./assets/c++logo.png" alt="C++"><span>C++</span></div>
-                <div class="skill-card"><img src="./assets/foxglovelogo.png" alt="Foxglove"><span>Foxglove</span></div>
-                <div class="skill-card"><img src="./assets/pythonlogo.jpeg" alt="Python"><span>Python</span></div>
-                <div class="skill-card"><img src="./assets/ros2controllogo.jpeg" alt="ROS2 Control"><span>ROS2 Control</span></div>
-                <div class="skill-card"><img src="./assets/gazebologo.jpeg" alt="Gazebo"><span>Gazebo</span></div>
-                </div>
+                <div class="skill-card"><img src="./assets/ros2logo.png" alt="ROS2" /><span>ROS2</span></div>
+                <div class="skill-card"><img src="./assets/c++logo.png" alt="C++" /><span>C++</span></div>
+                <div class="skill-card"><img src="./assets/foxglovelogo.png" alt="Foxglove" /><span>Foxglove</span></div>
+                <div class="skill-card"><img src="./assets/pythonlogo.jpeg" alt="Python" /><span>Python</span></div>
+                <div class="skill-card"><img src="./assets/ros2controllogo.jpeg" alt="ROS2 Control" /><span>ROS2 Control</span></div>
+                <div class="skill-card"><img src="./assets/gazebologo.jpeg" alt="Gazebo" /><span>Gazebo</span></div>
+            </div>
         </div>
     </section>
 
     <section id="contact" class="section bg-light">
         <div class="container text-center">
-            <h2 class="section-title">Contact</h2>
-            <a href="mailto:justodariovalverde@gmail.com" class="btn btn-primary">Send Email</a>
+            <h2 class="section-title" data-i18n="contact.title">Contact</h2>
+
+            <!-- Botón email mejorado -->
+            <a href="mailto:justodariovalverde@gmail.com" class="btn btn-primary btn-email" data-i18n="contact.email">
+                Send Email <i class="fas fa-paper-plane"></i>
+            </a>
+
             <div class="footer-socials">
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/justodariovalverde/" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/JustoDario" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
             </div>
         </div>
     </section>

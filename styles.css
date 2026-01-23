@@ -3,6 +3,7 @@
     --card-bg: #161b22;
     --primary: #58a6ff;
     --text: #c9d1d9;
+    --muted: rgba(201, 209, 217, 0.75);
 }
 
 body {
@@ -18,25 +19,136 @@ body {
 .bg-light { background-color: #0d1117; }
 .highlight { color: var(--primary); }
 
-.section-title { 
-    text-align: center; 
-    font-size: 2.8rem; 
+.section-title {
+    text-align: center;
+    font-size: 2.8rem;
     margin-bottom: 50px;
     font-weight: 700;
 }
 
-/* Navbar */
-.navbar {
-    position: sticky; top: 0; background: rgba(11, 15, 26, 0.9);
-    backdrop-filter: blur(10px); z-index: 100; padding: 15px 0;
-}
-.nav-links { list-style: none; display: flex; justify-content: center; gap: 30px; margin: 0; padding: 0;}
-.nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.9rem; }
+.text-center { text-align: center; }
 
-/* Hero Section */
-.hero-grid {
-    display: grid; grid-template-columns: 350px 1fr; gap: 40px; align-items: center; padding: 80px 0;
+.about-content p {
+    line-height: 1.65;
+    color: var(--muted);
+    font-size: 1.05rem;
 }
+
+/* =========================
+   Buttons (NEW)
+========================= */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+    user-select: none;
+}
+
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0px); opacity: 0.9; }
+
+.btn-primary {
+    background: var(--primary);
+    color: #000;
+}
+
+.btn-outline {
+    background: transparent;
+    border-color: rgba(88,166,255,0.55);
+    color: var(--text);
+}
+
+.btn-small {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+}
+
+/* Email button */
+.btn-email {
+    margin-top: 10px;
+}
+
+/* CTA row */
+.cta-row {
+    margin-top: 14px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* =========================
+   Navbar
+========================= */
+.navbar {
+    position: sticky;
+    top: 0;
+    background: rgba(11, 15, 26, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    padding: 15px 0;
+}
+
+.nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+.nav-links a:hover { opacity: 1; }
+
+/* Language Toggle Button */
+.lang-toggle {
+    position: absolute;
+    right: 0;
+    background: rgba(22, 27, 34, 0.9);
+    border: 1px solid rgba(88,166,255,0.55);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.2s;
+}
+.lang-toggle:hover {
+    transform: translateY(-1px);
+    border-color: var(--primary);
+}
+
+/* =========================
+   Hero
+========================= */
+.hero-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 40px;
+    align-items: center;
+    padding: 80px 0;
+}
+
 .hero-image {
     width: 320px;
     height: 320px;
@@ -45,15 +157,39 @@ body {
     border: 3px solid var(--primary);
     margin: 0 auto;
 }
-.profile-pic { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     object-position: center 20%;
     transform: scale(1.2);
 }
+
 .hero-text h1 { font-size: 3.2rem; margin: 0; }
-.hero-btns { margin: 25px 0; }
+.hero-text h2 { margin-top: 8px; }
+.hero-text p { color: var(--muted); }
+
+.hero-btns { margin: 25px 0; display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Social links */
+.social-links { display: flex; gap: 14px; margin-top: 10px; }
+.social-links a {
+    color: var(--text);
+    font-size: 1.6rem;
+    opacity: 0.9;
+    transition: 0.2s;
+}
+.social-links a:hover { opacity: 1; transform: translateY(-1px); }
+
+/* Experience header */
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+}
+.date { color: var(--muted); }
 
 /* ================================
    Carousels Principal (Exterior)
@@ -62,21 +198,19 @@ body {
 
 .main-slider {
     display: flex;
-    overflow-x: auto;              /* IMPORTANTE: auto, no hidden */
+    overflow-x: auto;
     scroll-behavior: smooth;
-    scroll-snap-type: x mandatory; /* SNAP = alineación perfecta */
+    scroll-snap-type: x mandatory;
     gap: 40px;
     padding-bottom: 20px;
 
-    /* Ocultar scrollbar */
-    scrollbar-width: none;         /* Firefox */
-    -ms-overflow-style: none;      /* IE/Edge viejo */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 .main-slider::-webkit-scrollbar { display: none; }
 
-/* Cada "página" del carrusel ocupa 100% fijo */
 .slider-item {
-    flex: 0 0 100%;                /* ESTA ES LA CLAVE */
+    flex: 0 0 100%;
     width: 100%;
     background: var(--card-bg);
     padding: 30px;
@@ -85,6 +219,7 @@ body {
     scroll-snap-align: start;
 }
 
+.media-caption { color: var(--muted); line-height: 1.55; }
 
 /* ================================
    Carrusel de Imágenes Interno
@@ -106,17 +241,13 @@ body {
     scroll-snap-type: x mandatory;
     width: 100%;
 
-    /* Ocultar scrollbar */
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
 .media-carousel::-webkit-scrollbar { display: none; }
 
-.carousel-track {
-    display: flex;
-}
+.carousel-track { display: flex; }
 
-/* IMPORTANTE: cada slide interno ocupa exactamente el 100% */
 .carousel-track img,
 .carousel-track .video-container {
     flex: 0 0 100%;
@@ -129,7 +260,6 @@ body {
     scroll-snap-align: start;
 }
 
-/* El iframe debe rellenar completamente el slide */
 .video-container iframe {
     width: 100%;
     height: 100%;
@@ -178,6 +308,61 @@ body {
 .sec-prev { left: -60px; }
 .sec-next { right: -60px; }
 
+/* =========================
+   Skills (FIXED ALIGN)
+========================= */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+    text-align: center;
+}
+
+.skill-card {
+    background: var(--card-bg);
+    padding: 18px 15px;
+    border-radius: 12px;
+
+    /* ✅ CLAVE: logo arriba + texto centrado debajo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.skill-card img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+}
+
+.skill-card span {
+    display: block;
+    font-weight: 600;
+}
+
+/* =========================
+   Footer socials
+========================= */
+.footer-socials {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+.footer-socials a {
+    color: var(--text);
+    font-size: 1.6rem;
+    opacity: 0.9;
+    transition: 0.2s;
+}
+.footer-socials a:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+}
+
 /* Responsive */
 @media (max-width: 1100px) {
     .sec-prev { left: -10px; }
@@ -185,17 +370,25 @@ body {
 }
 
 @media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .hero-image { width: 250px; height: 250px; }
+
+    .hero-btns { justify-content: center; }
+    .social-links { justify-content: center; }
+
+    .section-title { font-size: 2.2rem; }
+
     .carousel-track img,
     .carousel-track .video-container {
         height: 250px;
     }
-    .carousel-container {
-        height: 250px;
-    }
-    .section-nav-btn { width: 40px; height: 40px; }
-}
+    .carousel-container { height: 250px; }
 
-/* Skills Grid */
-.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 20px; text-align: center; }
-.skill-card { background: var(--card-bg); padding: 15px; border-radius: 10px; }
-.skill-card img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px; }
+    .section-nav-btn { width: 40px; height: 40px; }
+
+    /* Navbar toggle en móvil */
+    .lang-toggle {
+        position: static;
+        margin-left: 12px;
+    }
+}
