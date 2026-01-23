@@ -55,26 +55,40 @@ body {
 .hero-text h1 { font-size: 3.2rem; margin: 0; }
 .hero-btns { margin: 25px 0; }
 
-/* Carousels Principal */
+/* ================================
+   Carousels Principal (Exterior)
+================================ */
 .section-slider-container { position: relative; }
 
 .main-slider {
-    display: flex; 
-    overflow-x: hidden; /* Importante para que el JS controle el scroll */
-    gap: 40px; /* Este espacio es el que hay que sumar en JS */
-    padding-bottom: 20px;
+    display: flex;
+    overflow-x: auto;              /* IMPORTANTE: auto, no hidden */
     scroll-behavior: smooth;
-}
+    scroll-snap-type: x mandatory; /* SNAP = alineación perfecta */
+    gap: 40px;
+    padding-bottom: 20px;
 
+    /* Ocultar scrollbar */
+    scrollbar-width: none;         /* Firefox */
+    -ms-overflow-style: none;      /* IE/Edge viejo */
+}
+.main-slider::-webkit-scrollbar { display: none; }
+
+/* Cada "página" del carrusel ocupa 100% fijo */
 .slider-item {
-    min-width: 100%; 
-    background: var(--card-bg); 
-    padding: 30px; 
-    border-radius: 15px; 
+    flex: 0 0 100%;                /* ESTA ES LA CLAVE */
+    width: 100%;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
     box-sizing: border-box;
+    scroll-snap-align: start;
 }
 
-/* Carrusel de Imágenes Interno */
+
+/* ================================
+   Carrusel de Imágenes Interno
+================================ */
 .carousel-container {
     position: relative;
     display: flex;
@@ -87,56 +101,82 @@ body {
 }
 
 .media-carousel {
-    overflow-x: hidden; 
+    overflow-x: auto;
     scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
     width: 100%;
+
+    /* Ocultar scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
+.media-carousel::-webkit-scrollbar { display: none; }
 
 .carousel-track {
     display: flex;
-    align-items: center; /* Centra verticalmente las imágenes */
 }
 
-.carousel-track img, .carousel-track .video-container {
-    min-width: 100%;
-    height: 450px; 
+/* IMPORTANTE: cada slide interno ocupa exactamente el 100% */
+.carousel-track img,
+.carousel-track .video-container {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 450px;
     object-fit: contain;
-    display: flex;        /* Añadido para centrar */
-    align-items: center;  /* Añadido para centrar */
-    justify-content: center; /* Añadido para centrar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
 }
 
-/* NUEVO: Esto hace que el video ocupe todo el espacio disponible */
+/* El iframe debe rellenar completamente el slide */
 .video-container iframe {
     width: 100%;
     height: 100%;
     border: none;
 }
+
 /* Botones Navegación Interna */
 .nav-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.6); border: 1px solid var(--primary);
-    color: var(--primary); width: 40px; height: 40px; border-radius: 50%;
-    cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .prev-btn { left: 10px; }
 .next-btn { right: 10px; }
 
 /* Botones Navegación Externa (Secciones) */
 .section-nav-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    background: var(--primary); color: #000; border: none;
-    width: 50px; height: 50px; border-radius: 50%;
-    cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: 0.3s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary);
+    color: #000;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transition: 0.3s;
 }
 .sec-prev { left: -60px; }
 .sec-next { right: -60px; }
-
-/* Skills Grid */
-.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 20px; text-align: center; }
-.skill-card { background: var(--card-bg); padding: 15px; border-radius: 10px; }
-.skill-card img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px; }
 
 /* Responsive */
 @media (max-width: 1100px) {
@@ -145,16 +185,17 @@ body {
 }
 
 @media (max-width: 768px) {
-    .hero-grid { grid-template-columns: 1fr; text-align: center; }
-    .hero-image { width: 250px; height: 250px; }
-    .section-title { font-size: 2.2rem; }
-    
-    /* FIX MÓVIL: Altura reducida para evitar el cuadrado negro excesivo */
-    .carousel-track img, .carousel-track .video-container {
-        height: 250px; 
+    .carousel-track img,
+    .carousel-track .video-container {
+        height: 250px;
     }
     .carousel-container {
         height: 250px;
     }
     .section-nav-btn { width: 40px; height: 40px; }
 }
+
+/* Skills Grid */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 20px; text-align: center; }
+.skill-card { background: var(--card-bg); padding: 15px; border-radius: 10px; }
+.skill-card img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px; }
