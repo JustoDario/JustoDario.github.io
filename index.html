@@ -13,16 +13,30 @@
 <body>
     <nav class="navbar">
         <div class="container nav-inner">
-            <ul class="nav-links">
-                <li><a href="#about" data-i18n="nav.about">About</a></li>
-                <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
-                <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
-                <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
-                <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+            
+            <!-- Left: brand (opcional, queda muy pro) -->
+            <a class="nav-brand" href="#">Justo</a>
+
+            <!-- Center: desktop links -->
+            <ul class="nav-links" id="navLinks">
+            <li><a href="#about" data-i18n="nav.about">About</a></li>
+            <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+            <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+            <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
             </ul>
 
-            <!-- Language toggle -->
-            <button id="langToggle" class="lang-toggle" aria-label="Switch language">ES</button>
+            <!-- Right: actions (hamburger + language) -->
+            <div class="nav-actions">
+            <button id="menuToggle" class="menu-toggle" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <button id="langToggle" class="lang-toggle" aria-label="Switch language">
+                ES
+            </button>
+            </div>
+
         </div>
     </nav>
 

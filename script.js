@@ -217,5 +217,50 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('portfolioLang', currentLang);
     applyLanguage(currentLang);
   });
+  /* ===============================
+     Mobile Navbar Toggle
+  =============================== */
+  const menuToggleBtn = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  if (menuToggleBtn && navLinks) {
+    menuToggleBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+
+      // Cambia el icono ☰ / ✕
+      const icon = menuToggleBtn.querySelector('i');
+      if (icon) {
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+      }
+    });
+
+    // Si clickas en un link, cerrar menú
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        const icon = menuToggleBtn.querySelector('i');
+        if (icon) {
+          icon.classList.add('fa-bars');
+          icon.classList.remove('fa-times');
+        }
+      });
+    });
+
+    // Click fuera del menú -> cerrar
+    document.addEventListener('click', (e) => {
+      const clickedInside =
+        navLinks.contains(e.target) || menuToggleBtn.contains(e.target);
+
+      if (!clickedInside) {
+        navLinks.classList.remove('open');
+        const icon = menuToggleBtn.querySelector('i');
+        if (icon) {
+          icon.classList.add('fa-bars');
+          icon.classList.remove('fa-times');
+        }
+      }
+    });
+  }
 
 });

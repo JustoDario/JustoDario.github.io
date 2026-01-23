@@ -83,8 +83,8 @@ body {
     justify-content: flex-start;
 }
 
-/* =========================
-   Navbar
+/* /* =========================
+   Navbar (Responsive Pro)
 ========================= */
 .navbar {
     position: sticky;
@@ -98,17 +98,30 @@ body {
 .nav-inner {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between; /* ✅ clave */
     position: relative;
+    gap: 12px;
 }
 
+/* Brand */
+.nav-brand {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    opacity: 0.95;
+}
+.nav-brand:hover { opacity: 1; }
+
+/* Links desktop */
 .nav-links {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 26px;
     margin: 0;
     padding: 0;
+    flex-wrap: nowrap;
 }
 
 .nav-links a {
@@ -120,10 +133,15 @@ body {
 }
 .nav-links a:hover { opacity: 1; }
 
+/* Actions right */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 /* Language Toggle Button */
 .lang-toggle {
-    position: absolute;
-    right: 0;
     background: rgba(22, 27, 34, 0.9);
     border: 1px solid rgba(88,166,255,0.55);
     color: var(--text);
@@ -132,10 +150,71 @@ body {
     cursor: pointer;
     font-weight: 700;
     transition: 0.2s;
+    white-space: nowrap; /* ✅ no se rompe */
 }
 .lang-toggle:hover {
     transform: translateY(-1px);
     border-color: var(--primary);
+}
+
+/* Hamburger (hidden desktop) */
+.menu-toggle {
+    display: none;
+    background: rgba(22, 27, 34, 0.9);
+    border: 1px solid rgba(88,166,255,0.55);
+    color: var(--text);
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+.menu-toggle:hover {
+    transform: translateY(-1px);
+    border-color: var(--primary);
+}
+
+/* ✅ Mobile: dropdown menu + language always visible */
+@media (max-width: 768px) {
+
+    /* show hamburger */
+    .menu-toggle {
+        display: inline-flex;
+    }
+
+    /* hide desktop inline links */
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        right: 0;
+        background: rgba(13, 17, 23, 0.98);
+        border: 1px solid rgba(88,166,255,0.18);
+        border-radius: 14px;
+        padding: 14px;
+        flex-direction: column;
+        gap: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+        z-index: 200;
+    }
+
+    /* when opened */
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links li a {
+        padding: 10px 12px;
+        border-radius: 10px;
+        display: block;
+    }
+
+    .nav-links li a:hover {
+        background: rgba(88,166,255,0.08);
+    }
 }
 
 /* =========================
