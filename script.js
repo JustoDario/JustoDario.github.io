@@ -262,5 +262,70 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+    /* ===============================
+     Deep links for carousels
+     Format: #section/outerIndex/innerIndex
+     Example: #projects/0/3
+  =============================== */
+  function snapTo(viewport, items, idx) {
+    if (!viewport || !items || !items.length) return;
+    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+    const i = clamp(Number(idx), 0, items.length - 1);
+    viewport.scrollTo({ left: items[i].offsetLeft, behavior: "smooth" });
+  }
+
+  function handleDeepLink() {
+    const hash = decodeURIComponent(window.location.hash || "");
+    if (!hash.startsWith("#")) return;
+
+    const parts = hash.slice(1).split("/"); // [section, outer, inner]
+    const sectionId = parts[0];
+    const outerIndex = parts[1];
+    const innerIndex = parts[2];
+
+    if (!sectionId) return;
+
+    const sectionEl = document.getElementById(sectionId);
+    if (!sectionEl) return;
+
+    // 1) Scroll vertical to section
+    sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // If no carousel indexes, stop here
+    if (outerIndex === undefined) return;
+
+    // 2) Outer slider inside this section
+    const outerViewport = sectionEl.querySelector(".main-slider");
+    if (!outerViewport) return;
+
+    const outerItems = Array.from(outerViewport.querySelectorAll(":scope > .slider-item"));
+    if (!outerItems.length) return;
+
+    // Wait a bit so the section scroll finishes nicely
+    setTimeout(() => {
+      snapTo(outerViewport, outerItems, outerIndex);
+
+      // 3) Inner carousel inside the selected outer slide (optional)
+      if (innerIndex === undefined) return;
+
+      const slide = outerItems[Math.min(Number(outerIndex), outerItems.length - 1)];
+      if (!slide) return;
+
+      const innerViewport = slide.querySelector(".media-carousel");
+      const innerTrack = slide.querySelector(".carousel-track");
+      if (!innerViewport || !innerTrack) return;
+
+      const innerItems = Array.from(innerTrack.children);
+      if (!innerItems.length) return;
+
+      setTimeout(() => {
+        snapTo(innerViewport, innerItems, innerIndex);
+      }, 250);
+    }, 250);
+  }
+
+  // Run on load + when hash changes
+  handleDeepLink();
+  window.addEventListener("hashchange", handleDeepLink);
 
 });
