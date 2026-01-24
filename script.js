@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
 
     es: {
-      "nav.about": "Sobre mí",
+      "nav.about": "About",
       "nav.experience": "Experiencia",
       "nav.projects": "Proyectos",
       "nav.skills": "Tecnologías",
@@ -165,10 +165,10 @@ document.addEventListener('DOMContentLoaded', () => {
       "hero.cv": 'CV <i class="fas fa-download"></i>',
 
       "about.title": "Sobre mí",
-      "about.p1": "Hola, soy Justo, estudiante de Ingeniería Robótica (Software) y me encanta construir robots reales y entender cómo funcionan los sistemas autónomos en la práctica. Siempre busco oportunidades hands-on relacionadas con mapping, percepción y control.",
-      "about.p2": "Actualmente lidero el proyecto SCARA en RoboTech (Asociación estudiantil URJC), y también formo parte del equipo de Sistemas Autónomos de Técnico Solar Boat, donde soy responsable del desarrollo del pipeline de mapping.",
-      "about.p3": "Este año estoy redactando un paper en formato publicación sobre control reactivo de locomoción para cuadrúpedos de bajo coste, basado en mi proyecto personal más reciente: un “robot gato” cuadrúpedo con servomotores.",
-      "about.p4": "Fuera de la robótica, me gusta construir cosas, el boxeo, la pesca, los videojuegos, el diseño 3D creativo y las experiencias internacionales (ahora mismo estoy de Erasmus en Lisboa y buscando internships para el verano de 2026).",
+      "about.p1": "Hola, soy Justo, estudiante de tercer año de Ingeniería Robótica Software y me encanta construir robots y aprender acerca de nuevas tecnologías. Siempre busco oportunidades de poner en práctica mis conocimientos y aprender algo nuevo. ",
+      "about.p2": "Actualmente lidero el proyecto SCARA en RoboTech (Asociación estudiantil de la URJC), y también formo parte del equipo de Sistemas Autónomos de Técnico Solar Boat(Instituto Técnico de Lisboa), donde soy responsable del desarrollo del pipeline de mappeo del barco autónomo SP01.",
+      "about.p3": "Este año estoy redactando un paper sobre control reactivo de locomoción para cuadrúpedos actuados por servomotores, basado en mi proyecto personal más reciente, un “robot gato” cuadrúpedo con 12 grados de libertad.",
+      "about.p4": "Fuera de la robótica, me gusta el boxeo, la pesca, los videojuegos, el diseño 3D creativo y las experiencias internacionales.",
 
       "experience.title": "Experiencia",
       "exp.scara.title": "RoboTech URJC: Tesorero & Líder del Proyecto SCARA",
@@ -185,9 +185,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       "education.title": "Educación",
       "education.uni": "Universidad Rey Juan Carlos (2023 - Actualidad)",
-      "education.desc": "Enfoque en control, arquitectura software e integración hardware-software.",
+      "education.desc": "Enfoque en control, arquitectura software para robots, sistemas embedidos y programación.",
 
-      "skills.title": "Tecnologías y habilidades",
+      "skills.title": "Tecnologías",
 
       "contact.title": "Contacto",
       "contact.email": 'Enviar correo <i class="fas fa-paper-plane"></i>'
