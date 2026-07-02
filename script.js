@@ -125,9 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       "about.title": "About Me",
       "about.p1": "Hi, I’m Justo, a Robotics Software Engineering student passionate about building real robots and learning how autonomous systems work in practice. I’m always looking for hands-on opportunities involving mapping, perception, and robot control.",
-      "about.p2": "Currently, I lead the SCARA project at RoboTech (URJC Student Association), and I’m also part of Técnico Solar Boat’s Autonomous Systems team, where I’m responsible for developing the mapping pipeline.",
+      "about.p2": "Currently, I lead the SCARA project at RoboTech (URJC Student Association) in which along my team, our goal is to build an autonomous chess-playing robot. Additionally, I have been designing and bulding a quadruped robot from scratch as a side project.",
       "about.p3": "This year, I’m drafting a publication-style project paper on reactive locomotion control for low-cost quadrupeds, based on my latest personal project: a servo-actuated quadruped “robot cat”.",
-      "about.p4": "Outside robotics, I enjoy hands-on building, boxing, fishing, video games, creative 3D design, and international experiences (I’m currently on Erasmus in Lisbon and actively seeking Summer 2026 internships).",
+      "about.p4": "Outside robotics, I enjoy hands-on building, boxing, fishing, video games, creative 3D design, and international experiences.",
 
       "experience.title": "Experience",
       "exp.scara.title": "RoboTech Student Association: Treasurer & SCARA Project Lead",
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       "about.title": "Sobre mí",
       "about.p1": "Hola, soy Justo, estudiante de tercer año de Ingeniería Robótica Software y me encanta construir robots y aprender acerca de nuevas tecnologías. Siempre busco oportunidades de poner en práctica mis conocimientos y aprender algo nuevo. ",
-      "about.p2": "Actualmente lidero el proyecto SCARA en RoboTech (Asociación estudiantil de la URJC), y también formo parte del equipo de Sistemas Autónomos de Técnico Solar Boat(Instituto Técnico de Lisboa), donde soy responsable del desarrollo del pipeline de mappeo del barco autónomo SP01.",
+      "about.p2": "Actualmente lidero el proyecto SCARA en RoboTech (Asociación estudiantil de la URJC), y   entre mis proyectos personales se encuentra COCO, un robot cuadrupedo que estoy desarrollando. ",
       "about.p3": "Este año estoy redactando un paper sobre control reactivo de locomoción para cuadrúpedos actuados por servomotores, basado en mi proyecto personal más reciente, un “robot gato” cuadrúpedo con 12 grados de libertad.",
       "about.p4": "Fuera de la robótica, me gusta el boxeo, la pesca, los videojuegos, el diseño 3D creativo y las experiencias internacionales.",
 
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "exp.scara.caption": "El proyecto SCARA busca combinar control avanzado con toma de decisiones basada en IA para que el robot juegue al ajedrez de forma autónoma.",
       "exp.scara.btn": 'Visitar web de RoboTech <i class="fas fa-arrow-up-right-from-square"></i>',
 
-      "exp.tsb.title": "Técnico Solar Boat: Sistemas Autónomos — Responsable de Mapping",
+      "exp.tsb.title": "Técnico Solar Boat: Sistemas Autónomos — Responsable de Mapeo",
       "exp.tsb.caption": "Responsable de la implementación del mapping dentro del stack de navegación autónoma.",
       "exp.tsb.btn": 'Visitar web de Técnico Solar Boat <i class="fas fa-arrow-up-right-from-square"></i>',
 
