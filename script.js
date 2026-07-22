@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "proj.quad.desc": "Robot cuadrúpedo de 12 DOF con servos, desarrollado con ROS 2.",
 
       "education.title": "Educación",
-
+      "education.urjc.title": "Grado en Ingeniería Robótica Software",
       "education.urjc.uni": "Universidad Rey Juan Carlos (2023 - Actualidad)",
       "education.urjc.desc": "Formación centrada en control, arquitectura software para robots, sistemas embebidos y programación.",
 
