@@ -143,9 +143,18 @@ document.addEventListener('DOMContentLoaded', () => {
       "proj.quad.desc": "12-DOF servo-actuated quadruped robot developed in ROS 2.",
 
       "education.title": "Education",
-      "education.uni": "Universidad Rey Juan Carlos (2023 - Present)",
-      "education.desc": "Focus on control, software architecture and hardware-software integration.",
 
+      "education.urjc.title": "B.Sc. Robotics Engineering",
+      "education.urjc.uni": "Universidad Rey Juan Carlos (2023 - Present)",
+      "education.urjc.desc": "Focus on control, robot software architecture, embedded systems and programming.",
+
+      "education.ist.title": "Erasmus Exchange Student, MSc Electrical and Computer Engineering",
+      "education.ist.uni": "Instituto Superior Técnico (Sept. 2025 - Feb. 2026)",
+      "education.ist.desc": "Erasmus exchange semester at Instituto Superior Técnico, where I studied courses from the MSc in Electrical and Computer Engineering focusing on robotics.",
+
+      "education.uestc.title": "SMEE International Summer School",
+      "education.uestc.uni": "University of Electronic Science and Technology of China (July 2026)",
+      "education.uestc.desc": "International summer school focused on creativity, robots and future technologies, mechatronics, robotics and automation engineering.",
       "skills.title": "Skills & Technologies",
 
       "contact.title": "Contact",
