@@ -184,9 +184,17 @@ document.addEventListener('DOMContentLoaded', () => {
       "proj.quad.desc": "Robot cuadrúpedo de 12 DOF con servos, desarrollado con ROS 2.",
 
       "education.title": "Educación",
-      "education.uni": "Universidad Rey Juan Carlos (2023 - Actualidad)",
-      "education.desc": "Enfoque en control, arquitectura software para robots, sistemas embedidos y programación.",
 
+      "education.urjc.uni": "Universidad Rey Juan Carlos (2023 - Actualidad)",
+      "education.urjc.desc": "Formación centrada en control, arquitectura software para robots, sistemas embebidos y programación.",
+
+      "education.ist.title": "Estudiante de intercambio Erasmus, MSc Electrical and Computer Engineering",
+      "education.ist.uni": "Instituto Superior Técnico (Sept. 2025 - Feb. 2026)",
+      "education.ist.desc": "Semestre de intercambio Erasmus en el Instituto Superior Técnico, cursando asignaturas del Máster en Ingeniería Eléctrica y de Computadores con especialización en robótica.",
+
+      "education.uestc.title": "SMEE International Summer School",
+      "education.uestc.uni": "University of Electronic Science and Technology of China (Julio 2026)",
+      "education.uestc.desc": "Escuela internacional de verano centrada en creatividad, robots y tecnologías del futuro, mecatrónica, robótica e ingeniería de automatización.",
       "skills.title": "Tecnologías",
 
       "contact.title": "Contacto",
