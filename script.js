@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "nav.about": "About",
       "nav.experience": "Experience",
       "nav.projects": "Projects",
+      "nav.hackathons": "Hackathons & Events",
       "nav.skills": "Skills",
       "nav.contact": "Contact",
 
@@ -139,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "exp.tsb.btn": 'Visit Técnico Solar Boat Website <i class="fas fa-arrow-up-right-from-square"></i>',
 
       "projects.title": "Projects",
+      "hackathons.title": "Hackathons & Events",
       "proj.quad.title": "Quadruped Robot",
       "proj.quad.desc": "12-DOF servo-actuated quadruped robot developed in ROS 2.",
 
@@ -165,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "nav.about": "About",
       "nav.experience": "Experiencia",
       "nav.projects": "Proyectos",
+      "nav.hackathons": "Hackatones y eventos",
       "nav.skills": "Tecnologías",
       "nav.contact": "Contacto",
 
@@ -189,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "exp.tsb.btn": 'Visitar web de Técnico Solar Boat <i class="fas fa-arrow-up-right-from-square"></i>',
 
       "projects.title": "Proyectos",
+      "hackathons.title": "Hackatones y eventos",
       "proj.quad.title": "Robot Cuadrúpedo",
       "proj.quad.desc": "Robot cuadrúpedo de 12 DOF con servos, desarrollado con ROS 2.",
 
