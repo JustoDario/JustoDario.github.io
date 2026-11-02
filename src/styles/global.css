@@ -1,21 +1,10 @@
-:root {
-  /* Stacking scale shared with the background layer (Hito 1). */
-  --z-background: -1;
-  --z-scene: 0;
-  --z-content: 1;
-  color-scheme: only light;
-}
-
-html {
-  background-color: #e7ebf4;
-}
-
 body {
   margin: 0;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color: #1c2436;
 }
 
+/* Temporary test page: tall enough to exercise the scroll choreography. */
 .smoke-ui {
   position: relative;
   z-index: var(--z-content);
@@ -24,9 +13,40 @@ body {
   align-items: flex-start;
   gap: 0.75rem;
   padding: 2rem;
+  min-height: 300vh;
+  box-sizing: border-box;
 }
 
 .smoke-ui h1,
 .smoke-ui p {
   margin: 0;
+}
+
+.travel-test {
+  position: fixed;
+  z-index: var(--z-content);
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  padding: 0.7rem 1.2rem;
+  font: inherit;
+  color: #1c2436;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(143, 163, 208, 0.7);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.debug-panel {
+  position: fixed;
+  z-index: var(--z-content);
+  top: 1rem;
+  right: 1rem;
+  margin: 0;
+  padding: 0.6rem 0.8rem;
+  font: 12px/1.45 ui-monospace, monospace;
+  color: #e7ebf4;
+  background: rgba(28, 36, 54, 0.85);
+  border-radius: 8px;
+  pointer-events: none;
 }

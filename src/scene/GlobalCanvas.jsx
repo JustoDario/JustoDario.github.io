@@ -1,8 +1,15 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
+import * as THREE from 'three'
 import { assetUrl } from '../lib/assetUrl.js'
+import CameraRig from './CameraRig.jsx'
+import Lighting from './Lighting.jsx'
+import { Dust } from './Atmosphere.jsx'
+import TestExhibits from './TestExhibits.jsx'
 import SmokeModel from './SmokeModel.jsx'
+import { DebugProbe, debugEnabled } from './Debug.jsx'
+import { RAIL_LENGTH } from './rail.js'
 
 // Must run before the first GLB load, otherwise drei falls back to a CDN.
 // Imports evaluate first, so never call useGLTF.preload at module level.
@@ -17,27 +24,25 @@ const canvasStyle = {
   pointerEvents: 'none',
 }
 
+// Neutral keeps whites and material colours true against the light background;
+// the default ACES mapping would grey them out.
+const glOptions = { alpha: true, antialias: true, toneMapping: THREE.NeutralToneMapping }
+
 // The only <Canvas> in the app. It stays mounted for the whole session.
-export default function GlobalCanvas({ smokeUrl }) {
+export default function GlobalCanvas({ smokeUrl, stationX }) {
   return (
-    <Canvas
-      style={canvasStyle}
-      gl={{ alpha: true, antialias: true }}
-      resize={{ scroll: false }}
-      camera={{ position: [0, 0.6, 2.4], fov: 35 }}
-    >
-      <ambientLight intensity={1.2} />
-      <directionalLight position={[3, 4, 2]} intensity={2} />
+    <Canvas style={canvasStyle} gl={glOptions} resize={{ scroll: false }} camera={{ fov: 30 }}>
+      <CameraRig stationX={stationX} />
+      <Lighting />
+      <Dust center={RAIL_LENGTH / 2} length={RAIL_LENGTH} />
       {smokeUrl ? (
         <Suspense fallback={null}>
           <SmokeModel url={smokeUrl} />
         </Suspense>
       ) : (
-        <mesh rotation={[0.5, 0.6, 0]}>
-          <boxGeometry args={[0.6, 0.6, 0.6]} />
-          <meshStandardMaterial color="#8fa3d0" />
-        </mesh>
+        <TestExhibits />
       )}
+      {debugEnabled && <DebugProbe />}
     </Canvas>
   )
 }
