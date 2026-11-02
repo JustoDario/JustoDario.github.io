@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#e7ebf4" />
+  <!-- Light-only page: opt out of browser auto-dark and Dark Reader -->
+  <meta name="color-scheme" content="only light" />
+  <meta name="darkreader-lock" />
+  <title>Background prototype — Infinite Abstract Space</title>
+  <link rel="stylesheet" href="../styles/background.css" />
+  <style>
+    /* Prototype-only: no content, just enough height to test scrolling. */
+    body { margin: 0; }
+    .scroll-test { height: 400vh; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Persistent background layer (copy this block into the final site) ===== -->
+  <div class="space-bg" aria-hidden="true">
+
+    <!-- Shared gradient definitions (zero-size, referenced by the sheets) -->
+    <svg width="0" height="0" style="position:absolute" focusable="false">
+      <defs>
+        <!-- Edge highlights: fade in and out along the curve -->
+        <linearGradient id="sb-edge-a" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0"    stop-color="#e9f0ff" stop-opacity="0" />
+          <stop offset="0.35" stop-color="#ffffff" stop-opacity="0.9" />
+          <stop offset="0.8"  stop-color="#ffffff" stop-opacity="1" />
+          <stop offset="1"    stop-color="#ffffff" stop-opacity="0.2" />
+        </linearGradient>
+        <linearGradient id="sb-edge-b" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0"    stop-color="#ffffff" stop-opacity="0.2" />
+          <stop offset="0.3"  stop-color="#ffffff" stop-opacity="0.95" />
+          <stop offset="0.75" stop-color="#dfe8ff" stop-opacity="0.55" />
+          <stop offset="1"    stop-color="#dfe8ff" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="sb-edge-c" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0"    stop-color="#e3ecff" stop-opacity="0" />
+          <stop offset="0.4"  stop-color="#ffffff" stop-opacity="0.8" />
+          <stop offset="1"    stop-color="#cfe0ff" stop-opacity="0.9" />
+        </linearGradient>
+
+        <!-- Soft icy-blue halos under the edges (keep them legible on light tones) -->
+        <linearGradient id="sb-shade-a" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0"    stop-color="#8fa3d0" stop-opacity="0" />
+          <stop offset="0.35" stop-color="#8fa3d0" stop-opacity="0.9" />
+          <stop offset="0.8"  stop-color="#8fa3d0" stop-opacity="1" />
+          <stop offset="1"    stop-color="#8fa3d0" stop-opacity="0.2" />
+        </linearGradient>
+        <linearGradient id="sb-shade-b" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0"    stop-color="#8fa3d0" stop-opacity="0.2" />
+          <stop offset="0.3"  stop-color="#8fa3d0" stop-opacity="0.95" />
+          <stop offset="0.75" stop-color="#8fa3d0" stop-opacity="0.55" />
+          <stop offset="1"    stop-color="#8fa3d0" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="sb-shade-c" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0"    stop-color="#8fa3d0" stop-opacity="0" />
+          <stop offset="0.4"  stop-color="#8fa3d0" stop-opacity="0.8" />
+          <stop offset="1"    stop-color="#8fa3d0" stop-opacity="0.9" />
+        </linearGradient>
+
+        <!-- Translucent glass fills -->
+        <linearGradient id="sb-fill-tl" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0"    stop-color="#9eaed3" stop-opacity="0.22" />
+          <stop offset="0.6"  stop-color="#c8d3ea" stop-opacity="0.16" />
+          <stop offset="1"    stop-color="#ffffff" stop-opacity="0.35" />
+        </linearGradient>
+        <linearGradient id="sb-fill-r" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0"    stop-color="#ffffff" stop-opacity="0.32" />
+          <stop offset="0.5"  stop-color="#c9d4ee" stop-opacity="0.18" />
+          <stop offset="1"    stop-color="#a9b7d8" stop-opacity="0.18" />
+        </linearGradient>
+        <linearGradient id="sb-fill-br" x1="0" y1="0" x2="0.6" y2="1">
+          <stop offset="0"    stop-color="#ffffff" stop-opacity="0.38" />
+          <stop offset="0.45" stop-color="#bccbe8" stop-opacity="0.2" />
+          <stop offset="1"    stop-color="#a2b1d4" stop-opacity="0.24" />
+        </linearGradient>
+        <linearGradient id="sb-fill-bl" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0"    stop-color="#ffffff" stop-opacity="0.34" />
+          <stop offset="0.5"  stop-color="#d6d2ee" stop-opacity="0.2" />
+          <stop offset="1"    stop-color="#b4b4dc" stop-opacity="0.22" />
+        </linearGradient>
+
+        <!-- Soft fade so the right sheet's fill has no hard lower boundary -->
+        <radialGradient id="sb-fade-r" cx="104" cy="34" r="56" gradientUnits="userSpaceOnUse">
+          <stop offset="0"   stop-color="#fff" />
+          <stop offset="0.5" stop-color="#fff" stop-opacity="0.7" />
+          <stop offset="1"   stop-color="#fff" stop-opacity="0" />
+        </radialGradient>
+        <mask id="sb-mask-r" maskUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="120">
+          <rect x="-10" y="-10" width="120" height="120" fill="url(#sb-fade-r)" />
+        </mask>
+      </defs>
+    </svg>
+
+    <!-- 2. Light fields -->
+    <div class="space-bg__lights">
+      <div class="space-bg__light space-bg__light--a"></div>
+      <div class="space-bg__light space-bg__light--b"></div>
+      <div class="space-bg__light space-bg__light--c"></div>
+      <div class="space-bg__light space-bg__light--d"></div>
+    </div>
+
+    <!-- 2b. Scroll-driven colour washes -->
+    <div class="space-bg__tint space-bg__tint--lavender"></div>
+    <div class="space-bg__tint space-bg__tint--ice"></div>
+
+    <!-- 3. Glass sheets (viewBox 0–100, stretched to the viewport).
+         Paths extend far beyond 0–100 so scroll motion never exposes an edge. -->
+    <div class="space-bg__glass">
+      <!-- Top-left sweep -->
+      <svg class="space-bg__sheet space-bg__sheet--tl" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+        <path d="M50 -60 C47 -30 46 -14 44 -4 C40 12 33 21 20 24.5 S4 28.5 -4 30 C-20 32 -40 33 -60 34 L-60 -60 Z" fill="url(#sb-fill-tl)" />
+        <path d="M50 -60 C47 -30 46 -14 44 -4 C40 12 33 21 20 24.5 S4 28.5 -4 30 C-20 32 -40 33 -60 34" fill="none" stroke="url(#sb-edge-a)" stroke-width="8" stroke-opacity="0.12" stroke-linecap="round" />
+        <path d="M50 -60 C47 -30 46 -14 44 -4 C40 12 33 21 20 24.5 S4 28.5 -4 30 C-20 32 -40 33 -60 34" fill="none" stroke-opacity="0.35" stroke="url(#sb-shade-a)" stroke-width="3.6" stroke-linecap="round" />
+        <path d="M50 -60 C47 -30 46 -14 44 -4 C40 12 33 21 20 24.5 S4 28.5 -4 30 C-20 32 -40 33 -60 34" fill="none" stroke="url(#sb-edge-a)" stroke-width="1.4" stroke-linecap="round" />
+        <path d="M46 -60 C43 -30 42 -12 40 -4 C36 10 30 18 18 22 S3 25.5 -4 27 C-20 29 -40 30 -60 31" fill="none" stroke-opacity="0.22" stroke="url(#sb-shade-a)" stroke-width="2.1" />
+        <path d="M46 -60 C43 -30 42 -12 40 -4 C36 10 30 18 18 22 S3 25.5 -4 27 C-20 29 -40 30 -60 31" fill="none" stroke="url(#sb-edge-a)" stroke-width="0.8" stroke-opacity="0.45" />
+      </svg>
+
+      <!-- Right swell -->
+      <svg class="space-bg__sheet space-bg__sheet--r" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+        <path d="M160 8 C130 12 112 16 104 20 C92 24 85 37 76 45 S62 54 50 57 C66 62 86 72 104 80 L160 90 Z" fill="url(#sb-fill-r)" mask="url(#sb-mask-r)" />
+        <path d="M160 8 C130 12 112 16 104 20 C92 24 85 37 76 45 S62 54 50 57" fill="none" stroke="url(#sb-edge-b)" stroke-width="8" stroke-opacity="0.12" stroke-linecap="round" />
+        <path d="M160 8 C130 12 112 16 104 20 C92 24 85 37 76 45 S62 54 50 57" fill="none" stroke-opacity="0.35" stroke="url(#sb-shade-b)" stroke-width="3.4" stroke-linecap="round" />
+        <path d="M160 8 C130 12 112 16 104 20 C92 24 85 37 76 45 S62 54 50 57" fill="none" stroke="url(#sb-edge-b)" stroke-width="1.3" stroke-linecap="round" />
+        <path d="M160 40 C130 41 112 42 104 43 C92 45 80 49 64 54" fill="none" stroke="url(#sb-edge-b)" stroke-width="6" stroke-opacity="0.1" stroke-linecap="round" />
+        <path d="M160 40 C130 41 112 42 104 43 C92 45 80 49 64 54" fill="none" stroke-opacity="0.22" stroke="url(#sb-shade-b)" stroke-width="2.6" stroke-linecap="round" />
+        <path d="M160 40 C130 41 112 42 104 43 C92 45 80 49 64 54" fill="none" stroke="url(#sb-edge-b)" stroke-width="1" stroke-opacity="0.8" stroke-linecap="round" />
+      </svg>
+
+      <!-- Bottom-right sheet -->
+      <svg class="space-bg__sheet space-bg__sheet--br" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+        <path d="M30 160 C38 130 44 112 48 104 C58 88 78 74 104 69 C120 66 140 64 160 63 L160 160 Z" fill="url(#sb-fill-br)" />
+        <path d="M30 160 C38 130 44 112 48 104 C58 88 78 74 104 69 C120 66 140 64 160 63" fill="none" stroke="url(#sb-edge-c)" stroke-width="8" stroke-opacity="0.12" stroke-linecap="round" />
+        <path d="M30 160 C38 130 44 112 48 104 C58 88 78 74 104 69 C120 66 140 64 160 63" fill="none" stroke-opacity="0.35" stroke="url(#sb-shade-c)" stroke-width="3.4" stroke-linecap="round" />
+        <path d="M30 160 C38 130 44 112 48 104 C58 88 78 74 104 69 C120 66 140 64 160 63" fill="none" stroke="url(#sb-edge-c)" stroke-width="1.3" stroke-linecap="round" />
+      </svg>
+
+      <!-- Lower-left sweep (appears as you scroll) -->
+      <svg class="space-bg__sheet space-bg__sheet--bl" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+        <path d="M-60 60 C-20 58 -4 60 6 64 C18 69 28 84 34 104 C37 118 40 140 42 160 L-60 160 Z" fill="url(#sb-fill-bl)" />
+        <path d="M-60 60 C-20 58 -4 60 6 64 C18 69 28 84 34 104 C37 118 40 140 42 160" fill="none" stroke="url(#sb-edge-c)" stroke-width="8" stroke-opacity="0.12" stroke-linecap="round" />
+        <path d="M-60 60 C-20 58 -4 60 6 64 C18 69 28 84 34 104 C37 118 40 140 42 160" fill="none" stroke-opacity="0.35" stroke="url(#sb-shade-c)" stroke-width="3.1" stroke-linecap="round" />
+        <path d="M-60 60 C-20 58 -4 60 6 64 C18 69 28 84 34 104 C37 118 40 140 42 160" fill="none" stroke="url(#sb-edge-c)" stroke-width="1.2" stroke-linecap="round" />
+        <path d="M-60 56 C-20 54 0 56 10 61 C22 67 32 80 38 100" fill="none" stroke-opacity="0.22" stroke="url(#sb-shade-c)" stroke-width="2.1" />
+        <path d="M-60 56 C-20 54 0 56 10 61 C22 67 32 80 38 100" fill="none" stroke="url(#sb-edge-c)" stroke-width="0.8" stroke-opacity="0.4" />
+      </svg>
+    </div>
+
+    <!-- 4. Cursor light (desktop only, driven by scripts/background.js) -->
+    <div class="space-bg__cursor"></div>
+
+    <!-- 5. Grain -->
+    <div class="space-bg__grain"></div>
+  </div>
+  <!-- ===== /background ===== -->
+
+  <!-- Empty content: ~4 viewport heights to test scroll continuity. -->
+  <main class="scroll-test"></main>
+
+  <script src="../scripts/background.js" defer></script>
+</body>
+</html>
