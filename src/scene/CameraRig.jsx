@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import gsap from 'gsap'
 import { setBackgroundParallax } from '../background/backgroundMotion.js'
-import { CAMERA_OFFSET, LOOK_AT_HEIGHT, NO_SHADOW_LAYER, RAIL_LENGTH } from './rail.js'
+import { CAMERA_OFFSET, COMPOSITION_SHIFT, LOOK_AT_HEIGHT, NO_SHADOW_LAYER, RAIL_LENGTH } from './rail.js'
 
 // Single owner of the camera: one tween at a time, killed before the next one.
 export default function CameraRig({ stationX }) {
@@ -11,8 +11,9 @@ export default function CameraRig({ stationX }) {
 
   const applyRail = () => {
     const { x } = rail.current
-    camera.position.set(x + CAMERA_OFFSET[0], CAMERA_OFFSET[1], CAMERA_OFFSET[2])
-    camera.lookAt(x, LOOK_AT_HEIGHT, 0)
+    const shift = window.innerWidth > 960 ? COMPOSITION_SHIFT : 0
+    camera.position.set(x + shift + CAMERA_OFFSET[0], CAMERA_OFFSET[1], CAMERA_OFFSET[2])
+    camera.lookAt(x + shift, LOOK_AT_HEIGHT, 0)
     setBackgroundParallax(x / RAIL_LENGTH)
   }
 
