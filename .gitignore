@@ -1,0 +1,6 @@
+node_modules/
+dist/
+# Models not used yet: some have restrictive licences, so they stay out of the public repo.
+/3d/
+*.local
+.DS_Store

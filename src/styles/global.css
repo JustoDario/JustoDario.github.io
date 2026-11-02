@@ -1,0 +1,32 @@
+:root {
+  /* Stacking scale shared with the background layer (Hito 1). */
+  --z-background: -1;
+  --z-scene: 0;
+  --z-content: 1;
+  color-scheme: only light;
+}
+
+html {
+  background-color: #e7ebf4;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: #1c2436;
+}
+
+.smoke-ui {
+  position: relative;
+  z-index: var(--z-content);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 2rem;
+}
+
+.smoke-ui h1,
+.smoke-ui p {
+  margin: 0;
+}
