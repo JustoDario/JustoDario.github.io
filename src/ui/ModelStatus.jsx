@@ -3,14 +3,24 @@ import { MODELS } from '../data/models.js'
 import { useLanguage } from '../i18n/LanguageProvider.jsx'
 import { useNavigation } from '../state/NavigationProvider.jsx'
 import { getModelStatus, retryModel, subscribeModelStatus } from '../state/modelStatus.js'
+import { getSceneHealth, subscribeSceneHealth } from '../state/sceneHealth.js'
 
-// Tells the visitor when the robot of the current station could not load.
+// Tells the visitor when the robot of the current station cannot be shown.
 export default function ModelStatus() {
   const { t } = useLanguage()
   const { station } = useNavigation()
   const { errors } = useSyncExternalStore(subscribeModelStatus, getModelStatus)
   const file = MODELS[station.model]?.file
   const kind = file && errors[file]
+  const { sceneUnavailable } = useSyncExternalStore(subscribeSceneHealth, getSceneHealth)
+
+  if (sceneUnavailable) {
+    return station.model ? (
+      <div className="model-status" role="status" data-testid="scene-status">
+        <p>{t('scene.unavailable')}</p>
+      </div>
+    ) : null
+  }
   if (!kind) return null
 
   return (

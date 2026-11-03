@@ -30,6 +30,8 @@ export const es = {
   'model.failed': 'No se pudo cargar este modelo 3D.',
   'model.retry': 'Reintentar',
   'model.reload': 'Recargar la página',
+  'media.watch': 'Ver en YouTube',
+  'scene.unavailable': 'El navegador ha pausado los gráficos 3D. Los robots deberían volver solos en unos dos minutos; si no, reinicia el navegador.',
   'contact.intro': 'Escríbeme sobre robótica, oportunidades o cualquier cosa que estés construyendo.',
   'contact.send': 'Enviar correo',
   'contact.copy': 'Copiar correo',

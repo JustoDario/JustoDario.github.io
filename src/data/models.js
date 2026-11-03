@@ -5,11 +5,12 @@
 //
 // scale, offset: the model stands on y = 0, centred on its station.
 // rotationY: the angle it is shown at. draco: needs the decoder to load.
+// legged: touches the floor at small points, so it gets a contact shadow.
 export const MODELS = {
-  coco1: { file: 'coco1-lite.glb', scale: 2.1, offset: [0.06, 0.542, -0.001], rotationY: -0.5, draco: true },
-  scara: { file: 'scara.glb', scale: 1.92, offset: [0.211, 0.067, -0.049], rotationY: -0.3 },
-  sp01: { file: 'sp01.glb', scale: 1.3, offset: [0.003, 0.0, 0.001], rotationY: -0.5 },
-  humblebeev2: { file: 'humblebeev2.glb', scale: 1.05, offset: [-0.001, 0.0, 0.0], rotationY: 0.9 },
-  so101: { file: 'so101.glb', scale: 4.0, offset: [-0.044, -0.008, -0.062], rotationY: 0.9 },
-  go2: { file: 'go2.glb', scale: 1.9, offset: [0.001, 0.853, -0.085], rotationY: 1.05 },
+  coco1: { file: 'coco1-lite.glb', scale: 2.31, offset: [0.066, 0.596, -0.001], rotationY: -0.5, draco: true, legged: true },
+  scara: { file: 'scara.glb', scale: 2.112, offset: [0.232, 0.074, -0.054], rotationY: -0.3 },
+  sp01: { file: 'sp01.glb', scale: 1.43, offset: [0.004, 0.0, 0.001], rotationY: -0.5 },
+  humblebeev2: { file: 'humblebeev2.glb', scale: 1.155, offset: [-0.001, 0.0, 0.0], rotationY: 0.9 },
+  so101: { file: 'so101.glb', scale: 4.4, offset: [-0.048, -0.009, -0.068], rotationY: 0.9 },
+  go2: { file: 'go2.glb', scale: 2.09, offset: [0.001, 0.938, -0.094], rotationY: 1.05, legged: true },
 }

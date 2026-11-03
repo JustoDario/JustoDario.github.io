@@ -321,41 +321,36 @@ h1 {
 }
 
 .media__frame > img,
-.media__thumbnail img,
-.media__video iframe {
+.media__video video,
+.media__fallback img {
   width: 100%;
   height: 100%;
   display: block;
-  border: 0;
 }
 
-.media__frame > img {
+.media__frame > img,
+.media__video video {
   object-fit: contain;
 }
 
-/* The thumbnail stays under the player, so nothing flashes while YouTube loads. */
+.media__fallback img {
+  object-fit: cover;
+}
+
 .media__video {
   position: relative;
+  display: block;
   height: 100%;
+  background: #10141f;
 }
 
-.media__video iframe {
+.media__start {
   position: absolute;
   inset: 0;
-}
-
-.media__thumbnail {
-  width: 100%;
-  height: 100%;
   padding: 0;
-  display: block;
   background: none;
   border: 0;
   cursor: pointer;
-}
-
-.media__thumbnail img {
-  object-fit: cover;
 }
 
 .media__play {
@@ -374,7 +369,22 @@ h1 {
   transition: background 0.15s;
 }
 
-.media__thumbnail:hover .media__play {
+.media__watch {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(28, 36, 54, 0.85);
+  border-radius: 8px;
+}
+
+.media__start:hover .media__play {
   background: var(--accent);
 }
 

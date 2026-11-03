@@ -30,6 +30,8 @@ export const en = {
   'model.failed': 'This 3D model could not be loaded.',
   'model.retry': 'Try again',
   'model.reload': 'Reload page',
+  'media.watch': 'Watch on YouTube',
+  'scene.unavailable': 'The browser has paused 3D graphics. The robots should return by themselves within about two minutes; if not, restart the browser.',
   'contact.intro': 'Write to me about robotics, opportunities or anything you are building.',
   'contact.send': 'Send email',
   'contact.copy': 'Copy email',

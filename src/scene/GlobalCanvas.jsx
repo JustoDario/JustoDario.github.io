@@ -4,6 +4,7 @@ import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 import { assetUrl } from '../lib/assetUrl.js'
 import { useNavigation } from '../state/NavigationProvider.jsx'
+import { reportContextLost, reportContextRestored, watchForWebGL } from '../state/sceneHealth.js'
 import CameraRig from './CameraRig.jsx'
 import Lighting from './Lighting.jsx'
 import { Dust } from './Atmosphere.jsx'
@@ -57,7 +58,22 @@ function RobotStations() {
 export default function GlobalCanvas() {
   const [generation, setGeneration] = useState(0)
   const onCreated = ({ gl }) => {
-    gl.domElement.addEventListener('webglcontextrestored', () => setGeneration((g) => g + 1), { once: true })
+    const canvas = gl.domElement
+    let stopWatching = () => {}
+    const rebuild = () => {
+      stopWatching()
+      // Replacing the canvas loses the old context on purpose: that is not news.
+      canvas.removeEventListener('webglcontextlost', onLost)
+      canvas.removeEventListener('webglcontextrestored', rebuild)
+      reportContextRestored()
+      setGeneration((g) => g + 1)
+    }
+    const onLost = () => {
+      reportContextLost()
+      stopWatching = watchForWebGL(rebuild)
+    }
+    canvas.addEventListener('webglcontextlost', onLost)
+    canvas.addEventListener('webglcontextrestored', rebuild)
   }
 
   return (

@@ -4,5 +4,14 @@ export const L = (en, es) => ({ en, es })
 
 export const image = (file, en, es) => ({ type: 'image', file, alt: L(en, es) })
 
-// The URL is kept exactly as in the original portfolio, parameters included.
-export const video = (url, title) => ({ type: 'video', url, title: L(`Video: ${title}`, `Vídeo: ${title}`) })
+// Served from public/video/ in AV1, with H.264 only for browsers without AV1: hardware
+// H.264 decoding takes down the GPU process on some machines, and WebGL with it,
+// which a YouTube embed cannot avoid. `youtube` is the fallback if a file fails.
+export const video = (slug, youtube, title, options = {}) => ({
+  type: 'video',
+  slug,
+  youtube,
+  poster: `video-${slug}.jpg`,
+  title: L(`Video: ${title}`, `Vídeo: ${title}`),
+  ...options,
+})

@@ -14,25 +14,24 @@ import { es } from '../src/i18n/es.js'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const pub = (path) => join(ROOT, 'public', path)
-const yt = (id) => `https://www.youtube.com/embed/${id}`
-const PLAYLIST = '?list=PLTqfDJQvAVGBfJapdJ470H2NgLTNVdJaQ'
+const VID = (slug) => `video:${slug}`
 
 // id, model, media in the exact order of the original portfolio.
 const MANIFEST = {
   experience: [
-    ['robotech', 'scara', [yt('4r0j4g5fImk'), 'scarav1-2.jpg']],
-    ['tsb', 'sp01', ['inflationlayeradded.png', 'tsbsimulation.png', yt('_bkvL-_BGiE')]],
+    ['robotech', 'scara', [VID('scara-demo'), 'scarav1-2.jpg']],
+    ['tsb', 'sp01', ['inflationlayeradded.png', 'tsbsimulation.png', VID('tsb-mapping')]],
   ],
   projects: [
     ['quadruped', 'coco1', [
-      yt('cN7WDKmJhnM'), yt('6V8-M2vEC8k'), `${yt('yG2TFrFOs4w')}?autoplay=1&mute=1&rel=0`,
+      VID('coco-icra'), VID('coco-control'), VID('coco-redesign'),
       'cocov2_photo1.jpg', 'cocov2_summit1.jpg', 'cocov2_photo2.jpg', 'coco_summit.jpg', 'cocov1.jpg',
-      `${yt('99Eip2nVok4')}${PLAYLIST}`, `${yt('0X7ajcaga7c')}${PLAYLIST}`, 'rpycoco.png',
+      VID('coco-ik'), VID('coco-trot'), 'rpycoco.png',
     ]],
-    ['car', 'humblebeev2', ['rcv1.jpg', 'rcv2.jpg', 'rc3.jpg', yt('l9EiiZqZ7Z4')]],
+    ['car', 'humblebeev2', ['rcv1.jpg', 'rcv2.jpg', 'rc3.jpg', VID('car-esp32')]],
   ],
   hackathons: [
-    ['erh', 'so101', ['erh_hack_podium.jpg', 'best_moments_grid.gif', 'erh_house.jpg', 'erh_hack_team.jpg', yt('CDUgXpPN3KQ')]],
+    ['erh', 'so101', ['erh_hack_podium.jpg', 'best_moments_grid.gif', 'erh_house.jpg', 'erh_hack_team.jpg', VID('erh-demo')]],
     ['embodied', 'go2', ['ee1.jpg', 'eeq1.jpg', 'ee2.jpg']],
     ['ai', null, ['hackatonaiayo.jpg', 'atari_aia.jpg', 'aia_conf.png']],
     ['mapfre', null, ['urjchackaton1.jpg', 'urjchackaton2.jpg', 'mapfreapp1.png']],
@@ -116,11 +115,20 @@ for (const [sectionId, expected] of Object.entries(MANIFEST)) {
     if (entry.link) localised(entry.link.label, `${where} link label`)
     if (entry.credit) localised(entry.credit.text, `${where} credit`)
 
-    const actual = entry.media.map((m) => m.url ?? m.file)
+    const actual = entry.media.map((m) => (m.slug ? VID(m.slug) : m.file))
     if (actual.join('|') !== media.join('|')) fail(`${where}: media or order differ from the manifest:\n    ${actual.join('\n    ')}`)
 
     entry.media.forEach((m, i) => {
       if (m.type === 'video') localised(m.title, `${where} video ${i} title`)
+      if (m.type === 'video') {
+        checkImage(m.poster, `${where} video ${i} poster`)
+        if (!/^[\w-]{11}$/.test(m.youtube ?? '')) fail(`${where} video ${i}: bad YouTube id`)
+        for (const codec of ['av1', 'h264']) {
+          const path = pub(`video/${m.slug}.${codec}.mp4`)
+          if (!existsSync(path)) fail(`${where}: video file not found: ${m.slug}.${codec}.mp4`)
+          else if (readFileSync(path).subarray(4, 8).toString() !== 'ftyp') fail(`${where}: ${m.slug}.${codec}.mp4 is not an MP4`)
+        }
+      }
       else {
         localised(m.alt, `${where} image ${i} alt`)
         checkImage(m.file, where)

@@ -1,78 +1,97 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageProvider.jsx'
 import { assetUrl } from '../lib/assetUrl.js'
 import { useNavigation } from '../state/NavigationProvider.jsx'
 import CarouselControls, { useSwipe } from './CarouselControls.jsx'
-import { PlayIcon } from './icons.jsx'
+import { ExternalIcon, PlayIcon } from './icons.jsx'
 
-const youtubeId = (embedUrl) => new URL(embedUrl).pathname.split('/').pop()
-const thumbnail = (item, quality = 'sddefault') => `https://i.ytimg.com/vi/${youtubeId(item.url)}/${quality}.jpg`
-const previewUrl = (item) => (item.type === 'video' ? thumbnail(item) : assetUrl(`media/${item.file}`))
+const previewUrl = (item) => assetUrl(`media/${item.poster ?? item.file}`)
+const videoUrl = (item, codec) => assetUrl(`video/${item.slug}.${codec}.mp4`)
 
-// The thumbnail is always there, and YouTube only loads on play: its player is the
-// heaviest thing on the page. An embed whose URL asks for autoplay starts by itself.
+// Nothing downloads until play. A video that asks for autoplay starts by itself,
+// muted, whenever its section becomes active.
 function Video({ item, active }) {
   const { l, t } = useLanguage()
   const { setVideoPlaying } = useNavigation()
+  const video = useRef(null)
   const [started, setStarted] = useState(false)
-  const autoplays = item.url.includes('autoplay=1')
-  const playing = active && (started || autoplays)
+  const [failed, setFailed] = useState(false)
 
   useEffect(() => {
     if (!active) return undefined
-    return () => setStarted(false) // leaving the section stops the video for good
-  }, [active])
+    const element = video.current
+    if (item.autoplay && element) {
+      element.muted = true
+      element.play().catch(() => {}) // the browser may refuse: the poster stays
+    }
+    return () => element?.pause() // leaving the section stops the video
+  }, [active, item.autoplay])
 
-  useEffect(() => {
-    if (!playing) return undefined
-    setVideoPlaying(true)
-    return () => setVideoPlaying(false)
-  }, [playing, setVideoPlaying])
+  useEffect(() => () => setVideoPlaying(false), [setVideoPlaying])
 
   const play = (event) => {
-    setStarted(true)
+    video.current.play().catch(() => {})
     if (!active) event.currentTarget.closest('section').scrollIntoView()
   }
 
-  const src = autoplays ? item.url : `${item.url}${item.url.includes('?') ? '&' : '?'}autoplay=1`
+  if (failed) {
+    return (
+      <a
+        className="media__video media__fallback"
+        href={`https://www.youtube.com/watch?v=${item.youtube}`}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`${t('media.watch')}. ${l(item.title)}`}
+      >
+        <img src={previewUrl(item)} alt="" />
+        <span className="media__watch">
+          {t('media.watch')} <ExternalIcon />
+        </span>
+      </a>
+    )
+  }
 
   return (
     <div className="media__video">
-      <button
-        type="button"
-        className="media__thumbnail"
-        disabled={playing}
-        aria-label={`${t('media.play')}. ${l(item.title)}`}
-        onClick={play}
+      <video
+        ref={video}
+        poster={previewUrl(item)}
+        controls={started}
+        preload="none"
+        playsInline
+        aria-label={l(item.title)}
+        onPlay={() => {
+          setStarted(true)
+          setVideoPlaying(true)
+        }}
+        onPause={() => setVideoPlaying(false)}
+        onEnded={() => setVideoPlaying(false)}
+        onError={() => setFailed(true)}
       >
-        <img
-          src={thumbnail(item)}
-          alt=""
-          loading="lazy"
-          onError={(event) => {
-            const fallback = thumbnail(item, 'hqdefault')
-            if (event.currentTarget.src !== fallback) event.currentTarget.src = fallback
-          }}
+        <source src={videoUrl(item, 'av1')} type='video/mp4; codecs="av01.0.05M.08, opus"' />
+        <source
+          src={videoUrl(item, 'h264')}
+          type='video/mp4; codecs="avc1.640020, mp4a.40.2"'
+          onError={() => setFailed(true)}
         />
-        <span className="media__play">
-          <PlayIcon />
-        </span>
-      </button>
-      {playing && (
-        <iframe
-          src={src}
-          title={l(item.title)}
-          allow="autoplay; encrypted-media; picture-in-picture"
-          allowFullScreen
-          referrerPolicy="strict-origin-when-cross-origin"
-        />
+      </video>
+      {!started && (
+        <button
+          type="button"
+          className="media__start"
+          aria-label={`${t('media.play')}. ${l(item.title)}`}
+          onClick={play}
+        >
+          <span className="media__play">
+            <PlayIcon />
+          </span>
+        </button>
       )}
     </div>
   )
 }
 
-// `active` means this entry is the one on show in the settled section. No iframe
-// mounts without it, so the page never has more than one.
+// `active` means this entry is the one on show in the settled section.
 export default function MediaCarousel({ media, index, onChange, active }) {
   const { l, t } = useLanguage()
   const swipe = useSwipe(
@@ -92,7 +111,7 @@ export default function MediaCarousel({ media, index, onChange, active }) {
     <div className="media" role="group" aria-label={t('media.label')} {...swipe}>
       <div className="media__frame">
         {item.type === 'video' ? (
-          <Video key={item.url} item={item} active={active} />
+          <Video key={item.slug} item={item} active={active} />
         ) : (
           <img key={item.file} src={previewUrl(item)} alt={l(item.alt)} loading="lazy" />
         )}
