@@ -7,6 +7,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { carouselSections } from '../src/data/entries.js'
+import { MODELS } from '../src/data/models.js'
 import { profile, skills } from '../src/data/profile.js'
 import { en } from '../src/i18n/en.js'
 import { es } from '../src/i18n/es.js'
@@ -109,7 +110,7 @@ for (const [sectionId, expected] of Object.entries(MANIFEST)) {
     entry.highlights?.forEach((h, i) => localised(h, `${where} highlight ${i}`))
 
     if (entry.model !== model) fail(`${where}: model is ${entry.model}, expected ${model}`)
-    if (model && !existsSync(pub(`3d/${model}.glb`))) fail(`${where}: public/3d/${model}.glb not found`)
+    if (model && !existsSync(pub(`3d/${MODELS[model]?.file}`))) fail(`${where}: no file for model ${model}`)
 
     if (REQUIRED_LINKS[id] && entry.link?.url !== REQUIRED_LINKS[id]) fail(`${where}: link differs from the original`)
     if (entry.link) localised(entry.link.label, `${where} link label`)

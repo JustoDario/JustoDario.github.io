@@ -460,6 +460,23 @@ h1 {
   color: var(--ink-soft);
 }
 
+/* Model that could not load ------------------------------------------------ */
+.model-status {
+  position: fixed;
+  z-index: 5;
+  left: clamp(1rem, 4vw, 3.5rem);
+  bottom: 2rem;
+  max-width: 22rem;
+  display: grid;
+  justify-items: start;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+  font-size: 0.92rem;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+}
+
 /* Debug only -------------------------------------------------------------- */
 .debug-panel {
   position: fixed;

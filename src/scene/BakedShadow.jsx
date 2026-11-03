@@ -103,7 +103,7 @@ export default function BakedShadow({ x, size = 5, far = 1.6, blur = 2.2, opacit
   // The bake camera looks up with +X right and +Z up, so the plane is mirrored
   // in Y to line the texture up with the floor. DoubleSide compensates for it.
   return (
-    <mesh ref={plane} position={[x, FLOOR_Y, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1, -1, 1]}>
+    <mesh ref={plane} position-y={FLOOR_Y} rotation={[-Math.PI / 2, 0, 0]} scale={[1, -1, 1]}>
       <planeGeometry args={[size, size]} />
       <meshBasicMaterial
         map={res.target.texture}

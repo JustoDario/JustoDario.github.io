@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
@@ -7,10 +7,9 @@ import { useNavigation } from '../state/NavigationProvider.jsx'
 import CameraRig from './CameraRig.jsx'
 import Lighting from './Lighting.jsx'
 import { Dust } from './Atmosphere.jsx'
-import TestExhibits from './TestExhibits.jsx'
-import SmokeModel from './SmokeModel.jsx'
+import RobotStation from './RobotStation.jsx'
 import { DebugProbe, debugEnabled } from './Debug.jsx'
-import { RAIL_LENGTH } from './stations.js'
+import { RAIL_LENGTH, STATIONS } from './stations.js'
 
 // Must run before the first GLB load, otherwise drei falls back to a CDN.
 // Imports evaluate first, so never call useGLTF.preload at module level.
@@ -41,10 +40,21 @@ function PauseDuringVideo() {
   return null
 }
 
+// Provisional until Hito 6 frees what is out of range: a station mounts when the
+// camera reaches it or its neighbour, and stays, so the page does not download
+// the six robots up front.
+function RobotStations() {
+  const { station } = useNavigation()
+  const reached = useRef(new Set())
+  const index = STATIONS.indexOf(station)
+  for (const i of [index - 1, index, index + 1]) if (STATIONS[i]?.model) reached.current.add(STATIONS[i])
+  return [...reached.current].map((s) => <RobotStation key={s.id} station={s} />)
+}
+
 // The only <Canvas> in the app. It stays mounted for the session, except that a
 // restored WebGL context gets a fresh one: everything on the GPU is gone by then,
 // including the baked shadows and the environment map, which only render once.
-export default function GlobalCanvas({ smokeUrl }) {
+export default function GlobalCanvas() {
   const [generation, setGeneration] = useState(0)
   const onCreated = ({ gl }) => {
     gl.domElement.addEventListener('webglcontextrestored', () => setGeneration((g) => g + 1), { once: true })
@@ -64,13 +74,7 @@ export default function GlobalCanvas({ smokeUrl }) {
       <CameraRig />
       <Lighting />
       <Dust center={RAIL_LENGTH / 2} length={RAIL_LENGTH} />
-      {smokeUrl ? (
-        <Suspense fallback={null}>
-          <SmokeModel url={smokeUrl} />
-        </Suspense>
-      ) : (
-        <TestExhibits />
-      )}
+      <RobotStations />
       {debugEnabled && <DebugProbe />}
     </Canvas>
   )

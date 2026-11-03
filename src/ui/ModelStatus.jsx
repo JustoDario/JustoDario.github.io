@@ -1,0 +1,30 @@
+import { useSyncExternalStore } from 'react'
+import { MODELS } from '../data/models.js'
+import { useLanguage } from '../i18n/LanguageProvider.jsx'
+import { useNavigation } from '../state/NavigationProvider.jsx'
+import { getModelStatus, retryModel, subscribeModelStatus } from '../state/modelStatus.js'
+
+// Tells the visitor when the robot of the current station could not load.
+export default function ModelStatus() {
+  const { t } = useLanguage()
+  const { station } = useNavigation()
+  const { errors } = useSyncExternalStore(subscribeModelStatus, getModelStatus)
+  const file = MODELS[station.model]?.file
+  const kind = file && errors[file]
+  if (!kind) return null
+
+  return (
+    <div className="model-status" role="status" data-testid="model-status">
+      <p>{t('model.failed')}</p>
+      {kind === 'retry' ? (
+        <button type="button" className="button" onClick={() => retryModel(file)}>
+          {t('model.retry')}
+        </button>
+      ) : (
+        <button type="button" className="button" onClick={() => window.location.reload()}>
+          {t('model.reload')}
+        </button>
+      )}
+    </div>
+  )
+}

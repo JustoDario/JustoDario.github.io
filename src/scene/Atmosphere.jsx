@@ -22,10 +22,10 @@ function makeHaloTexture() {
 }
 
 // Pool of light on the invisible floor under an exhibit.
-export function Halo({ x, radius = 2.6 }) {
+export function Halo({ radius = 2.6 }) {
   haloTexture ??= makeHaloTexture() // one for all the stations
   return (
-    <mesh position={[x, 0.001, 0]} rotation={[-Math.PI / 2, 0, 0]} layers={NO_SHADOW_LAYER} renderOrder={-1}>
+    <mesh position-y={0.001} rotation={[-Math.PI / 2, 0, 0]} layers={NO_SHADOW_LAYER} renderOrder={-1}>
       <planeGeometry args={[radius * 2, radius * 2]} />
       <meshBasicMaterial map={haloTexture} transparent depthWrite={false} toneMapped={false} />
     </mesh>
