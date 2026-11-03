@@ -11,7 +11,7 @@ export const profile = {
   },
   subtitle: L(
     'Robotics Software Engineering Student at Universidad Rey Juan Carlos',
-    'Estudiante de Ingeniería Robótica Software en la Universidad Rey Juan Carlos',
+    'Estudiante de Ingeniería de Robótica Software en la Universidad Rey Juan Carlos',
   ),
   tagline: L(
     'Passionate about robotics, programming and real-world solutions',
@@ -24,7 +24,7 @@ export const profile = {
   about: [
     L(
       "Hi, I'm Justo, a Robotics Software Engineering student passionate about building real robots and learning how autonomous systems work in practice. I'm always looking for hands-on opportunities involving mapping, perception and robot control.",
-      'Hola, soy Justo, estudiante de Ingeniería Robótica Software y apasionado por construir robots reales y aprender cómo funcionan los sistemas autónomos en la práctica. Siempre busco oportunidades prácticas en mapping, percepción y control de robots.',
+      'Hola, soy Justo, estudiante de Ingeniería de Robótica Software y apasionado por construir robots reales y aprender cómo funcionan los sistemas autónomos en la práctica. Siempre busco oportunidades prácticas en mapping, percepción y control de robots.',
     ),
     L(
       'I currently lead the SCARA project at RoboTech (URJC Student Association), where my team and I aim to build an autonomous chess-playing robot; it currently plays tic-tac-toe. I have also been designing and building a quadruped robot from scratch as a personal project.',

@@ -6,7 +6,8 @@ const GIVE_UP_MS = 5000 // a lost context usually comes back well before this
 const PROBE_EVERY_MS = 5000
 const MAX_PROBES = 48 // four minutes, about twice the browser's block
 
-let snapshot = { sceneUnavailable: false }
+// sceneUnavailable: null, 'paused' (the browser's block, it comes back) or 'failed'.
+let snapshot = { sceneUnavailable: null }
 let giveUpTimer
 const listeners = new Set()
 
@@ -21,11 +22,11 @@ export const subscribeSceneHealth = (listener) => {
 }
 export const getSceneHealth = () => snapshot
 
-export const reportSceneUnavailable = () => publish({ sceneUnavailable: true })
+export const reportSceneUnavailable = (kind = 'paused') => publish({ sceneUnavailable: kind })
 
 export function reportContextLost() {
   clearTimeout(giveUpTimer)
-  giveUpTimer = setTimeout(reportSceneUnavailable, GIVE_UP_MS)
+  giveUpTimer = setTimeout(() => reportSceneUnavailable('paused'), GIVE_UP_MS)
 }
 
 function webglAvailable() {
@@ -51,5 +52,5 @@ export function watchForWebGL(onAvailable) {
 
 export function reportContextRestored() {
   clearTimeout(giveUpTimer)
-  publish({ sceneUnavailable: false })
+  publish({ sceneUnavailable: null })
 }

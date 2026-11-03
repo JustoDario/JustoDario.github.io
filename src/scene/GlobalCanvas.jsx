@@ -2,15 +2,17 @@ import { useEffect, useRef, useState } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
+import { MODELS } from '../data/models.js'
 import { assetUrl } from '../lib/assetUrl.js'
 import { useNavigation } from '../state/NavigationProvider.jsx'
 import { reportContextLost, reportContextRestored, watchForWebGL } from '../state/sceneHealth.js'
 import CameraRig from './CameraRig.jsx'
 import Lighting from './Lighting.jsx'
 import { Dust } from './Atmosphere.jsx'
+import { releaseModels } from './modelLifecycle.js'
 import RobotStation from './RobotStation.jsx'
 import { DebugProbe, debugEnabled } from './Debug.jsx'
-import { RAIL_LENGTH, STATIONS } from './stations.js'
+import { computeWindow, STATIONS } from './stations.js'
 
 // Must run before the first GLB load, otherwise drei falls back to a CDN.
 // Imports evaluate first, so never call useGLTF.preload at module level.
@@ -41,15 +43,60 @@ function PauseDuringVideo() {
   return null
 }
 
-// Provisional until Hito 6 frees what is out of range: a station mounts when the
-// camera reaches it or its neighbour, and stays, so the page does not download
-// the six robots up front.
-function RobotStations() {
-  const { station } = useNavigation()
-  const reached = useRef(new Set())
-  const index = STATIONS.indexOf(station)
-  for (const i of [index - 1, index, index + 1]) if (STATIONS[i]?.model) reached.current.add(STATIONS[i])
-  return [...reached.current].map((s) => <RobotStation key={s.id} station={s} />)
+// Waits this long after the window last changed, so that scrolling back and forth
+// around a border does not free and reload a model each time.
+const RELEASE_AFTER_MS = 1500
+
+// Stations in the window are mounted at once. During a trip nothing leaves and nothing
+// but the destination enters; once the camera has settled, what is out goes, and two
+// frames later, when nothing can still be drawing it, its memory is freed.
+function Exhibition() {
+  const { station, approaching } = useNavigation()
+  // Derived, not reported by the camera: it has to be true in the very render where
+  // the station changes, or the neighbours of the destination would start to download.
+  const [arrivedAt, setArrivedAt] = useState(station.x)
+  const traveling = station.x !== arrivedAt
+  const wanted = computeWindow(station, approaching, traveling)
+  const wantedKey = wanted.map((s) => s.id).join()
+  const latest = useRef(wanted)
+  latest.current = wanted
+
+  // Everything wanted since the last release stays, so that changing destination never
+  // takes away the robot that is still on screen.
+  const kept = useRef(new Set())
+  wanted.forEach((s) => kept.current.add(s))
+  const [, redraw] = useState(0)
+
+  // The robots on show and where they are, written by the camera rig.
+  const layout = useRef(new Map([[station.id, station.x]]))
+  if (debugEnabled) window.__layout = layout.current
+
+  useEffect(() => {
+    if (traveling) return undefined
+    let frame
+    const timer = setTimeout(() => {
+      kept.current = new Set(latest.current)
+      redraw((n) => n + 1)
+      frame = requestAnimationFrame(() => {
+        frame = requestAnimationFrame(() => {
+          releaseModels(new Set(latest.current.map((s) => MODELS[s.model].file)))
+        })
+      })
+    }, RELEASE_AFTER_MS)
+    return () => {
+      clearTimeout(timer)
+      cancelAnimationFrame(frame)
+    }
+  }, [wantedKey, traveling])
+
+  return (
+    <>
+      <CameraRig onArrive={setArrivedAt} layout={layout} />
+      {STATIONS.filter((s) => kept.current.has(s)).map((s) => (
+        <RobotStation key={s.id} station={s} warm={!traveling && s !== station} layout={layout} />
+      ))}
+    </>
+  )
 }
 
 // The only <Canvas> in the app. It stays mounted for the session, except that a
@@ -87,10 +134,9 @@ export default function GlobalCanvas() {
       onCreated={onCreated}
     >
       <PauseDuringVideo />
-      <CameraRig />
       <Lighting />
-      <Dust center={RAIL_LENGTH / 2} length={RAIL_LENGTH} />
-      <RobotStations />
+      <Dust />
+      <Exhibition />
       {debugEnabled && <DebugProbe />}
     </Canvas>
   )

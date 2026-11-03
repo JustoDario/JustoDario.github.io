@@ -12,6 +12,7 @@ export const video = (slug, youtube, title, options = {}) => ({
   slug,
   youtube,
   poster: `video-${slug}.jpg`,
+  name: L(title, title),
   title: L(`Video: ${title}`, `Vídeo: ${title}`),
   ...options,
 })

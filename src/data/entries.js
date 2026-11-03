@@ -304,7 +304,7 @@ export const education = [
     id: 'urjc',
     model: null,
     title: L('Universidad Rey Juan Carlos', 'Universidad Rey Juan Carlos'),
-    role: L('B.Sc. Robotics Software Engineering', 'Grado en Ingeniería Robótica Software'),
+    role: L('B.Sc. Robotics Software Engineering', 'Grado en Ingeniería de Robótica Software'),
     dates: L('2023 – Present', '2023 – Actualidad'),
     description: L(
       'Focus on control, robot software architecture, embedded systems and programming (ROS 2, C++).',

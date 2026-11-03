@@ -369,6 +369,19 @@ h1 {
   transition: background 0.15s;
 }
 
+.media__start:focus-visible,
+.media__fallback:focus-visible {
+  outline-color: #fff;
+  outline-offset: -5px;
+}
+
+.media__caption {
+  font-size: 0.88rem;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
 .media__watch {
   position: absolute;
   bottom: 0.75rem;

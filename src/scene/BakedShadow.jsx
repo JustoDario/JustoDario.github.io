@@ -6,12 +6,13 @@ import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShade
 import { NO_SHADOW_LAYER } from './rail.js'
 
 const FLOOR_Y = 0.002
+const worldPosition = new THREE.Vector3()
 
 // Soft contact shadow on the invisible floor, rendered from below once and then
 // reused as a texture. Own version instead of drei's ContactShadows: that one
 // blurs on a plane fixed at the world origin, so it comes out empty at any
 // station away from x = 0, and it never frees its render targets.
-export default function BakedShadow({ x, size = 5, far = 1.6, blur = 2.2, opacity = 0.55, color = '#2a3550', resolution = 512 }) {
+export default function BakedShadow({ size = 5, far = 1.6, blur = 2.2, opacity = 0.55, color = '#2a3550', resolution = 512 }) {
   const gl = useThree((state) => state.gl)
   const scene = useThree((state) => state.scene)
   const plane = useRef()
@@ -58,10 +59,10 @@ export default function BakedShadow({ x, size = 5, far = 1.6, blur = 2.2, opacit
     [res],
   )
 
-  // A new set of resources, or a new position, needs a new bake.
+  // A new set of resources needs a new bake.
   useEffect(() => {
     baked.current = false
-  }, [res, x])
+  }, [res])
 
   const blurPass = (amount) => {
     res.quad.material = res.horizontal
@@ -81,8 +82,10 @@ export default function BakedShadow({ x, size = 5, far = 1.6, blur = 2.2, opacit
     if (baked.current) return
     baked.current = true
 
-    res.camera.position.set(x, 0, 0)
-    res.camera.lookAt(x, 1, 0)
+    // From wherever the robot is now: the plane follows it from then on.
+    plane.current.getWorldPosition(worldPosition)
+    res.camera.position.set(worldPosition.x, worldPosition.y - FLOOR_Y, worldPosition.z)
+    res.camera.lookAt(worldPosition.x, worldPosition.y + 1, worldPosition.z)
     res.camera.updateMatrixWorld()
 
     const previousTarget = gl.getRenderTarget()

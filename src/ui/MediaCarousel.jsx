@@ -14,14 +14,21 @@ function Video({ item, active }) {
   const { l, t } = useLanguage()
   const { setVideoPlaying } = useNavigation()
   const video = useRef(null)
+  const playRequested = useRef(false)
   const [started, setStarted] = useState(false)
   const [failed, setFailed] = useState(false)
+
+  const fail = () => {
+    setFailed(true)
+    setVideoPlaying(false) // no pause event comes from a removed element
+  }
 
   useEffect(() => {
     if (!active) return undefined
     const element = video.current
-    if (item.autoplay && element) {
-      element.muted = true
+    if (element && item.autoplay) element.muted = true
+    if (element && (item.autoplay || playRequested.current)) {
+      playRequested.current = false
       element.play().catch(() => {}) // the browser may refuse: the poster stays
     }
     return () => element?.pause() // leaving the section stops the video
@@ -30,8 +37,13 @@ function Video({ item, active }) {
   useEffect(() => () => setVideoPlaying(false), [setVideoPlaying])
 
   const play = (event) => {
-    video.current.play().catch(() => {})
-    if (!active) event.currentTarget.closest('section').scrollIntoView()
+    if (active) {
+      video.current.play().catch(() => {})
+    } else {
+      // Waits for the section: leaving it before then must not leave sound behind.
+      playRequested.current = true
+      event.currentTarget.closest('section').scrollIntoView()
+    }
   }
 
   if (failed) {
@@ -41,7 +53,7 @@ function Video({ item, active }) {
         href={`https://www.youtube.com/watch?v=${item.youtube}`}
         target="_blank"
         rel="noreferrer"
-        aria-label={`${t('media.watch')}. ${l(item.title)}`}
+        aria-label={`${t('media.watch')}: ${l(item.name)}`}
       >
         <img src={previewUrl(item)} alt="" />
         <span className="media__watch">
@@ -66,20 +78,20 @@ function Video({ item, active }) {
         }}
         onPause={() => setVideoPlaying(false)}
         onEnded={() => setVideoPlaying(false)}
-        onError={() => setFailed(true)}
+        onError={fail}
       >
         <source src={videoUrl(item, 'av1')} type='video/mp4; codecs="av01.0.05M.08, opus"' />
         <source
           src={videoUrl(item, 'h264')}
           type='video/mp4; codecs="avc1.640020, mp4a.40.2"'
-          onError={() => setFailed(true)}
+          onError={fail}
         />
       </video>
       {!started && (
         <button
           type="button"
           className="media__start"
-          aria-label={`${t('media.play')}. ${l(item.title)}`}
+          aria-label={`${t('media.play')}: ${l(item.name)}`}
           onClick={play}
         >
           <span className="media__play">
@@ -116,6 +128,7 @@ export default function MediaCarousel({ media, index, onChange, active }) {
           <img key={item.file} src={previewUrl(item)} alt={l(item.alt)} loading="lazy" />
         )}
       </div>
+      {item.type === 'video' && <p className="media__caption">{l(item.name)}</p>}
       {media.length > 1 && (
         <CarouselControls
           index={index}

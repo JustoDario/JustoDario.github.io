@@ -1,7 +1,9 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
+import { useFrame, useThree } from '@react-three/fiber'
 import { Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
 import { NO_SHADOW_LAYER } from './rail.js'
+import { STATION_SPACING } from './stations.js'
 
 let haloTexture = null
 
@@ -32,23 +34,48 @@ export function Halo({ radius = 2.6 }) {
   )
 }
 
-const DUST_PER_METRE = 8
+const DUST_PER_TILE = 48
+const TILES_EACH_SIDE = 2
 
-// Very faint dust: gives the camera something to move past, so the empty space
-// reads as having depth.
-export function Dust({ center, length }) {
+// Very faint dust: gives the camera something to move past, so the empty space reads
+// as having depth. It repeats every station, so that the camera can be moved by whole
+// stations without any visible change, and the tiles simply follow it along.
+export function Dust() {
   const reduced = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, [])
+  const camera = useThree((state) => state.camera)
+  const group = useRef()
+  const tile = useRef()
+
+  useEffect(() => {
+    const copies = []
+    for (let i = -TILES_EACH_SIDE; i <= TILES_EACH_SIDE; i++) {
+      if (i === 0) continue
+      const copy = tile.current.clone(false) // shares geometry and material
+      copy.position.x = i * STATION_SPACING
+      group.current.add(copy)
+      copies.push(copy)
+    }
+    return () => copies.forEach((copy) => copy.removeFromParent())
+  }, [])
+
+  useFrame(() => {
+    group.current.position.x = Math.round(camera.position.x / STATION_SPACING) * STATION_SPACING
+  })
+
   return (
-    <Sparkles
-      layers={NO_SHADOW_LAYER}
-      count={Math.round(length * DUST_PER_METRE)}
-      position={[center, 1.3, -1.2]}
-      scale={[length + 12, 3, 7]}
-      size={1.3}
-      speed={reduced ? 0 : 0.12}
-      opacity={0.35}
-      noise={0.6}
-      color="#a9b9de"
-    />
+    <group ref={group}>
+      <Sparkles
+        ref={tile}
+        layers={NO_SHADOW_LAYER}
+        count={DUST_PER_TILE}
+        position={[0, 1.3, -1.2]}
+        scale={[STATION_SPACING, 3, 7]}
+        size={1.3}
+        speed={reduced ? 0 : 0.12}
+        opacity={0.35}
+        noise={0.6}
+        color="#a9b9de"
+      />
+    </group>
   )
 }

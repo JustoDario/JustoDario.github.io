@@ -17,7 +17,7 @@ export default function ModelStatus() {
   if (sceneUnavailable) {
     return station.model ? (
       <div className="model-status" role="status" data-testid="scene-status">
-        <p>{t('scene.unavailable')}</p>
+        <p>{t(`scene.${sceneUnavailable}`)}</p>
       </div>
     ) : null
   }

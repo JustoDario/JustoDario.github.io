@@ -12,9 +12,10 @@ export default class ErrorBoundary extends Component {
 
   componentDidCatch(error) {
     console.warn('3D scene unavailable:', error.message)
-    reportSceneUnavailable()
     // A page loaded during the browser's WebGL block starts here: it can still recover.
-    if (/WebGL/.test(error.message)) {
+    const webgl = /WebGL/.test(error.message)
+    reportSceneUnavailable(webgl ? 'paused' : 'failed')
+    if (webgl) {
       this.stopWatching = watchForWebGL(() => {
         reportContextRestored()
         this.setState({ failed: false })

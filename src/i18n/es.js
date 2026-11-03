@@ -1,5 +1,5 @@
 export const es = {
-  'meta.title': 'Justo Dario Valverde Torres | Estudiante de Ingeniería Robótica Software',
+  'meta.title': 'Justo Dario Valverde Torres | Estudiante de Ingeniería de Robótica Software',
   'nav.main': 'Navegación principal',
   'nav.about': 'Sobre mí',
   'nav.experience': 'Experiencia',
@@ -31,7 +31,8 @@ export const es = {
   'model.retry': 'Reintentar',
   'model.reload': 'Recargar la página',
   'media.watch': 'Ver en YouTube',
-  'scene.unavailable': 'El navegador ha pausado los gráficos 3D. Los robots deberían volver solos en unos dos minutos; si no, reinicia el navegador.',
+  'scene.paused': 'El navegador ha pausado los gráficos 3D. Los robots deberían volver solos en unos dos minutos; si no, reinicia el navegador.',
+  'scene.failed': 'No se pudo cargar la escena 3D. Recargar la página puede solucionarlo.',
   'contact.intro': 'Escríbeme sobre robótica, oportunidades o cualquier cosa que estés construyendo.',
   'contact.send': 'Enviar correo',
   'contact.copy': 'Copiar correo',

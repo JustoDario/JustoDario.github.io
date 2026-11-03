@@ -12,6 +12,10 @@ const SETTLE_MS = 300
 // the next section, as a share of the viewport, so a border never makes it dither.
 const STATION_MARGIN = 0.12
 
+// A neighbouring section counts as approached once 10% of it shows: the top of the
+// next one is above this share of the viewport height.
+const APPROACH_SHARE = 0.9
+
 // A reload lands at the top or on the deep link, never on a stale scroll position
 // that would disagree with the initial station.
 window.history.scrollRestoration = 'manual'
@@ -40,6 +44,7 @@ export function NavigationProvider({ children }) {
   const [state, setState] = useState(() => applyLink({ entries: {}, media: {} }, readLink()))
   const [activeSection, setActiveSection] = useState(null)
   const [stationSection, setStationSection] = useState(() => readLink()?.id ?? 'home')
+  const [approachingSection, setApproachingSection] = useState(null)
   const [videoPlaying, setVideoPlaying] = useState(false)
 
   useEffect(() => {
@@ -69,6 +74,15 @@ export function NavigationProvider({ children }) {
       if (!section) return
 
       anchorTop = section.getBoundingClientRect().top
+
+      // Which section the scroll is heading for, once the next one starts to show.
+      const index = sections.indexOf(section)
+      const nextTop = sections[index + 1]?.getBoundingClientRect().top ?? Infinity
+      const previousBottom = sections[index - 1]?.getBoundingClientRect().bottom ?? -Infinity
+      const height = window.innerHeight
+      if (nextTop < height * APPROACH_SHARE) setApproachingSection(sections[index + 1].id)
+      else if (previousBottom > height * (1 - APPROACH_SHARE)) setApproachingSection(sections[index - 1].id)
+      else setApproachingSection(null)
       if (section !== current) {
         current = section
         settled = null
@@ -120,7 +134,10 @@ export function NavigationProvider({ children }) {
     // Sections are at least 100vh tall, so a new viewport height moves every section
     // below the first. Keep the current one where it was.
     const onResize = () => {
-      if (current) {
+      if (destination) {
+        // Moving the page would cancel a scroll under way: finish it instead.
+        document.getElementById(destination)?.scrollIntoView({ behavior: 'instant', block: 'start' })
+      } else if (current) {
         const shift = current.getBoundingClientRect().top - anchorTop
         window.scrollBy({ top: shift, behavior: 'instant' })
       }
@@ -157,6 +174,7 @@ export function NavigationProvider({ children }) {
     () => ({
       activeSection,
       station: stationFor(stationSection, state.entries[stationSection] ?? 0),
+      approaching: approachingSection && stationFor(approachingSection, state.entries[approachingSection] ?? 0),
       videoPlaying,
       setVideoPlaying,
       entryIndex: (sectionId) => state.entries[sectionId] ?? 0,
@@ -166,7 +184,7 @@ export function NavigationProvider({ children }) {
       setMediaIndex: (entryId, index) =>
         setState((current) => ({ ...current, media: { ...current.media, [entryId]: index } })),
     }),
-    [activeSection, stationSection, videoPlaying, state],
+    [activeSection, stationSection, approachingSection, videoPlaying, state],
   )
 
   return <NavigationContext.Provider value={value}>{children}</NavigationContext.Provider>
