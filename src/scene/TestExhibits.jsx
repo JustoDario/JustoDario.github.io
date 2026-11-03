@@ -5,10 +5,9 @@ import { assetUrl } from '../lib/assetUrl.js'
 import { sanitize } from './modelLifecycle.js'
 import { Halo } from './Atmosphere.jsx'
 import BakedShadow from './BakedShadow.jsx'
-import { TEST_STATIONS } from './rail.js'
+import { STATIONS } from './stations.js'
 
-// Hito 1 only: real Coco and neutral shapes to measure the worst case early.
-// The real station and model components replace this in Hitos 4 and 5.
+// Provisional until Hito 5: real Coco, neutral shapes for the other five robots.
 const COCO_SCALE = 2.1
 const COCO_LIFT = 0.258 // lowest point of the model, from its glTF bounds
 const COCO_CENTER_X = 0.028
@@ -51,20 +50,22 @@ function NeutralShapes({ x }) {
 }
 
 // Shadows are baked after their exhibit mounts, so each sits inside the same
-// Suspense boundary and renders after it.
+// Suspense boundary and renders after it. Empty stations stay empty, without a halo.
 export default function TestExhibits() {
-  const [cocoX, shapesX] = TEST_STATIONS
-  return (
-    <>
-      <Halo x={cocoX} />
-      <Suspense fallback={null}>
-        <Coco x={cocoX} />
-        <BakedShadow x={cocoX} />
-      </Suspense>
-
-      <Halo x={shapesX} />
-      <NeutralShapes x={shapesX} />
-      <BakedShadow x={shapesX} />
-    </>
-  )
+  return STATIONS.filter((station) => station.model).map(({ id, x, model }) => (
+    <group key={id}>
+      <Halo x={x} />
+      {model === 'coco1' ? (
+        <Suspense fallback={null}>
+          <Coco x={x} />
+          <BakedShadow x={x} />
+        </Suspense>
+      ) : (
+        <>
+          <NeutralShapes x={x} />
+          <BakedShadow x={x} />
+        </>
+      )}
+    </group>
+  ))
 }

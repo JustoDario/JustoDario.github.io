@@ -11,14 +11,13 @@
   --ink-soft: #46526b;
   --accent: #34498f;
   --accent-ink: #ffffff;
-  --panel: rgba(255, 255, 255, 0.82);
+  --panel: rgba(255, 255, 255, 0.92);
   --panel-border: rgba(143, 163, 208, 0.45);
   --nav-height: 64px;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--nav-height) + 16px);
 }
 
 body {
@@ -65,9 +64,8 @@ a {
   justify-content: space-between;
   gap: 1rem;
   padding: 0 clamp(1rem, 3vw, 2.5rem);
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.9);
   border-bottom: 1px solid var(--panel-border);
-  backdrop-filter: blur(12px);
 }
 
 .navbar__brand {
@@ -154,7 +152,6 @@ h2 {
   border: 1px solid var(--panel-border);
   border-radius: 18px;
   box-shadow: 0 12px 40px rgba(60, 76, 120, 0.14);
-  backdrop-filter: blur(14px);
 }
 
 .panel--prose {
@@ -240,9 +237,145 @@ h1 {
 }
 
 /* Entries ------------------------------------------------------------------ */
-.entries {
+/* Top-aligned, so the controls stay put when entries of different heights swap. */
+.section--carousel {
+  align-items: flex-start;
+}
+
+/* Level with the section title, which leaves more of the panel above the fold. */
+.section--carousel .section__content {
+  position: relative;
+}
+
+.main-carousel > .carousel-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.main-carousel,
+.media {
   display: grid;
-  gap: 1.5rem;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.main-carousel {
+  touch-action: pan-y pinch-zoom;
+}
+
+.media {
+  width: 100%;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.media .carousel-controls {
+  justify-content: center;
+}
+
+.carousel-controls__button {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--panel-border);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.carousel-controls__button:not([aria-disabled='true']):hover {
+  background: #fff;
+}
+
+.carousel-controls__button[aria-disabled='true'] {
+  color: #7c869c;
+  cursor: default;
+}
+
+.carousel-controls__position {
+  min-width: 3.5rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+}
+
+/* A fixed frame: changing medium never moves the controls below it. */
+.media__frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 45vh;
+  overflow: hidden;
+  background: rgba(28, 36, 54, 0.08);
+  border-radius: 10px;
+}
+
+.media__frame > img,
+.media__thumbnail img,
+.media__video iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
+
+.media__frame > img {
+  object-fit: contain;
+}
+
+/* The thumbnail stays under the player, so nothing flashes while YouTube loads. */
+.media__video {
+  position: relative;
+  height: 100%;
+}
+
+.media__video iframe {
+  position: absolute;
+  inset: 0;
+}
+
+.media__thumbnail {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: block;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.media__thumbnail img {
+  object-fit: cover;
+}
+
+.media__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.9rem;
+  color: #fff;
+  background: rgba(28, 36, 54, 0.78);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: background 0.15s;
+}
+
+.media__thumbnail:hover .media__play {
+  background: var(--accent);
 }
 
 .entry {
@@ -272,36 +405,6 @@ h1 {
   padding-left: 1.2rem;
 }
 
-.entry__media {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 0.6rem;
-}
-
-.entry__media img {
-  width: 100%;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.entry__video {
-  height: 110px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.6rem;
-  font-size: 0.82rem;
-  line-height: 1.3;
-  background: rgba(52, 73, 143, 0.08);
-  border-radius: 8px;
-}
-
 /* Skills ------------------------------------------------------------------- */
 .skills {
   margin: 0;
@@ -321,15 +424,12 @@ h1 {
   background: var(--panel);
   border: 1px solid var(--panel-border);
   border-radius: 16px;
-  backdrop-filter: blur(14px);
 }
 
 /* Some logos have an opaque white or coloured background: a uniform tile keeps them consistent. */
 .skill__logo {
   width: 96px;
   height: 72px;
-  display: grid;
-  place-items: center;
   padding: 0.4rem;
   box-sizing: border-box;
   background: #fff;
@@ -337,8 +437,8 @@ h1 {
 }
 
 .skill__logo img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
@@ -361,21 +461,6 @@ h1 {
 }
 
 /* Debug only -------------------------------------------------------------- */
-.travel-test {
-  position: fixed;
-  z-index: 10;
-  left: 50%;
-  bottom: 1.5rem;
-  transform: translateX(-50%);
-  padding: 0.6rem 1.1rem;
-  font: inherit;
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid var(--panel-border);
-  border-radius: 999px;
-  cursor: pointer;
-}
-
 .debug-panel {
   position: fixed;
   z-index: 10;

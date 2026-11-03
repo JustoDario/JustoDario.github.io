@@ -49,6 +49,24 @@ export const ExternalIcon = () => (
   </Icon>
 )
 
+export const PlayIcon = () => (
+  <Icon fill="currentColor">
+    <path d="M8 5.2v13.6a.6.6 0 0 0 .92.5l10.6-6.8a.6.6 0 0 0 0-1L8.92 4.7a.6.6 0 0 0-.92.5Z" />
+  </Icon>
+)
+
+export const ChevronLeftIcon = () => (
+  <Icon>
+    <path d="m15 5-7 7 7 7" />
+  </Icon>
+)
+
+export const ChevronRightIcon = () => (
+  <Icon>
+    <path d="m9 5 7 7-7 7" />
+  </Icon>
+)
+
 export const MenuIcon = () => (
   <Icon>
     <path d="M4 7h16M4 12h16M4 17h16" />

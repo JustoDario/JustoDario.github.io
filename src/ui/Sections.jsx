@@ -4,10 +4,11 @@ import { useLanguage } from '../i18n/LanguageProvider.jsx'
 import { assetUrl } from '../lib/assetUrl.js'
 import { CopyIcon, GitHubIcon, LinkedInIcon, MailIcon } from './icons.jsx'
 
-export function Section({ id, children, wide = false }) {
+export function Section({ id, children, wide = false, carousel = false }) {
   const { t } = useLanguage()
+  const className = `section${wide ? ' section--wide' : ''}${carousel ? ' section--carousel' : ''}`
   return (
-    <section id={id} className={`section${wide ? ' section--wide' : ''}`} aria-labelledby={`${id}-title`}>
+    <section id={id} className={className} aria-labelledby={`${id}-title`}>
       <div className="section__content">
         <h2 id={`${id}-title`}>{t(`section.${id}`)}</h2>
         {children}

@@ -1,16 +1,12 @@
 import { useLanguage } from '../i18n/LanguageProvider.jsx'
-import { assetUrl } from '../lib/assetUrl.js'
+import { useNavigation } from '../state/NavigationProvider.jsx'
 import { ExternalIcon } from './icons.jsx'
+import MediaCarousel from './MediaCarousel.jsx'
 
-// All the information of one entry. The media list here is plain and temporary:
-// the main and media carousels replace it in Hito 3.
-const watchUrl = (embedUrl) => {
-  const url = new URL(embedUrl)
-  return `https://www.youtube.com/watch?v=${url.pathname.split('/').pop()}`
-}
-
-export default function EntryPanel({ entry }) {
+// All the information of one entry. Every field except the title is optional.
+export default function InfoPanel({ entry, active }) {
   const { l } = useLanguage()
+  const { mediaIndex, setMediaIndex } = useNavigation()
   return (
     <article className="panel entry">
       <header>
@@ -22,7 +18,15 @@ export default function EntryPanel({ entry }) {
         )}
       </header>
 
-      <p>{l(entry.description)}</p>
+      <MediaCarousel
+        media={entry.media ?? []}
+        index={mediaIndex(entry.id)}
+        onChange={(index) => setMediaIndex(entry.id, index)}
+        active={active}
+      />
+
+      {entry.description && <p>{l(entry.description)}</p>}
+      {entry.research && <p>{l(entry.research)}</p>}
 
       {entry.highlights && (
         <ul className="entry__highlights">
@@ -31,28 +35,11 @@ export default function EntryPanel({ entry }) {
           ))}
         </ul>
       )}
-      {entry.research && <p>{l(entry.research)}</p>}
 
       {entry.link && (
         <a className="button" href={entry.link.url} target="_blank" rel="noreferrer">
           {l(entry.link.label)} <ExternalIcon />
         </a>
-      )}
-
-      {entry.media.length > 0 && (
-        <ul className="entry__media">
-          {entry.media.map((item) => (
-            <li key={item.url ?? item.file}>
-              {item.type === 'video' ? (
-                <a className="entry__video" href={watchUrl(item.url)} target="_blank" rel="noreferrer">
-                  {l(item.title)} <ExternalIcon />
-                </a>
-              ) : (
-                <img src={assetUrl(`media/${item.file}`)} alt={l(item.alt)} loading="lazy" />
-              )}
-            </li>
-          ))}
-        </ul>
       )}
 
       {entry.credit && (

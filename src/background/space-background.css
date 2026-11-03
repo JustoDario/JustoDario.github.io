@@ -147,6 +147,10 @@ html {
   animation-delay: calc(-20s / var(--motion-speed));
 }
 
+.space-bg.is-paused * {
+  animation-play-state: paused;
+}
+
 @keyframes light-a {
   0%   { transform: translate3d(-3vw, 2vh, 0) scale(1);    opacity: 0.85; }
   50%  { transform: translate3d(2vw, -2vh, 0) scale(1.06); opacity: 1;    }

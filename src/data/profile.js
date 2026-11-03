@@ -27,7 +27,7 @@ export const profile = {
       'Hola, soy Justo, estudiante de Ingeniería Robótica Software y apasionado por construir robots reales y aprender cómo funcionan los sistemas autónomos en la práctica. Siempre busco oportunidades prácticas en mapping, percepción y control de robots.',
     ),
     L(
-      'I currently lead the SCARA project at RoboTech (URJC Student Association), where my team and I aim to build an autonomous chess-playing robot; it currently plays three in line. I have also been designing and building a quadruped robot from scratch as a personal project.',
+      'I currently lead the SCARA project at RoboTech (URJC Student Association), where my team and I aim to build an autonomous chess-playing robot; it currently plays tic-tac-toe. I have also been designing and building a quadruped robot from scratch as a personal project.',
       'Actualmente lidero el proyecto SCARA en RoboTech (asociación de estudiantes de la URJC), donde mi equipo y yo buscamos construir un robot capaz de jugar al ajedrez de forma autónoma; de momento juega al 3 en raya. Además, diseño y construyo un robot cuadrúpedo desde cero como proyecto personal.',
     ),
     L(

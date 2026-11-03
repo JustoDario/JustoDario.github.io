@@ -1,14 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
+import * as THREE from 'three'
+import { LOOK_AT_HEIGHT } from './rail.js'
 
 export const debugEnabled = new URLSearchParams(window.location.search).has('debug')
 
-const stats = { fps: 0, worstMs: 0, calls: 0, triangles: 0, geometries: 0, textures: 0, programs: 0 }
+const focus = new THREE.Vector3()
+const stats = { railX: 0, focusX: 0, fps: 0, worstMs: 0, calls: 0, triangles: 0, geometries: 0, textures: 0, programs: 0 }
 
 // Inside the Canvas. Resets renderer.info once per frame, so passes rendered
 // before the main one (shadow bakes, for example) are counted too.
 export function DebugProbe() {
   const gl = useThree((state) => state.gl)
+  const camera = useThree((state) => state.camera)
   const window_ = useRef({ start: 0, frames: 0, worst: 0, last: 0 })
 
   useEffect(() => {
@@ -32,6 +36,11 @@ export function DebugProbe() {
       w.frames = 0
       w.worst = 0
     }
+    // Where the rail's centre lands on screen, in -1..1: shows the view offset.
+    focus.set(camera.position.x, LOOK_AT_HEIGHT, 0).project(camera)
+    stats.railX = camera.position.x
+    stats.focusX = focus.x
+    window.__rail = { x: stats.railX, focusX: stats.focusX }
     stats.calls = gl.info.render.calls
     stats.triangles = gl.info.render.triangles
     stats.geometries = gl.info.memory.geometries
@@ -53,7 +62,8 @@ export function DebugPanel() {
 
   return (
     <pre className="debug-panel" data-testid="debug-panel">
-      {`FPS        ${shown.fps.toFixed(0)}
+      {`rail x     ${shown.railX.toFixed(1)}
+FPS        ${shown.fps.toFixed(0)}
 worst      ${shown.worstMs.toFixed(0)} ms
 draw calls ${shown.calls}
 triangles  ${(shown.triangles / 1000).toFixed(0)}k

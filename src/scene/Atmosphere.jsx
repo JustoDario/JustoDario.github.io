@@ -3,6 +3,8 @@ import { Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
 import { NO_SHADOW_LAYER } from './rail.js'
 
+let haloTexture = null
+
 function makeHaloTexture() {
   const size = 256
   const canvas = document.createElement('canvas')
@@ -21,14 +23,16 @@ function makeHaloTexture() {
 
 // Pool of light on the invisible floor under an exhibit.
 export function Halo({ x, radius = 2.6 }) {
-  const texture = useMemo(makeHaloTexture, [])
+  haloTexture ??= makeHaloTexture() // one for all the stations
   return (
     <mesh position={[x, 0.001, 0]} rotation={[-Math.PI / 2, 0, 0]} layers={NO_SHADOW_LAYER} renderOrder={-1}>
       <planeGeometry args={[radius * 2, radius * 2]} />
-      <meshBasicMaterial map={texture} transparent depthWrite={false} toneMapped={false} />
+      <meshBasicMaterial map={haloTexture} transparent depthWrite={false} toneMapped={false} />
     </mesh>
   )
 }
+
+const DUST_PER_METRE = 8
 
 // Very faint dust: gives the camera something to move past, so the empty space
 // reads as having depth.
@@ -37,7 +41,7 @@ export function Dust({ center, length }) {
   return (
     <Sparkles
       layers={NO_SHADOW_LAYER}
-      count={140}
+      count={Math.round(length * DUST_PER_METRE)}
       position={[center, 1.3, -1.2]}
       scale={[length + 12, 3, 7]}
       size={1.3}

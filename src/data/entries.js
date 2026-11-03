@@ -12,7 +12,7 @@ export const experience = [
     organization: 'Universidad Rey Juan Carlos',
     dates: L('Jan 2025 – Present', 'Ene 2025 – Actualidad'),
     description: L(
-      'The SCARA Project aims to combine advanced control systems with AI-based decision making so that our robot can play chess autonomously. It currently plays three in line, as shown in the demo.',
+      'The SCARA Project aims to combine advanced control systems with AI-based decision making so that our robot can play chess autonomously. It currently plays tic-tac-toe, as shown in the demo.',
       'El proyecto SCARA busca combinar sistemas avanzados de control con toma de decisiones basada en inteligencia artificial para que nuestro robot juegue al ajedrez de forma autónoma. De momento juega al 3 en raya, como se ve en la demo.',
     ),
     link: {
@@ -68,16 +68,9 @@ export const projects = [
       '12-DOF servo-actuated quadruped robot developed in ROS 2. A personal project that I design and build from scratch.',
       'Robot cuadrúpedo de 12 grados de libertad, accionado por servomotores y desarrollado con ROS 2. Un proyecto personal que diseño y construyo desde cero.',
     ),
-    highlights: [
-      L('Physical quadruped robot', 'Robot cuadrúpedo físico'),
-      L('12 degrees of freedom', '12 grados de libertad'),
-      L('Servomotor actuation', 'Accionamiento por servomotores'),
-      L('Developed in ROS 2', 'Desarrollado con ROS 2'),
-      L('Designed and built from scratch', 'Diseñado y construido desde cero'),
-    ],
     research: L(
       'Associated research: "A Reactive Single-Step Horizon Control Pipeline for Robust Quadruped Locomotion under Actuation Uncertainty". First author, submitted to IEEE ICRA 2027 (decision pending).',
-      'Línea de investigación: "A Reactive Single-Step Horizon Control Pipeline for Robust Quadruped Locomotion under Actuation Uncertainty". Primer autor, enviado a IEEE ICRA 2027 (pendiente de decisión).',
+      'Investigación asociada: "A Reactive Single-Step Horizon Control Pipeline for Robust Quadruped Locomotion under Actuation Uncertainty". Primer autor, enviado a IEEE ICRA 2027 (pendiente de decisión).',
     ),
     media: [
       video('https://www.youtube.com/embed/cN7WDKmJhnM', 'Quadruped Locomotion under Actuation Uncertainty - ICRA 2027 Submission'),
@@ -90,8 +83,8 @@ export const projects = [
       ),
       image(
         'cocov2_summit1.jpg',
-        'Justo with his quadruped robots at a stand at the Europe Embodied summit',
-        'Justo junto a sus robots cuadrúpedos en un stand de la cumbre Europe Embodied',
+        'Justo with the quadruped robots at an exhibition stand, START Summit banners behind',
+        'Justo junto a los robots cuadrúpedos en un stand, con carteles de START Summit detrás',
       ),
       image(
         'cocov2_photo2.jpg',
@@ -100,8 +93,8 @@ export const projects = [
       ),
       image(
         'coco_summit.jpg',
-        'Coco robots on a stand table under purple light at the Europe Embodied summit',
-        'Robots Coco sobre la mesa de un stand con luz morada en la cumbre Europe Embodied',
+        'Coco robots on a stand table under purple light, a START Munich banner behind',
+        'Robots Coco sobre la mesa de un stand con luz morada, con un cartel de START Munich detrás',
       ),
       image(
         'cocov1.jpg',
@@ -135,8 +128,8 @@ export const projects = [
       ),
       image(
         'rc3.jpg',
-        'Car on a tiled floor with a bright light switched on',
-        'Coche sobre un suelo de baldosas con una luz brillante encendida',
+        'Car with a bright light switched on, next to a joystick controller on a tiled floor',
+        'Coche con una luz brillante encendida, junto a un mando con joystick sobre un suelo de baldosas',
       ),
       video('https://www.youtube.com/embed/l9EiiZqZ7Z4', 'Autonomous Car - Esp32 camera web server video'),
     ],
@@ -221,8 +214,8 @@ export const hackathons = [
     media: [
       image(
         'hackatonaiayo.jpg',
-        'Justo speaking at a lectern in front of a banner',
-        'Justo hablando junto a un atril delante de un cartel',
+        'Justo speaking next to a desk in front of a banner',
+        'Justo hablando junto a una mesa delante de un cartel',
       ),
       image(
         'atari_aia.jpg',
@@ -265,7 +258,7 @@ export const hackathons = [
     title: L('Openred Hackathon', 'Openred Hackathon'),
     description: L(
       'Gamma radiation data collection and upload to a database.',
-      'Lectura y recopilación de datos de radiación gamma y su subida a una base de datos.',
+      'Recopilación de datos de radiación gamma y su subida a una base de datos.',
     ),
     media: [
       image(
@@ -283,7 +276,7 @@ export const hackathons = [
   {
     id: 'qubic',
     model: null,
-    title: L('Qubic and Vottun Hackathon', 'Qubic and Vottun Hackathon'),
+    title: L('Qubic and Vottun Hackathon', 'Hackathon de Qubic y Vottun'),
     description: L('Crypto QR Transfers.', 'Transferencias de criptomonedas mediante códigos QR.'),
     media: [
       image(
