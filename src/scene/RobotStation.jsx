@@ -26,7 +26,7 @@ export default function RobotStation({ station, warm, layout }) {
   return (
     <group ref={group} position={place()}>
       <Halo />
-      <Model model={model} warm={warm}>
+      <Model model={model} warm={warm} isShown={() => layout.current.has(station.id)}>
         <BakedShadow />
         {/* Thin legs vanish in the blur of the main shadow, which makes a robot look
             like it floats. This one only sees what is close to the floor. */}

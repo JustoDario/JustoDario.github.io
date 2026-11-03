@@ -18,11 +18,6 @@ function Video({ item, active }) {
   const [started, setStarted] = useState(false)
   const [failed, setFailed] = useState(false)
 
-  const fail = () => {
-    setFailed(true)
-    setVideoPlaying(false) // no pause event comes from a removed element
-  }
-
   useEffect(() => {
     if (!active) return undefined
     const element = video.current
@@ -34,7 +29,23 @@ function Video({ item, active }) {
     return () => element?.pause() // leaving the section stops the video
   }, [active, item.autoplay])
 
-  useEffect(() => () => setVideoPlaying(false), [setVideoPlaying])
+  // The old page of a turn unmounts too, and it must not speak for the new one.
+  const playing = useRef(false)
+  const notePlaying = (value) => {
+    playing.current = value
+    setVideoPlaying(value)
+  }
+  useEffect(
+    () => () => {
+      if (playing.current) setVideoPlaying(false)
+    },
+    [setVideoPlaying],
+  )
+
+  const fail = () => {
+    setFailed(true)
+    notePlaying(false) // no pause event comes from a removed element
+  }
 
   const play = (event) => {
     if (active) {
@@ -74,10 +85,10 @@ function Video({ item, active }) {
         aria-label={l(item.title)}
         onPlay={() => {
           setStarted(true)
-          setVideoPlaying(true)
+          notePlaying(true)
         }}
-        onPause={() => setVideoPlaying(false)}
-        onEnded={() => setVideoPlaying(false)}
+        onPause={() => notePlaying(false)}
+        onEnded={() => notePlaying(false)}
         onError={fail}
       >
         <source src={videoUrl(item, 'av1')} type='video/mp4; codecs="av01.0.05M.08, opus"' />

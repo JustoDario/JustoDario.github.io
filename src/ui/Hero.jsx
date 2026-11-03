@@ -1,7 +1,7 @@
 import { profile } from '../data/profile.js'
 import { useLanguage } from '../i18n/LanguageProvider.jsx'
 import { assetUrl } from '../lib/assetUrl.js'
-import { GitHubIcon, LinkedInIcon } from './icons.jsx'
+import { ChevronDownIcon, GitHubIcon, LinkedInIcon } from './icons.jsx'
 
 // Coco stands on the left in the 3D scene; the text sits on the right.
 export default function Hero() {
@@ -9,8 +9,10 @@ export default function Hero() {
   return (
     <section id="home" className="section hero">
       <div className="hero__content">
-        <img className="hero__photo" src={assetUrl(`media/${profile.photo.file}`)} alt={l(profile.photo.alt)} />
-        <h1>{profile.name}</h1>
+        <div className="hero__intro">
+          <img className="hero__photo" src={assetUrl(`media/${profile.photo.file}`)} alt={l(profile.photo.alt)} />
+          <h1>{profile.name}</h1>
+        </div>
         <p className="hero__subtitle">{l(profile.subtitle)}</p>
         <p className="hero__tagline">{l(profile.tagline)}</p>
         <div className="actions">
@@ -28,6 +30,9 @@ export default function Hero() {
           </a>
         </div>
       </div>
+      <a className="hero__next" href="#about" aria-label={t('hero.next')}>
+        <ChevronDownIcon />
+      </a>
     </section>
   )
 }

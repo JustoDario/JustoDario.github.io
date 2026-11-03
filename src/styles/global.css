@@ -160,10 +160,16 @@ h2 {
 }
 
 /* Hero --------------------------------------------------------------------- */
+.hero__intro {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .hero__photo {
-  width: 132px;
-  height: 132px;
-  margin-bottom: 1.25rem;
+  flex: none;
+  width: 112px;
+  height: 112px;
   object-fit: cover;
   object-position: center 20%;
   border-radius: 50%;
@@ -172,21 +178,80 @@ h2 {
 }
 
 h1 {
-  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  font-size: clamp(2rem, 3.4vw, 3.1rem);
   line-height: 1.08;
   font-weight: 800;
   letter-spacing: -0.02em;
 }
 
 .hero__subtitle {
-  margin-top: 1rem;
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
   font-weight: 600;
+  line-height: 1.4;
+  border-top: 2px solid var(--accent);
 }
 
 .hero__tagline {
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
   color: var(--ink-soft);
+}
+
+.hero__next {
+  position: absolute;
+  left: 50%;
+  bottom: 1.5rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-left: -1.375rem;
+  font-size: 1.4rem;
+  color: var(--accent);
+  border-radius: 50%;
+}
+
+.hero__next:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__intro,
+  .hero__subtitle,
+  .hero__tagline,
+  .hero .actions {
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+
+  .hero__subtitle {
+    animation-delay: 0.12s;
+  }
+
+  .hero__tagline {
+    animation-delay: 0.22s;
+  }
+
+  .hero .actions {
+    animation-delay: 0.32s;
+  }
+
+  .hero__next {
+    animation: rise 0.8s 0.6s backwards, nudge 2.4s 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@keyframes nudge {
+  50% {
+    transform: translateY(6px);
+  }
 }
 
 .actions {
@@ -237,6 +302,40 @@ h1 {
 }
 
 /* Entries ------------------------------------------------------------------ */
+/* Changing entry: the old page fades out on top while the new one rises from below. */
+.pages {
+  position: relative;
+}
+
+.page--old {
+  position: absolute;
+  z-index: 1;
+  inset: 0 0 auto;
+  pointer-events: none;
+}
+
+.pages--changing .page--old {
+  animation: page-fade 0.32s ease-out forwards;
+}
+
+.pages--changing .page--current {
+  animation: page-rise 0.6s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+}
+
+@keyframes page-fade {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes page-rise {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+}
+
 /* Top-aligned, so the controls stay put when entries of different heights swap. */
 .section--carousel {
   align-items: flex-start;
@@ -465,22 +564,151 @@ h1 {
   object-fit: contain;
 }
 
-/* Contact ------------------------------------------------------------------ */
-.contact {
+/* Contact: a terminal, with real buttons. ------------------------------------ */
+.terminal {
+  padding: 0;
+  overflow: hidden;
+  color: #dfe6f5;
+  background: #141a2c;
+  border-color: #2c3550;
+}
+
+.terminal__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1rem;
+  background: #1f2740;
+}
+
+.terminal__bar span {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: #47526f;
+}
+
+.terminal__bar code {
+  margin-left: 0.6rem;
+  font: 0.82rem ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  color: #aab5cf;
+}
+
+.terminal__body {
+  padding: clamp(1.25rem, 2.4vw, 2rem);
+}
+
+.terminal__screen {
   display: grid;
-  gap: 0.5rem;
+  justify-items: start;
+  gap: 0.35rem;
+  font: 0.98rem/1.6 ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+.terminal__command::before {
+  content: '$ ';
+  color: #7ee0a8;
 }
 
 .contact__email {
-  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  font-size: clamp(1rem, 2vw, 1.3rem);
   font-weight: 700;
+  color: #fff;
   overflow-wrap: anywhere;
+}
+
+.terminal__line--dim {
+  color: #8d98b4;
+}
+
+.terminal__line--comment {
+  color: #aab5cf;
+}
+
+.terminal .actions {
+  margin-top: 1.5rem;
+}
+
+.terminal .button:not(.button--primary) {
+  color: #dfe6f5;
+  background: transparent;
+  border-color: #6f7c9e;
+}
+
+.terminal .button:not(.button--primary):hover {
+  background: #1f2740;
+}
+
+.terminal .button--primary {
+  background: #4d68c4;
+}
+
+.terminal .button--primary:hover {
+  background: #5d78d6;
+}
+
+.terminal .icon-link {
+  color: #dfe6f5;
+}
+
+.terminal .icon-link:hover {
+  color: #7ee0a8;
+}
+
+.terminal :focus-visible {
+  outline-color: #fff;
 }
 
 .contact__status {
   min-height: 1.6em;
-  font-size: 0.9rem;
-  color: var(--ink-soft);
+  margin-top: 1rem;
+  font: 0.9rem/1.6 ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  color: #dfe6f5;
+}
+
+.terminal__ok {
+  color: #7ee0a8;
+}
+
+.terminal__warn {
+  color: #f0c674;
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 961px) {
+  .terminal__line--typed {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /* The prompt counts as two more characters. */
+  .terminal__command {
+    --prompt: 2;
+  }
+
+  .is-reached .terminal__line--typed {
+    animation: type 0.9s steps(var(--chars)) var(--delay) forwards;
+  }
+
+  .terminal__line--late {
+    opacity: 0;
+  }
+
+  .is-reached .terminal__line--late {
+    animation: appear 0.3s 2s forwards;
+  }
+}
+
+@keyframes type {
+  to {
+    width: calc((var(--chars) + var(--prompt, 0)) * 1ch);
+  }
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+  }
 }
 
 /* Model that could not load ------------------------------------------------ */

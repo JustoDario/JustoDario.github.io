@@ -102,7 +102,7 @@ export default function BakedShadow({ size = 5, far = 1.6, blur = 2.2, opacity =
     blurPass(blur)
     blurPass(blur * 0.4)
     gl.setRenderTarget(previousTarget)
-  })
+  }, -1) // before the robot's own animation: the shadow is of its final pose
 
   // The bake camera looks up with +X right and +Z up, so the plane is mirrored
   // in Y to line the texture up with the floor. DoubleSide compensates for it.

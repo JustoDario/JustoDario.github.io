@@ -39,6 +39,12 @@ class ModelBoundary extends Component {
   }
 }
 
+// Coming on show, a robot turns towards its pose and grows slightly. Transforms only:
+// materials are shared with the other station of the same model.
+const ENTRANCE_MS = 1100
+const ENTRANCE_SCALE = 0.8
+const ENTRANCE_TURN = 0.5
+
 const SWAY_SPEED = 0.35
 const SWAY_AMOUNT = 0.14
 
@@ -78,7 +84,7 @@ function useWarmUp(object, enabled) {
   }, [gl, root, camera, object])
 }
 
-function LoadedModel({ model, warm }) {
+function LoadedModel({ model, warm, isShown }) {
   noteModelRequested(model.file)
   const gltf = useGLTF(modelUrl(model.file))
   const scene = useMemo(() => {
@@ -93,27 +99,43 @@ function LoadedModel({ model, warm }) {
   useWarmUp(scene, warm)
 
   const group = useRef()
+  const entrance = useRef()
+  const wasShown = useRef(false)
+  const entranceStart = useRef(null)
   const reduced = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, [])
   useFrame(({ clock }) => {
-    if (!reduced) group.current.rotation.y = model.rotationY + Math.sin(clock.elapsedTime * SWAY_SPEED) * SWAY_AMOUNT
+    if (reduced) return
+    group.current.rotation.y = model.rotationY + Math.sin(clock.elapsedTime * SWAY_SPEED) * SWAY_AMOUNT
+
+    const shown = isShown()
+    if (shown && !wasShown.current) entranceStart.current = performance.now()
+    wasShown.current = shown
+    if (entranceStart.current === null) return
+    const progress = Math.min((performance.now() - entranceStart.current) / ENTRANCE_MS, 1)
+    const eased = 1 - (1 - progress) ** 3
+    entrance.current.scale.setScalar(ENTRANCE_SCALE + (1 - ENTRANCE_SCALE) * eased)
+    entrance.current.rotation.y = ENTRANCE_TURN * (1 - eased)
+    if (progress === 1) entranceStart.current = null
   })
 
   return (
     <group ref={group} rotation-y={model.rotationY}>
-      <primitive object={scene} scale={model.scale} position={model.offset} />
+      <group ref={entrance}>
+        <primitive object={scene} scale={model.scale} position={model.offset} />
+      </group>
     </group>
   )
 }
 
 // children render after the model and inside the same Suspense: the shadow bakes
 // what is already there.
-export default function Model({ model, warm, children }) {
+export default function Model({ model, warm, isShown, children }) {
   const status = useSyncExternalStore(subscribeModelStatus, getModelStatus)
   const attempt = status.attempts[model.file] ?? 0
   return (
     <ModelBoundary key={attempt} file={model.file}>
       <Suspense fallback={model.draco ? <DracoWatchdog /> : null}>
-        <LoadedModel model={model} warm={warm} />
+        <LoadedModel model={model} warm={warm} isShown={isShown} />
         {children}
       </Suspense>
     </ModelBoundary>

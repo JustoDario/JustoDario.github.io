@@ -55,6 +55,12 @@ export const PlayIcon = () => (
   </Icon>
 )
 
+export const ChevronDownIcon = () => (
+  <Icon>
+    <path d="m5 9 7 7 7-7" />
+  </Icon>
+)
+
 export const ChevronLeftIcon = () => (
   <Icon>
     <path d="m15 5-7 7 7 7" />

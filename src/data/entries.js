@@ -180,8 +180,8 @@ export const hackathons = [
     ),
     credit: {
       text: L(
-        '3D model: "Robot dog Unitree Go2" by C. Yamahata, CC BY 4.0',
-        'Modelo 3D: "Robot dog Unitree Go2" de C. Yamahata, CC BY 4.0',
+        '3D model: "Robot dog Unitree Go2" by C. Yamahata, CC BY 4.0 (adapted: legs posed)',
+        'Modelo 3D: "Robot dog Unitree Go2" de C. Yamahata, CC BY 4.0 (adaptado: patas flexionadas)',
       ),
       url: 'https://sketchfab.com/3d-models/robot-dog-unitree-go2-7af84eb9ba834f27bbac818a8b96e2da',
     },

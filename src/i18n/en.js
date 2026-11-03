@@ -14,6 +14,7 @@ export const en = {
   'nav.languageShort': 'ES',
   'hero.viewWork': 'View My Work',
   'hero.cv': 'Open CV',
+  'hero.next': 'Go to About Me',
   'section.about': 'About Me',
   'section.experience': 'Experience',
   'section.projects': 'Projects',
