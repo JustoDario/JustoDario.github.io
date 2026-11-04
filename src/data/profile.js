@@ -1,12 +1,12 @@
 import { L } from './media.js'
 
 export const profile = {
-  name: 'Justo Dario Valverde Torres',
+  name: 'Justo Darío Valverde Torres',
   photo: {
     file: 'mylatestphoto.jpg',
     alt: L(
-      'Justo Dario Valverde, arms crossed, wearing a navy polo shirt outdoors',
-      'Justo Dario Valverde con los brazos cruzados y un polo azul marino, al aire libre',
+      'Justo Darío Valverde, arms crossed, wearing a navy polo shirt outdoors',
+      'Justo Darío Valverde con los brazos cruzados y un polo azul marino, al aire libre',
     ),
   },
   subtitle: L(

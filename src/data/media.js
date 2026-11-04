@@ -8,12 +8,12 @@ export const image = (file, en, es, still) => ({ type: 'image', file, alt: L(en,
 // Served from public/video/ in AV1, with H.264 only for browsers without AV1: hardware
 // H.264 decoding takes down the GPU process on some machines, and WebGL with it,
 // which a YouTube embed cannot avoid. `youtube` is the fallback if a file fails.
-export const video = (slug, youtube, title, options = {}) => ({
+export const video = (slug, youtube, en, es, options = {}) => ({
   type: 'video',
   slug,
   youtube,
   poster: `video-${slug}.jpg`,
-  name: L(title, title),
-  title: L(`Video: ${title}`, `Vídeo: ${title}`),
+  name: L(en, es),
+  title: L(`Video: ${en}`, `Vídeo: ${es}`),
   ...options,
 })

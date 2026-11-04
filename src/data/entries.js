@@ -20,7 +20,7 @@ export const experience = [
       label: L('Visit RoboTech website', 'Visitar la web de RoboTech'),
     },
     media: [
-      video('scara-demo', '4r0j4g5fImk', 'RoboTech SCARA Robot Autonomously playing 3 in Line'),
+      video('scara-demo', '4r0j4g5fImk', 'RoboTech SCARA Robot Autonomously playing tic-tac-toe', 'Robot SCARA de RoboTech jugando al 3 en raya de forma autónoma'),
       image(
         'scarav1-2.jpg',
         'SCARA robot arm on a workbench above a three-by-three game board',
@@ -32,7 +32,7 @@ export const experience = [
     id: 'tsb',
     model: 'sp01',
     title: L('Técnico Solar Boat', 'Técnico Solar Boat'),
-    role: L('Autonomous Systems Member — Mapping Responsible', 'Miembro de Sistemas Autónomos — Responsable de Mapping'),
+    role: L('Autonomous Systems Member — Mapping Lead', 'Miembro de Sistemas Autónomos — Mapping Lead'),
     dates: L('Aug 2025 – Mar 2026', 'Ago 2025 – Mar 2026'),
     description: L(
       'Responsible for the mapping implementation within the autonomous navigation stack.',
@@ -53,7 +53,7 @@ export const experience = [
         'Simulation of the autonomous boat on dark water with marker buoys ahead',
         'Simulación del barco autónomo sobre agua oscura con boyas de referencia al frente',
       ),
-      video('tsb-mapping', '_bkvL-_BGiE', 'Mapping Test 02'),
+      video('tsb-mapping', '_bkvL-_BGiE', 'Mapping Test 02', 'Prueba de mapping 02'),
     ],
   },
 ]
@@ -73,9 +73,9 @@ export const projects = [
       'Investigación asociada: "A Reactive Single-Step Horizon Control Pipeline for Robust Quadruped Locomotion under Actuation Uncertainty". Primer autor, enviado a IEEE ICRA 2027 (pendiente de decisión).',
     ),
     media: [
-      video('coco-icra', 'cN7WDKmJhnM', 'Quadruped Locomotion under Actuation Uncertainty - ICRA 2027 Submission'),
-      video('coco-control', '6V8-M2vEC8k', 'Coco mov control v2.0'),
-      video('coco-redesign', 'yG2TFrFOs4w', 'COCO body redesign, AI-generated illustrative video', { autoplay: true }),
+      video('coco-icra', 'cN7WDKmJhnM', 'Quadruped Locomotion under Actuation Uncertainty - ICRA 2027 Submission', 'Quadruped Locomotion under Actuation Uncertainty - Envío a ICRA 2027'),
+      video('coco-control', '6V8-M2vEC8k', 'Coco mov control v2.0', 'Control de movimiento de Coco v2.0'),
+      video('coco-redesign', 'yG2TFrFOs4w', 'COCO body redesign, AI-generated illustrative video', 'Rediseño del cuerpo de COCO, vídeo ilustrativo generado con IA', { autoplay: true }),
       image(
         'cocov2_photo1.jpg',
         'White Coco quadruped robot with a cat head and sunglasses, seen from the side',
@@ -101,8 +101,8 @@ export const projects = [
         'First black version of the quadruped robot',
         'Primera versión del robot cuadrúpedo, de color negro',
       ),
-      video('coco-ik', '99Eip2nVok4', 'Coco Quadruped Robot Inverse Kinematics rotation of body frame test'),
-      video('coco-trot', '0X7ajcaga7c', 'Coco Quadruped - Trot Gait Test'),
+      video('coco-ik', '99Eip2nVok4', 'Coco Quadruped Robot Inverse Kinematics rotation of body frame test', 'Robot cuadrúpedo Coco: prueba de cinemática inversa con rotación del cuerpo'),
+      video('coco-trot', '0X7ajcaga7c', 'Coco Quadruped - Trot Gait Test', 'Cuadrúpedo Coco: prueba de marcha al trote'),
       image(
         'rpycoco.png',
         'Sequence of photos of the black quadruped showing roll, pitch and yaw body poses',
@@ -131,7 +131,7 @@ export const projects = [
         'Car with a bright light switched on, next to a joystick controller on a tiled floor',
         'Coche con una luz brillante encendida, junto a un mando con joystick sobre un suelo de baldosas',
       ),
-      video('car-esp32', 'l9EiiZqZ7Z4', 'Autonomous Car - Esp32 camera web server video'),
+      video('car-esp32', 'l9EiiZqZ7Z4', 'Teleoperated Car - Esp32 camera web server video', 'Coche teleoperado: vídeo del servidor web de la cámara Esp32'),
     ],
   },
 ]
@@ -167,7 +167,7 @@ export const hackathons = [
         'Team of three people next to the blue SO-101 arms on their work table',
         'Equipo de tres personas junto a los brazos SO-101 azules en su mesa de trabajo',
       ),
-      video('erh-demo', 'CDUgXpPN3KQ', 'ERH Physical AI Hackathon - Recording demonstrations until 5 am'),
+      video('erh-demo', 'CDUgXpPN3KQ', 'ERH Physical AI Hackathon - Recording demonstrations until 5 am', 'ERH Physical AI Hackathon: grabando demostraciones hasta las 5 de la mañana'),
     ],
   },
   {

@@ -25,7 +25,7 @@ function Video({ item, active }) {
     const autoplay = item.autoplay && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (element && autoplay) element.muted = true
     if (element && (autoplay || playRequested.current)) {
-      if (playRequested.current) playAttempted.current = true
+      playAttempted.current = true
       playRequested.current = false
       element.play().catch((error) => note(`${item.slug}: play refused, ${error.name}`)) // the poster stays
     }

@@ -108,7 +108,11 @@ export function startBackgroundMotion(root) {
   observer.observe(document.documentElement)
   observer.observe(document.body)
   const main = document.getElementById('main')
-  if (main) observer.observe(main)
+  if (main) {
+    observer.observe(main)
+    // In the upright layout main is a fixed pane: its box stays put while its content grows.
+    for (const section of main.children) observer.observe(section)
+  }
   // In the capture phase, to hear the upright layout's scrolling pane as well as the window.
   document.addEventListener('scroll', onScroll, { passive: true, capture: true })
   window.addEventListener('resize', onLayout, { passive: true })

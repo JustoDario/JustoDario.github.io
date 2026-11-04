@@ -249,7 +249,12 @@ h1 {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero__intro,
+  /* Holds the h1, the largest paint of the page: it moves but never fades, or the browser
+     would only count it as painted when the fade ends. */
+  .hero__intro {
+    animation: slide-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+
   .hero__subtitle,
   .hero__tagline,
   .hero .actions {
@@ -276,6 +281,12 @@ h1 {
 @keyframes rise {
   from {
     opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@keyframes slide-up {
+  from {
     transform: translateY(16px);
   }
 }

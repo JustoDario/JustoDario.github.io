@@ -108,7 +108,7 @@ function LoadedModel({ model, warm, isShown }) {
   const wasShown = useRef(false)
   const entranceStart = useRef(null)
   const reduced = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, [])
-  useFrame(({ clock }) => {
+  useFrame(({ clock, invalidate }) => {
     if (reduced) return
     group.current.rotation.y = model.rotationY + Math.sin(clock.elapsedTime * SWAY_SPEED) * SWAY_AMOUNT
 
@@ -120,7 +120,9 @@ function LoadedModel({ model, warm, isShown }) {
     const eased = 1 - (1 - progress) ** 3
     entrance.current.scale.setScalar(ENTRANCE_SCALE + (1 - ENTRANCE_SCALE) * eased)
     entrance.current.rotation.y = ENTRANCE_TURN * (1 - eased)
+    // A playing video pauses the render loop: the entrance still has to finish.
     if (progress === 1) entranceStart.current = null
+    else invalidate()
   })
 
   return (
