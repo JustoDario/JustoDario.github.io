@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { reportContextRestored, reportSceneUnavailable, watchForWebGL } from '../state/sceneHealth.js'
+import { reportContextRestored, reportSceneUnavailable, watchForWebGL, webglRefusalIsTemporary } from '../state/sceneHealth.js'
 
 // R3F rethrows scene errors out of <Canvas>. This keeps them from taking the
 // HTML interface down with the scene.
@@ -14,7 +14,7 @@ export default class ErrorBoundary extends Component {
     console.warn('3D scene unavailable:', error.message)
     // A page loaded during the browser's WebGL block starts here: it can still recover.
     const webgl = /WebGL/.test(error.message)
-    reportSceneUnavailable(webgl ? 'paused' : 'failed')
+    reportSceneUnavailable(webgl ? (webglRefusalIsTemporary() ? 'paused' : 'none') : 'failed')
     if (webgl) {
       this.stopWatching = watchForWebGL(() => {
         reportContextRestored()

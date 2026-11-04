@@ -1,6 +1,8 @@
 // Scroll choreography, cursor light and rail parallax of the space background.
 // Writes only compositor-friendly properties and sleeps while the page is idle.
 
+import { scrollPosition, scrollRange } from '../lib/layout.js'
+
 const clamp01 = (x) => Math.min(1, Math.max(0, x))
 const ramp = (a, b, x) => {
   const t = clamp01((x - a) / (b - a))
@@ -65,10 +67,10 @@ export function startBackgroundMotion(root) {
   const measure = () => {
     vw = window.innerWidth / 100
     vh = window.innerHeight / 100
-    maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+    maxScroll = scrollRange()
     const v = parseFloat(getComputedStyle(root).getPropertyValue('--scroll-strength'))
     strength = Number.isFinite(v) ? v : 1
-    target = clamp01(window.scrollY / maxScroll)
+    target = clamp01(scrollPosition() / maxScroll)
   }
 
   const apply = (p) => {
@@ -94,7 +96,7 @@ export function startBackgroundMotion(root) {
   }
 
   const onScroll = () => {
-    target = clamp01(window.scrollY / maxScroll)
+    target = clamp01(scrollPosition() / maxScroll)
     wake()
   }
   // The page height changes as the React sections mount, not only on resize.
@@ -105,7 +107,10 @@ export function startBackgroundMotion(root) {
   const observer = new ResizeObserver(onLayout)
   observer.observe(document.documentElement)
   observer.observe(document.body)
-  window.addEventListener('scroll', onScroll, { passive: true })
+  const main = document.getElementById('main')
+  if (main) observer.observe(main)
+  // In the capture phase, to hear the upright layout's scrolling pane as well as the window.
+  document.addEventListener('scroll', onScroll, { passive: true, capture: true })
   window.addEventListener('resize', onLayout, { passive: true })
 
   measure()
@@ -145,7 +150,7 @@ export function startBackgroundMotion(root) {
     cancelAnimationFrame(frame)
     cancelAnimationFrame(cFrame)
     observer.disconnect()
-    window.removeEventListener('scroll', onScroll)
+    document.removeEventListener('scroll', onScroll, { capture: true })
     window.removeEventListener('resize', onLayout)
     window.removeEventListener('pointermove', onPointer)
     document.documentElement.removeEventListener('mouseleave', onLeave)

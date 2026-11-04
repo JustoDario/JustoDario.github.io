@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLanguage } from '../i18n/LanguageProvider.jsx'
 import { useNavigation } from '../state/NavigationProvider.jsx'
-import CarouselControls, { useSwipe } from './CarouselControls.jsx'
+import CarouselControls, { useArrowKeys, useSwipe } from './CarouselControls.jsx'
 import InfoPanel from './InfoPanel.jsx'
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -14,10 +14,10 @@ export default function MainCarousel({ sectionId, entries }) {
   const index = entryIndex(sectionId)
   const active = activeSection === sectionId
   const change = (target) => setEntryIndex(sectionId, target)
-  const swipe = useSwipe(
-    () => change(Math.max(index - 1, 0)),
-    () => change(Math.min(index + 1, entries.length - 1)),
-  )
+  const previous = () => change(Math.max(index - 1, 0))
+  const following = () => change(Math.min(index + 1, entries.length - 1))
+  const swipe = useSwipe(previous, following)
+  const arrows = useArrowKeys(previous, following)
 
   // Adjusted during render, so the first frame of the new entry already has the old page.
   const [shown, setShown] = useState(index)
@@ -31,7 +31,7 @@ export default function MainCarousel({ sectionId, entries }) {
   const entry = entries[index]
 
   return (
-    <div className="main-carousel" role="group" aria-label={t(`section.${sectionId}`)} {...swipe}>
+    <div className="main-carousel" role="group" aria-label={t(`section.${sectionId}`)} {...swipe} {...arrows}>
       {entries.length > 1 && (
         <CarouselControls
           index={index}

@@ -30,6 +30,24 @@ export function useSwipe(onPrev, onNext) {
   }
 }
 
+// Arrow keys while focus is inside the carousel. A video keeps them for seeking, and a
+// nested carousel answers before the outer one.
+export function useArrowKeys(onPrev, onNext) {
+  return {
+    onKeyDown: (event) => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+      if (event.target.tagName === 'VIDEO') {
+        event.stopPropagation()
+        return
+      }
+      event.stopPropagation()
+      event.preventDefault()
+      if (event.key === 'ArrowLeft') onPrev()
+      else onNext()
+    },
+  }
+}
+
 // No wrap-around. The ends use aria-disabled rather than disabled, so a keyboard
 // user who reaches one keeps focus on the button.
 export default function CarouselControls({ index, count, onChange, prevLabel, nextLabel }) {

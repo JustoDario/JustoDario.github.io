@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { carouselSections } from '../data/entries.js'
+import { contentBox, isUpright, scroller } from '../lib/layout.js'
 import { stationFor } from '../scene/stations.js'
 import { parseHash } from './deepLink.js'
 
@@ -55,14 +56,16 @@ export function NavigationProvider({ children }) {
     let settleTimer
     let idleTimer
     let destination = null
+    let wasUpright = isUpright()
 
     const track = () => {
       if (document.fullscreenElement) return // leaving the section would end the video
-      const middle = window.innerHeight / 2
-      const margin = window.innerHeight * STATION_MARGIN
+      const view = contentBox()
+      const middle = view.top + view.height / 2
+      const margin = view.height * STATION_MARGIN
 
-      // Half-open bounds: the centre of the viewport is in one section at most, even
-      // when it rests exactly on the border between two.
+      // Half-open bounds: the centre of the view is in one section at most, even when it
+      // rests exactly on the border between two.
       let section = null
       for (const candidate of sections) {
         const { top, bottom } = candidate.getBoundingClientRect()
@@ -73,15 +76,14 @@ export function NavigationProvider({ children }) {
       }
       if (!section) return
 
-      anchorTop = section.getBoundingClientRect().top
+      anchorTop = section.getBoundingClientRect().top - view.top
 
       // Which section the scroll is heading for, once the next one starts to show.
       const index = sections.indexOf(section)
       const nextTop = sections[index + 1]?.getBoundingClientRect().top ?? Infinity
       const previousBottom = sections[index - 1]?.getBoundingClientRect().bottom ?? -Infinity
-      const height = window.innerHeight
-      if (nextTop < height * APPROACH_SHARE) setApproachingSection(sections[index + 1].id)
-      else if (previousBottom > height * (1 - APPROACH_SHARE)) setApproachingSection(sections[index - 1].id)
+      if (nextTop < view.top + view.height * APPROACH_SHARE) setApproachingSection(sections[index + 1].id)
+      else if (previousBottom > view.top + view.height * (1 - APPROACH_SHARE)) setApproachingSection(sections[index - 1].id)
       else setApproachingSection(null)
       if (section !== current) {
         current = section
@@ -131,15 +133,22 @@ export function NavigationProvider({ children }) {
       if (href && href === window.location.hash) goTo(readLink(), 'auto')
     }
 
-    // Sections are at least 100vh tall, so a new viewport height moves every section
-    // below the first. Keep the current one where it was.
+    // Sections are at least as tall as the view, so a new height moves every section below
+    // the first. Keep the current one where it was.
     const onResize = () => {
-      if (destination) {
+      const upright = isUpright()
+      const rotated = upright !== wasUpright
+      wasUpright = upright
+      if (rotated) {
+        // Now another scroller holds the content, and it must show the same section.
+        if (upright) window.scrollTo({ top: 0, behavior: 'instant' })
+        current?.scrollIntoView({ behavior: 'instant', block: 'start' })
+      } else if (destination) {
         // Moving the page would cancel a scroll under way: finish it instead.
         document.getElementById(destination)?.scrollIntoView({ behavior: 'instant', block: 'start' })
       } else if (current) {
-        const shift = current.getBoundingClientRect().top - anchorTop
-        window.scrollBy({ top: shift, behavior: 'instant' })
+        const shift = current.getBoundingClientRect().top - contentBox().top - anchorTop
+        scroller().scrollBy({ top: shift, behavior: 'instant' })
       }
       track()
     }
@@ -149,8 +158,8 @@ export function NavigationProvider({ children }) {
 
     // Changing entry can resize a section without any scrolling.
     const contentObserver = new ResizeObserver(track)
-    contentObserver.observe(document.querySelector('main'))
-    window.addEventListener('scroll', onScroll, { passive: true })
+    sections.forEach((section) => contentObserver.observe(section))
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true })
     window.addEventListener('resize', onResize)
     window.addEventListener('hashchange', onHashChange)
     document.addEventListener('click', onClick)
@@ -158,7 +167,7 @@ export function NavigationProvider({ children }) {
       clearTimeout(settleTimer)
       clearTimeout(idleTimer)
       contentObserver.disconnect()
-      window.removeEventListener('scroll', onScroll)
+      document.removeEventListener('scroll', onScroll, { capture: true })
       window.removeEventListener('resize', onResize)
       window.removeEventListener('hashchange', onHashChange)
       document.removeEventListener('click', onClick)

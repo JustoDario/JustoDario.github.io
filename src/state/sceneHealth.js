@@ -6,7 +6,8 @@ const GIVE_UP_MS = 5000 // a lost context usually comes back well before this
 const PROBE_EVERY_MS = 5000
 const MAX_PROBES = 48 // four minutes, about twice the browser's block
 
-// sceneUnavailable: null, 'paused' (the browser's block, it comes back) or 'failed'.
+// sceneUnavailable: null, 'paused' (the browser's block, it comes back), 'failed', or
+// 'none' (no WebGL here: the page works without robots, and says nothing about it).
 let snapshot = { sceneUnavailable: null }
 let giveUpTimer
 const listeners = new Set()
@@ -22,7 +23,10 @@ export const subscribeSceneHealth = (listener) => {
 }
 export const getSceneHealth = () => snapshot
 
-export const reportSceneUnavailable = (kind = 'paused') => publish({ sceneUnavailable: kind })
+export const reportSceneUnavailable = (kind = 'paused') => {
+  document.documentElement.classList.toggle('no-3d', kind === 'none')
+  publish({ sceneUnavailable: kind })
+}
 
 export function reportContextLost() {
   clearTimeout(giveUpTimer)
@@ -50,7 +54,21 @@ export function watchForWebGL(onAvailable) {
   return () => clearInterval(timer)
 }
 
+// Why the browser refuses a context, in its own words. A block after a context loss is
+// temporary; anything else means this browser simply has no WebGL.
+export function webglRefusalIsTemporary() {
+  let message = ''
+  const canvas = document.createElement('canvas')
+  canvas.addEventListener('webglcontextcreationerror', (event) => {
+    message = event.statusMessage ?? ''
+  })
+  const gl = canvas.getContext('webgl2')
+  gl?.getExtension('WEBGL_lose_context')?.loseContext()
+  return /block|context loss/i.test(message)
+}
+
 export function reportContextRestored() {
   clearTimeout(giveUpTimer)
+  document.documentElement.classList.remove('no-3d')
   publish({ sceneUnavailable: null })
 }

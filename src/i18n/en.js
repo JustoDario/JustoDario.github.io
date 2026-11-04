@@ -1,5 +1,6 @@
 export const en = {
   'meta.title': 'Justo Dario Valverde Torres | Robotics Software Engineering Student',
+  'nav.skip': 'Skip to content',
   'nav.main': 'Main navigation',
   'nav.about': 'About',
   'nav.experience': 'Experience',

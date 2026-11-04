@@ -22,7 +22,7 @@ const canvasStyle = {
   position: 'fixed',
   inset: 0,
   width: '100vw',
-  height: '100vh',
+  height: 'var(--canvas-height, 100vh)',
   zIndex: 'var(--z-scene)',
   pointerEvents: 'none',
 }

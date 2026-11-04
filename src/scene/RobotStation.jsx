@@ -1,9 +1,11 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { MODELS } from '../data/models.js'
+import { isUpright } from '../lib/layout.js'
 import { Halo } from './Atmosphere.jsx'
 import BakedShadow from './BakedShadow.jsx'
 import Model from './Model.jsx'
+import { LOOK_AT_HEIGHT } from './rail.js'
 
 // A robot not on show waits this far below the floor, loaded and out of sight, at its
 // own x. Each one still bakes its shadow alone there.
@@ -16,7 +18,10 @@ export default function RobotStation({ station, warm, layout }) {
 
   const place = () => {
     const x = layout.current.get(station.id)
-    return x === undefined ? [station.x, OUT_OF_SIGHT_Y, 0] : [x, 0, 0]
+    // In the upright layout's short band each robot is centred by its own height, or tall
+    // ones would touch the navbar and short ones sit low. Elsewhere they share the floor.
+    const lift = isUpright() ? LOOK_AT_HEIGHT - model.height / 2 : 0
+    return x === undefined ? [station.x, OUT_OF_SIGHT_Y, 0] : [x, lift, 0]
   }
 
   useFrame(() => {

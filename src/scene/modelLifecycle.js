@@ -1,6 +1,6 @@
 import { useGLTF } from '@react-three/drei'
 import { assetUrl } from '../lib/assetUrl.js'
-import { getModelStatus, retryModel } from '../state/modelStatus.js'
+import { getModelStatus, reportModelReleased, retryModel } from '../state/modelStatus.js'
 
 export const modelUrl = (file) => assetUrl(`3d/${file}`)
 
@@ -52,6 +52,7 @@ export function releaseModels(wanted) {
   for (const file of [...requested]) {
     if (wanted.has(file)) continue
     requested.delete(file)
+    reportModelReleased(file)
     const gltf = loaded.get(file)
     if (gltf) disposeModel(gltf)
     loaded.delete(file)

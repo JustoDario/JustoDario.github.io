@@ -8,6 +8,7 @@ export default function Navbar() {
   const { t, toggle } = useLanguage()
   const [open, setOpen] = useState(false)
   const nav = useRef(null)
+  const toggleButton = useRef(null)
 
   useEffect(() => {
     if (!open) return undefined
@@ -16,7 +17,10 @@ export default function Navbar() {
       if (!event.composedPath().includes(nav.current)) setOpen(false)
     }
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') {
+        setOpen(false)
+        toggleButton.current?.focus() // the focus was on a link that is now hidden
+      }
     }
     document.addEventListener('click', closeOutside)
     document.addEventListener('keydown', closeOnEscape)
@@ -42,6 +46,7 @@ export default function Navbar() {
 
       <div className="navbar__actions">
         <button
+          ref={toggleButton}
           type="button"
           className="navbar__button navbar__menu"
           aria-expanded={open}

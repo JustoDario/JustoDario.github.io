@@ -2,7 +2,8 @@ import { Component, Suspense, useEffect, useMemo, useRef, useState, useSyncExter
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
-import { getModelStatus, reportModelError, setModelCacheClear, subscribeModelStatus } from '../state/modelStatus.js'
+import { note } from '../lib/diagnostics.js'
+import { getModelStatus, reportModelError, reportModelLoaded, setModelCacheClear, subscribeModelStatus } from '../state/modelStatus.js'
 import { debugEnabled } from './Debug.jsx'
 import { modelUrl, noteModelLoaded, noteModelRequested, sanitize } from './modelLifecycle.js'
 
@@ -97,6 +98,10 @@ function LoadedModel({ model, warm, isShown }) {
     return clean.clone(true)
   }, [gltf, model.file])
   useWarmUp(scene, warm)
+  useEffect(() => {
+    note(`${model.file} decoded`)
+    reportModelLoaded(model.file)
+  }, [model.file])
 
   const group = useRef()
   const entrance = useRef()

@@ -119,6 +119,7 @@ for (const [sectionId, expected] of Object.entries(MANIFEST)) {
     if (actual.join('|') !== media.join('|')) fail(`${where}: media or order differ from the manifest:\n    ${actual.join('\n    ')}`)
 
     entry.media.forEach((m, i) => {
+      if (m.still) checkImage(m.still, `${where} media ${i} still`)
       if (m.type === 'video') localised(m.title, `${where} video ${i} title`)
       if (m.type === 'video') {
         checkImage(m.poster, `${where} video ${i} poster`)

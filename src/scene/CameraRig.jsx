@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import gsap from 'gsap'
+import * as THREE from 'three'
 import { setBackgroundParallax } from '../background/backgroundMotion.js'
 import { useNavigation } from '../state/NavigationProvider.jsx'
 import { CAMERA_OFFSET, LOOK_AT_HEIGHT, NO_SHADOW_LAYER } from './rail.js'
@@ -13,12 +14,21 @@ const MAX_SECONDS = 2.8 // rapid changes of destination can queue up some distan
 // Further than this from the camera, a robot cannot be on screen.
 const OUT_OF_VIEW = STATION_SPACING + 1
 
-// The panel takes the right half on wide screens, and the lower part on small
-// ones. Shifting the view rather than the camera keeps the perspective on the
-// exhibit the same on every screen. Same breakpoint as the CSS.
-const WIDE_MIN_PX = 960
+// The panel takes the right half on wide screens. On upright ones the robot gets a band
+// at the top and the page runs below it. Shifting the view rather than the camera keeps
+// the perspective the same on every screen. Same breakpoints as the CSS.
+const isWide = (width, height) => width > 960 || (width >= 640 && width > height)
 const WIDE_SHIFT_X = 0.25
-const NARROW_SHIFT_Y = 0.22
+
+// On an upright screen the robot has a band at the top, below the navbar (the same share
+// as --robot-band in the CSS), closer to the navbar than to the content. The camera moves
+// back until the tallest robot fits across and within that band; on phones the width
+// decides, so the size of the band does not change the size of the robot.
+const NAV_HEIGHT_PX = 64
+const UPRIGHT_BAND_SHARE = 0.35
+const UPRIGHT_ROBOT_AT = 0.46
+const UPRIGHT_FIT_WIDTH = 2.7
+const UPRIGHT_FIT_HEIGHT = 1.45
 
 // Single owner of the camera: one tween at a time, killed before the next one.
 //
@@ -32,12 +42,14 @@ export default function CameraRig({ onArrive, layout }) {
   const size = useThree((state) => state.size)
   const invalidate = useThree((state) => state.invalidate)
   const rail = useRef({ x: station.x, parallax: station.x / RAIL_LENGTH })
+  const distance = useRef(CAMERA_OFFSET[2])
   const tween = useRef(null)
   const lastTarget = useRef(station)
 
   const applyRail = () => {
     const { x, parallax } = rail.current
-    camera.position.set(x + CAMERA_OFFSET[0], CAMERA_OFFSET[1], CAMERA_OFFSET[2])
+    const back = distance.current / CAMERA_OFFSET[2]
+    camera.position.set(x + CAMERA_OFFSET[0], LOOK_AT_HEIGHT + (CAMERA_OFFSET[1] - LOOK_AT_HEIGHT) * back, distance.current)
     camera.lookAt(x, LOOK_AT_HEIGHT, 0)
     setBackgroundParallax(parallax)
     invalidate() // the render loop is on demand while a video plays
@@ -52,9 +64,20 @@ export default function CameraRig({ onArrive, layout }) {
 
   useLayoutEffect(() => {
     const { width, height } = size
-    const wide = width > WIDE_MIN_PX
-    camera.setViewOffset(width, height, wide ? width * WIDE_SHIFT_X : 0, wide ? 0 : height * NARROW_SHIFT_Y, width, height)
-    invalidate()
+    const wide = isWide(width, height)
+    const halfView = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))
+    const band = (height - NAV_HEIGHT_PX) * UPRIGHT_BAND_SHARE
+    distance.current = wide
+      ? CAMERA_OFFSET[2]
+      : Math.max(
+          CAMERA_OFFSET[2],
+          UPRIGHT_FIT_WIDTH / (2 * halfView * (width / height)),
+          UPRIGHT_FIT_HEIGHT / (2 * halfView * (band / height)),
+        )
+    applyRail()
+    const shiftY = wide ? 0 : height / 2 - (NAV_HEIGHT_PX + band * UPRIGHT_ROBOT_AT)
+    camera.setViewOffset(width, height, wide ? width * WIDE_SHIFT_X : 0, shiftY, width, height)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [camera, size, invalidate])
 
   useEffect(() => {

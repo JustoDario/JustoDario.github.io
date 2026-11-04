@@ -1,6 +1,6 @@
 // Which models failed to load, shared between the scene and the HTML interface.
 // No three.js here: the interface must not pull the 3D chunk in.
-let snapshot = { errors: {}, attempts: {} }
+let snapshot = { errors: {}, attempts: {}, loaded: {} }
 const listeners = new Set()
 let clearCache = () => {}
 
@@ -29,5 +29,16 @@ export const reportModelError = (file, kind) => {
 export const retryModel = (file) => {
   clearCache(file)
   const { [file]: _removed, ...errors } = snapshot.errors
-  publish({ errors, attempts: { ...snapshot.attempts, [file]: (snapshot.attempts[file] ?? 0) + 1 } })
+  publish({ ...snapshot, errors, attempts: { ...snapshot.attempts, [file]: (snapshot.attempts[file] ?? 0) + 1 } })
+}
+
+// Ready to draw, for the loading indicator.
+export const reportModelLoaded = (file) => {
+  if (!snapshot.loaded[file]) publish({ ...snapshot, loaded: { ...snapshot.loaded, [file]: true } })
+}
+
+export const reportModelReleased = (file) => {
+  if (!snapshot.loaded[file]) return
+  const { [file]: _removed, ...loaded } = snapshot.loaded
+  publish({ ...snapshot, loaded })
 }

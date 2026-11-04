@@ -155,6 +155,7 @@ export const hackathons = [
         'best_moments_grid.gif',
         'Animated grid of the SO-101 arm performing pick and place tasks on a table',
         'Cuadrícula animada del brazo SO-101 haciendo tareas de coger y colocar sobre una mesa',
+        'best_moments_grid-still.jpg',
       ),
       image(
         'erh_house.jpg',

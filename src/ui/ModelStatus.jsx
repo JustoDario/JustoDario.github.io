@@ -9,11 +9,12 @@ import { getSceneHealth, subscribeSceneHealth } from '../state/sceneHealth.js'
 export default function ModelStatus() {
   const { t } = useLanguage()
   const { station } = useNavigation()
-  const { errors } = useSyncExternalStore(subscribeModelStatus, getModelStatus)
+  const { errors, loaded } = useSyncExternalStore(subscribeModelStatus, getModelStatus)
   const file = MODELS[station.model]?.file
   const kind = file && errors[file]
   const { sceneUnavailable } = useSyncExternalStore(subscribeSceneHealth, getSceneHealth)
 
+  if (sceneUnavailable === 'none') return null
   if (sceneUnavailable) {
     return station.model ? (
       <div className="model-status" role="status" data-testid="scene-status">
@@ -21,7 +22,8 @@ export default function ModelStatus() {
       </div>
     ) : null
   }
-  if (!kind) return null
+  // Waiting for the robot: never an empty space with no explanation.
+  if (!kind) return file && !loaded[file] ? <div className="robot-loader" data-testid="robot-loader" aria-hidden="true" /> : null
 
   return (
     <div className="model-status" role="status" data-testid="model-status">

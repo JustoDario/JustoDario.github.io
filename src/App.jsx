@@ -5,6 +5,7 @@ import Navbar from './ui/Navbar.jsx'
 import Hero from './ui/Hero.jsx'
 import MainCarousel from './ui/MainCarousel.jsx'
 import ModelStatus from './ui/ModelStatus.jsx'
+import SkipLink from './ui/SkipLink.jsx'
 import { About, Contact, Section, Skills } from './ui/Sections.jsx'
 import { LanguageProvider } from './i18n/LanguageProvider.jsx'
 import { NavigationProvider } from './state/NavigationProvider.jsx'
@@ -30,9 +31,10 @@ export default function App() {
         </ErrorBoundary>
 
         <LanguageProvider>
+          <SkipLink />
           <Navbar />
           <ModelStatus />
-          <main>
+          <main id="main" tabIndex={-1}>
             <Hero />
             <About />
             {carouselSections.map(({ id, entries }) => (

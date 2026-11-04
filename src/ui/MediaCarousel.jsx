@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageProvider.jsx'
 import { assetUrl } from '../lib/assetUrl.js'
+import { note } from '../lib/diagnostics.js'
 import { useNavigation } from '../state/NavigationProvider.jsx'
-import CarouselControls, { useSwipe } from './CarouselControls.jsx'
+import CarouselControls, { useArrowKeys, useSwipe } from './CarouselControls.jsx'
 import { ExternalIcon, PlayIcon } from './icons.jsx'
 
 const previewUrl = (item) => assetUrl(`media/${item.poster ?? item.file}`)
@@ -21,10 +22,12 @@ function Video({ item, active }) {
   useEffect(() => {
     if (!active) return undefined
     const element = video.current
-    if (element && item.autoplay) element.muted = true
-    if (element && (item.autoplay || playRequested.current)) {
+    const autoplay = item.autoplay && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (element && autoplay) element.muted = true
+    if (element && (autoplay || playRequested.current)) {
+      if (playRequested.current) playAttempted.current = true
       playRequested.current = false
-      element.play().catch(() => {}) // the browser may refuse: the poster stays
+      element.play().catch((error) => note(`${item.slug}: play refused, ${error.name}`)) // the poster stays
     }
     return () => element?.pause() // leaving the section stops the video
   }, [active, item.autoplay])
@@ -42,36 +45,36 @@ function Video({ item, active }) {
     [setVideoPlaying],
   )
 
-  const fail = () => {
+  // A source can report an error long before anyone asks to play it, and some browsers do
+  // so for a codec they merely skip. Only a play that fails counts: the player stays either
+  // way, and YouTube is offered beside it.
+  const playAttempted = useRef(false)
+  const fail = (reason) => {
+    note(`${item.slug}: ${reason}`)
+    if (!playAttempted.current) return
     setFailed(true)
-    notePlaying(false) // no pause event comes from a removed element
+    setStarted(false) // play was announced before the failure: the button comes back
+    notePlaying(false)
+  }
+
+  const start = () => {
+    const element = video.current
+    playAttempted.current = true
+    if (element.networkState === element.NETWORK_NO_SOURCE) element.load() // try the sources again
+    element.play().catch((error) => {
+      note(`${item.slug}: play refused, ${error.name}`)
+      if (error.name !== 'AbortError') fail(error.name)
+    })
   }
 
   const play = (event) => {
     if (active) {
-      video.current.play().catch(() => {})
+      start()
     } else {
       // Waits for the section: leaving it before then must not leave sound behind.
       playRequested.current = true
       event.currentTarget.closest('section').scrollIntoView()
     }
-  }
-
-  if (failed) {
-    return (
-      <a
-        className="media__video media__fallback"
-        href={`https://www.youtube.com/watch?v=${item.youtube}`}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={`${t('media.watch')}: ${l(item.name)}`}
-      >
-        <img src={previewUrl(item)} alt="" />
-        <span className="media__watch">
-          {t('media.watch')} <ExternalIcon />
-        </span>
-      </a>
-    )
   }
 
   return (
@@ -89,13 +92,21 @@ function Video({ item, active }) {
         }}
         onPause={() => notePlaying(false)}
         onEnded={() => notePlaying(false)}
-        onError={fail}
+        onError={(event) => fail(`video error ${event.currentTarget.error?.code}: ${event.currentTarget.error?.message}`)}
+        onLoadStart={() => note(`${item.slug}: load start`)}
+        onLoadedMetadata={(event) => note(`${item.slug}: metadata, ${event.currentTarget.currentSrc.split('/').pop()}`)}
+        onCanPlay={() => note(`${item.slug}: can play`)}
+        onStalled={() => note(`${item.slug}: stalled`)}
       >
-        <source src={videoUrl(item, 'av1')} type='video/mp4; codecs="av01.0.05M.08, opus"' />
+        <source
+          src={videoUrl(item, 'av1')}
+          type='video/mp4; codecs="av01.0.05M.08, opus"'
+          onError={() => note(`${item.slug}: AV1 source error`)}
+        />
         <source
           src={videoUrl(item, 'h264')}
-          type='video/mp4; codecs="avc1.640020, mp4a.40.2"'
-          onError={fail}
+          type='video/mp4; codecs="avc1.64001F, mp4a.40.2"'
+          onError={() => fail('H.264 source error')}
         />
       </video>
       {!started && (
@@ -110,6 +121,17 @@ function Video({ item, active }) {
           </span>
         </button>
       )}
+      {failed && (
+        <a
+          className="media__fallback"
+          href={`https://www.youtube.com/watch?v=${item.youtube}`}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${t('media.watch')}: ${l(item.name)}`}
+        >
+          {t('media.watch')} <ExternalIcon />
+        </a>
+      )}
     </div>
   )
 }
@@ -117,10 +139,10 @@ function Video({ item, active }) {
 // `active` means this entry is the one on show in the settled section.
 export default function MediaCarousel({ media, index, onChange, active }) {
   const { l, t } = useLanguage()
-  const swipe = useSwipe(
-    () => onChange(Math.max(index - 1, 0)),
-    () => onChange(Math.min(index + 1, media.length - 1)),
-  )
+  const previous = () => onChange(Math.max(index - 1, 0))
+  const following = () => onChange(Math.min(index + 1, media.length - 1))
+  const swipe = useSwipe(previous, following)
+  const arrows = useArrowKeys(previous, following)
 
   const next = media[index + 1]
   useEffect(() => {
@@ -131,12 +153,15 @@ export default function MediaCarousel({ media, index, onChange, active }) {
   const item = media[index]
 
   return (
-    <div className="media" role="group" aria-label={t('media.label')} {...swipe}>
+    <div className="media" role="group" aria-label={t('media.label')} {...swipe} {...arrows}>
       <div className="media__frame">
         {item.type === 'video' ? (
           <Video key={item.slug} item={item} active={active} />
         ) : (
-          <img key={item.file} src={previewUrl(item)} alt={l(item.alt)} loading="lazy" />
+          <picture key={item.file}>
+            {item.still && <source media="(prefers-reduced-motion: reduce)" srcSet={assetUrl(`media/${item.still}`)} />}
+            <img src={previewUrl(item)} alt={l(item.alt)} loading="lazy" />
+          </picture>
         )}
       </div>
       {item.type === 'video' && <p className="media__caption">{l(item.name)}</p>}
