@@ -895,14 +895,23 @@ h1 {
     overscroll-behavior: contain;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    /* Text fades at the edge of the band instead of being cut. */
-    -webkit-mask-image: linear-gradient(transparent, #000 0.9rem);
-    mask-image: linear-gradient(transparent, #000 0.9rem);
+    /* Text fades on its way up instead of being cut at the edge of the band. The stops
+       follow a smoothstep, so the fade has no visible start or end. */
+    --pane-fade: 1.8rem;
+    --pane-fade-mask: linear-gradient(
+      transparent,
+      rgba(0, 0, 0, 0.16) calc(var(--pane-fade) * 0.25),
+      rgba(0, 0, 0, 0.5) calc(var(--pane-fade) * 0.5),
+      rgba(0, 0, 0, 0.84) calc(var(--pane-fade) * 0.75),
+      #000 var(--pane-fade)
+    );
+    -webkit-mask-image: var(--pane-fade-mask);
+    mask-image: var(--pane-fade-mask);
   }
 
   .section {
     min-height: 100%;
-    padding: 1.1rem 1rem 2.5rem;
+    padding: calc(var(--pane-fade) + 0.2rem) 1rem 2.5rem; /* at rest, nothing is faded */
     justify-content: center;
     align-items: flex-start;
   }
@@ -910,7 +919,7 @@ h1 {
   a,
   button,
   video {
-    scroll-margin-top: 1rem;
+    scroll-margin-top: calc(var(--pane-fade) + 0.1rem);
   }
 
   .media__frame {
