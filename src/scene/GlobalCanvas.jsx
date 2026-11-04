@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 import { MODELS } from '../data/models.js'
 import { assetUrl } from '../lib/assetUrl.js'
 import { useNavigation } from '../state/NavigationProvider.jsx'
+import { getModelStatus, subscribeModelStatus } from '../state/modelStatus.js'
 import { reportContextLost, reportContextRestored, watchForWebGL } from '../state/sceneHealth.js'
 import CameraRig from './CameraRig.jsx'
 import Lighting from './Lighting.jsx'
@@ -89,10 +90,15 @@ function Exhibition() {
     }
   }, [wantedKey, traveling])
 
+  // The robot being waited for goes first: on a slow line, its neighbours would compete with it.
+  const { loaded, errors } = useSyncExternalStore(subscribeModelStatus, getModelStatus)
+  const isSettled = (s) => loaded[MODELS[s.model]?.file] || errors[MODELS[s.model]?.file]
+  const mayMount = (s) => s === station || !station.model || isSettled(station) || isSettled(s)
+
   return (
     <>
       <CameraRig onArrive={setArrivedAt} layout={layout} />
-      {STATIONS.filter((s) => kept.current.has(s)).map((s) => (
+      {STATIONS.filter((s) => kept.current.has(s) && mayMount(s)).map((s) => (
         <RobotStation key={s.id} station={s} warm={!traveling && s !== station} layout={layout} />
       ))}
     </>

@@ -6,7 +6,7 @@ import { prefetchModels, preloadFirstModel } from './lib/modelPreload.js'
 import './styles/global.css'
 
 afterFirstPaint(preloadFirstModel)
-window.addEventListener('load', prefetchModels, { once: true })
+prefetchModels()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

@@ -2,6 +2,7 @@ import { Component, Suspense, useEffect, useMemo, useRef, useState, useSyncExter
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
+import { assetUrl } from '../lib/assetUrl.js'
 import { note } from '../lib/diagnostics.js'
 import { getModelStatus, reportModelError, reportModelLoaded, setModelCacheClear, subscribeModelStatus } from '../state/modelStatus.js'
 import { debugEnabled } from './Debug.jsx'
@@ -9,17 +10,35 @@ import { modelUrl, noteModelLoaded, noteModelRequested, sanitize } from './model
 
 setModelCacheClear((file) => useGLTF.clear(modelUrl(file)))
 
-// A failed download of the Draco decoder never settles the load, so no error ever
-// arrives, and only a new page can recover: the decoder promise stays stuck.
-const DRACO_TIMEOUT_MS = 30000
+// A failed download of the Draco decoder never settles the load, so no error ever arrives,
+// and only a new page can recover: the decoder promise stays stuck. So ask for its files
+// directly. A slow line is not a failure: the clock for a decoder that does not respond only
+// starts once its files have arrived.
+const DRACO_FILES = ['draco_decoder.wasm', 'draco_wasm_wrapper.js']
+const DRACO_STUCK_MS = 120000
 
 function DracoWatchdog() {
-  const [timedOut, setTimedOut] = useState(false)
+  const [failed, setFailed] = useState(false)
   useEffect(() => {
-    const timer = setTimeout(() => setTimedOut(true), DRACO_TIMEOUT_MS)
-    return () => clearTimeout(timer)
+    let timer
+    const files = DRACO_FILES.map(async (file) => {
+      const response = await fetch(assetUrl(`draco/${file}`))
+      if (!response.ok) throw new Error(`${file}: ${response.status}`)
+      await response.arrayBuffer()
+    })
+    let unmounted = false
+    Promise.all(files).then(
+      () => {
+        if (!unmounted) timer = setTimeout(() => setFailed(true), DRACO_STUCK_MS)
+      },
+      () => setFailed(true),
+    )
+    return () => {
+      unmounted = true
+      clearTimeout(timer)
+    }
   }, [])
-  if (timedOut) throw Object.assign(new Error('Draco decoder did not respond'), { needsReload: true })
+  if (failed) throw Object.assign(new Error('Draco decoder did not respond'), { needsReload: true })
   return null
 }
 
