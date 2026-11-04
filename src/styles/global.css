@@ -155,11 +155,13 @@ picture {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  pointer-events: none; /* the free part lets the robot be grabbed */
 }
 
 .section__content,
 .hero__content {
   width: min(48vw, 640px);
+  pointer-events: auto;
 }
 
 .section--wide {
@@ -771,6 +773,23 @@ h1 {
   }
 }
 
+/* Where the robot can be turned: above the canvas, below the content. Its box is set by
+   RobotGrab. Vertical swipes still scroll the page through it. */
+.robot-grab {
+  position: fixed;
+  z-index: var(--z-scene);
+  cursor: grab;
+  touch-action: pan-y pinch-zoom;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.robot-grab:active {
+  cursor: grabbing;
+}
+
 /* Model that could not load ------------------------------------------------ */
 .model-status {
   position: fixed;
@@ -854,6 +873,11 @@ h1 {
 
   .no-3d {
     --robot-band: 0px;
+  }
+
+  /* Nothing scrolls under the robot here, so a swipe in any direction can turn it. */
+  .robot-grab {
+    touch-action: pinch-zoom;
   }
 
   /* The page itself stands still: only the pane below the robot scrolls. */
