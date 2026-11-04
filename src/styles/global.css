@@ -926,6 +926,27 @@ h1 {
   }
 }
 
+/* Always two columns on a phone: small logos, whatever its width. */
+@media (max-width: 639px) {
+  .skills {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .skill {
+    gap: 0.4rem;
+    padding: 0.7rem 0.5rem;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .skill__logo {
+    width: 56px;
+    height: 42px;
+    padding: 0.25rem;
+  }
+}
+
 /* Fingers need room. */
 @media (pointer: coarse) {
   .carousel-controls__button,

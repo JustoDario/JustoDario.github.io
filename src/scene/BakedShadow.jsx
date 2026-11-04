@@ -3,6 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js'
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js'
+import { alphaOnlyMap } from './alphaOnlyMap.js'
 import { NO_SHADOW_LAYER } from './rail.js'
 
 const FLOOR_Y = 0.002
@@ -111,6 +112,8 @@ export default function BakedShadow({ size = 5, far = 1.6, blur = 2.2, opacity =
       <planeGeometry args={[size, size]} />
       <meshBasicMaterial
         map={res.target.texture}
+        color={color}
+        onBeforeCompile={alphaOnlyMap}
         transparent
         opacity={opacity}
         depthWrite={false}
