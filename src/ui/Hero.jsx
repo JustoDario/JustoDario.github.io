@@ -16,7 +16,7 @@ export default function Hero() {
         <p className="hero__subtitle">{l(profile.subtitle)}</p>
         <p className="hero__tagline">{l(profile.tagline)}</p>
         <div className="actions">
-          <a className="button button--primary" href="#projects">
+          <a className="button button--primary" href="#research">
             {t('hero.viewWork')}
           </a>
           <a className="button" href={assetUrl(profile.cv)} target="_blank" rel="noreferrer">

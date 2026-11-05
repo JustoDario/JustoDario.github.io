@@ -172,6 +172,29 @@ picture {
   width: min(92vw, 860px);
 }
 
+/* No robot beside these: the panel takes the room, with the media next to the text. */
+@media (min-width: 961px) {
+  .section--wide.section--carousel .section__content {
+    width: min(92vw, 1200px);
+  }
+
+  .section--wide .entry {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    column-gap: 2rem;
+    align-content: start;
+  }
+
+  .section--wide .entry > * {
+    grid-column: 2;
+  }
+
+  .section--wide .entry > .media {
+    grid-column: 1;
+    grid-row: 1 / span 6;
+    width: 100%;
+  }
+}
+
 h2 {
   margin-bottom: 1.25rem;
   font-size: clamp(1.7rem, 3vw, 2.4rem);
@@ -551,10 +574,18 @@ h1 {
   font-weight: 600;
 }
 
-.entry__meta,
-.entry__credit {
+.entry__meta {
   font-size: 0.88rem;
   color: var(--ink-soft);
+}
+
+.tag {
+  padding: 0.15rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  border: 1px solid currentColor;
+  border-radius: 999px;
 }
 
 .entry__highlights {

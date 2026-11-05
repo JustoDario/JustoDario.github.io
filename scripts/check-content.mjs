@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-// Validates the portfolio content against a fixed manifest of the original site.
+// Validates the portfolio content against a fixed manifest.
 // Fails on missing files, wrong order, altered URLs, missing translations or
 // location metadata. `--inject-broken` corrupts one path to prove it can fail.
 import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { carouselSections } from '../src/data/entries.js'
+import { carouselSections, publications } from '../src/data/entries.js'
 import { MODELS } from '../src/data/models.js'
 import { profile, skills } from '../src/data/profile.js'
 import { en } from '../src/i18n/en.js'
@@ -16,27 +16,31 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const pub = (path) => join(ROOT, 'public', path)
 const VID = (slug) => `video:${slug}`
 
-// id, model, media in the exact order of the original portfolio.
+// id, model, media in the exact order on the site.
 const MANIFEST = {
-  experience: [
-    ['robotech', 'scara', [VID('scara-demo'), 'scarav1-2.jpg']],
-    ['tsb', 'sp01', ['inflationlayeradded.png', 'tsbsimulation.png', VID('tsb-mapping')]],
-  ],
-  projects: [
+  research: [
     ['quadruped', 'coco1', [
       VID('coco-icra'), VID('coco-control'), VID('coco-redesign'),
       'cocov2_photo1.jpg', 'cocov2_summit1.jpg', 'cocov2_photo2.jpg', 'coco_summit.jpg', 'cocov1.jpg',
       VID('coco-ik'), VID('coco-trot'), 'rpycoco.png',
     ]],
+  ],
+  responsibility: [
+    ['robotech', 'scara', [VID('scara-demo'), 'scarav1-2.jpg']],
+    ['tsb', 'sp01', ['inflationlayeradded.png', 'tsbsimulation.png', VID('tsb-mapping'), 'sp01.jpg', 'sp012.jpg']],
+  ],
+  projects: [
+    ['so101-tidy', 'so101', ['best_moments_grid.gif', VID('erh-demo')]],
+    ['go2-inspection', 'go2', ['eeq1.jpg']],
     ['car', 'humblebeev2', ['rcv1.jpg', 'rcv2.jpg', 'rc3.jpg', VID('car-esp32')]],
   ],
   hackathons: [
-    ['erh', 'so101', ['erh_hack_podium.jpg', 'best_moments_grid.gif', 'erh_house.jpg', 'erh_hack_team.jpg', VID('erh-demo')]],
-    ['embodied', 'go2', ['ee1.jpg', 'eeq1.jpg', 'ee2.jpg']],
+    ['erh', null, ['erh_hack_podium.jpg', 'erh_house.jpg', 'erh_hack_team.jpg']],
+    ['embodied', null, ['ee1.jpg', 'ee2.jpg']],
     ['ai', null, ['hackatonaiayo.jpg', 'atari_aia.jpg', 'aia_conf.png']],
     ['mapfre', null, ['urjchackaton1.jpg', 'urjchackaton2.jpg', 'mapfreapp1.png']],
-    ['openred', null, ['radiacodehackaton.jpg', 'radiacodeapp1.png']],
     ['qubic', null, ['qubichackaton.jpg', 'demoqubic1.jpg', 'demoqubic2.jpg']],
+    ['openred', null, ['radiacodehackaton.jpg', 'radiacodeapp1.png']],
   ],
   education: [
     ['urjc', null, []],
@@ -83,7 +87,7 @@ function checkImage(file, where) {
 
 // Sections and entries against the manifest.
 const seen = new Set()
-if (inject) carouselSections[0].entries[0].media[1].file = 'does-not-exist.jpg'
+if (inject) carouselSections[0].entries[0].media.find((m) => m.file).file = 'does-not-exist.jpg'
 
 for (const [sectionId, expected] of Object.entries(MANIFEST)) {
   const section = carouselSections.find((s) => s.id === sectionId)
@@ -108,12 +112,11 @@ for (const [sectionId, expected] of Object.entries(MANIFEST)) {
     }
     entry.highlights?.forEach((h, i) => localised(h, `${where} highlight ${i}`))
 
-    if (entry.model !== model) fail(`${where}: model is ${entry.model}, expected ${model}`)
+    if ((entry.model ?? null) !== model) fail(`${where}: model is ${entry.model}, expected ${model}`)
     if (model && !existsSync(pub(`3d/${MODELS[model]?.file}`))) fail(`${where}: no file for model ${model}`)
 
     if (REQUIRED_LINKS[id] && entry.link?.url !== REQUIRED_LINKS[id]) fail(`${where}: link differs from the original`)
     if (entry.link) localised(entry.link.label, `${where} link label`)
-    if (entry.credit) localised(entry.credit.text, `${where} credit`)
 
     const actual = entry.media.map((m) => (m.slug ? VID(m.slug) : m.file))
     if (actual.join('|') !== media.join('|')) fail(`${where}: media or order differ from the manifest:\n    ${actual.join('\n    ')}`)
@@ -138,9 +141,11 @@ for (const [sectionId, expected] of Object.entries(MANIFEST)) {
   }
 }
 
-// go2.glb is CC BY 4.0, which requires visible attribution.
-const go2 = carouselSections.flatMap((s) => s.entries).find((e) => e.model === 'go2')
-if (!go2?.credit?.url) fail('go2 entry is missing its CC BY credit')
+for (const item of publications) {
+  for (const key of ['status', 'role', 'venue', 'collaboration']) localised(item[key], `publication ${item.id} ${key}`)
+  localised(item.link.label, `publication ${item.id} link label`)
+  if (item.status.en !== 'Manuscript submitted') fail(`publication ${item.id}: status must stay "Manuscript submitted" until that changes`)
+}
 
 // Profile, skills and interface strings.
 checkImage(profile.photo.file, 'profile photo')

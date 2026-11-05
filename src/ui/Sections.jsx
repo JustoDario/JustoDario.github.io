@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import { publications } from '../data/entries.js'
 import { profile, skills } from '../data/profile.js'
 import { useLanguage } from '../i18n/LanguageProvider.jsx'
 import { useNavigation } from '../state/NavigationProvider.jsx'
 import { assetUrl } from '../lib/assetUrl.js'
-import { CopyIcon, GitHubIcon, LinkedInIcon, MailIcon } from './icons.jsx'
+import { CopyIcon, ExternalIcon, GitHubIcon, LinkedInIcon, MailIcon } from './icons.jsx'
 
 export function Section({ id, children, wide = false, carousel = false }) {
   const { t } = useLanguage()
@@ -27,6 +28,26 @@ export function About() {
           <p key={paragraph.en}>{l(paragraph)}</p>
         ))}
       </div>
+    </Section>
+  )
+}
+
+export function Publications() {
+  const { l } = useLanguage()
+  return (
+    <Section id="publications">
+      {publications.map((item) => (
+        <article className="panel entry" key={item.id}>
+          <span className="tag">{l(item.status)}</span>
+          <h3>{item.title}</h3>
+          <p className="entry__role">{l(item.role)}</p>
+          <p>{l(item.venue)}</p>
+          <p>{l(item.collaboration)}</p>
+          <a className="button" href={item.link.url} target="_blank" rel="noreferrer">
+            {l(item.link.label)} <ExternalIcon />
+          </a>
+        </article>
+      ))}
     </Section>
   )
 }

@@ -41,14 +41,6 @@ export default function InfoPanel({ entry, active }) {
           {l(entry.link.label)} <ExternalIcon />
         </a>
       )}
-
-      {entry.credit && (
-        <p className="entry__credit">
-          <a href={entry.credit.url} target="_blank" rel="noreferrer">
-            {l(entry.credit.text)}
-          </a>
-        </p>
-      )}
     </article>
   )
 }

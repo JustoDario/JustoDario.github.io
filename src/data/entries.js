@@ -1,64 +1,9 @@
 import { L, image, video } from './media.js'
 
-// Media order matches the original portfolio: public deep links and the links
-// in the CV (#section/entry/media) depend on it. Do not reorder.
+// The order of `media` is public: deep links and the links in the CV (#section/entry/media)
+// depend on it. Reordering means updating them.
 
-export const experience = [
-  {
-    id: 'robotech',
-    model: 'scara',
-    title: L('RoboTech Student Association', 'RoboTech Student Association'),
-    role: L('Treasurer & SCARA Project Lead', 'Tesorero y líder del proyecto SCARA'),
-    organization: 'Universidad Rey Juan Carlos',
-    dates: L('Jan 2025 – Present', 'Ene 2025 – Actualidad'),
-    description: L(
-      'The SCARA Project aims to combine advanced control systems with AI-based decision making so that our robot can play chess autonomously. It currently plays tic-tac-toe, as shown in the demo.',
-      'El proyecto SCARA busca combinar sistemas avanzados de control con toma de decisiones basada en inteligencia artificial para que nuestro robot juegue al ajedrez de forma autónoma. De momento juega al 3 en raya, como se ve en la demo.',
-    ),
-    link: {
-      url: 'https://robotech-urjc.github.io/mainweb/',
-      label: L('Visit RoboTech website', 'Visitar la web de RoboTech'),
-    },
-    media: [
-      video('scara-demo', '4r0j4g5fImk', 'RoboTech SCARA Robot Autonomously playing tic-tac-toe', 'Robot SCARA de RoboTech jugando al 3 en raya de forma autónoma'),
-      image(
-        'scarav1-2.jpg',
-        'SCARA robot arm on a workbench above a three-by-three game board',
-        'Brazo robótico SCARA sobre una mesa de trabajo, encima de un tablero de tres por tres',
-      ),
-    ],
-  },
-  {
-    id: 'tsb',
-    model: 'sp01',
-    title: L('Técnico Solar Boat', 'Técnico Solar Boat'),
-    role: L('Autonomous Systems Member — Mapping Lead', 'Miembro de Sistemas Autónomos — Mapping Lead'),
-    dates: L('Aug 2025 – Mar 2026', 'Ago 2025 – Mar 2026'),
-    description: L(
-      'Responsible for the mapping implementation within the autonomous navigation stack.',
-      'Responsable de la implementación del mapping dentro de la arquitectura de navegación autónoma del proyecto.',
-    ),
-    link: {
-      url: 'https://tecnicosolarboat.com/',
-      label: L('Visit Técnico Solar Boat website', 'Visitar la web de Técnico Solar Boat'),
-    },
-    media: [
-      image(
-        'inflationlayeradded.png',
-        'Costmap visualisation with an inflation layer around detected obstacles',
-        'Visualización de un costmap con una capa de inflación alrededor de los obstáculos detectados',
-      ),
-      image(
-        'tsbsimulation.png',
-        'Simulation of the autonomous boat on dark water with marker buoys ahead',
-        'Simulación del barco autónomo sobre agua oscura con boyas de referencia al frente',
-      ),
-      video('tsb-mapping', '_bkvL-_BGiE', 'Mapping Test 02', 'Prueba de mapping 02'),
-    ],
-  },
-]
-
-export const projects = [
+export const research = [
   {
     id: 'quadruped',
     model: 'coco1',
@@ -110,6 +55,132 @@ export const projects = [
       ),
     ],
   },
+]
+
+// Not a carousel: a compact panel with its own station on the rail.
+export const publications = [
+  {
+    id: 'icra2027',
+    title: 'A Reactive Single-Step Horizon Control Pipeline for Robust Quadruped Locomotion under Actuation Uncertainty',
+    status: L('Manuscript submitted', 'Manuscrito enviado'),
+    role: L('First author', 'Primer autor'),
+    venue: L(
+      'Submitted to the IEEE International Conference on Robotics and Automation (ICRA 2027)',
+      'Enviado a la IEEE International Conference on Robotics and Automation (ICRA 2027)',
+    ),
+    collaboration: L(
+      'International research collaboration with Fan Mo Lab, University of Electronic Science and Technology of China (UESTC).',
+      'Colaboración internacional de investigación con Fan Mo Lab, University of Electronic Science and Technology of China (UESTC).',
+    ),
+    link: {
+      url: 'https://youtu.be/cN7WDKmJhnM',
+      label: L('Supplementary video', 'Vídeo suplementario'),
+    },
+  },
+]
+
+export const responsibility = [
+  {
+    id: 'robotech',
+    model: 'scara',
+    title: L('RoboTech Student Association', 'RoboTech Student Association'),
+    role: L('Treasurer & SCARA Project Lead', 'Tesorero y líder del proyecto SCARA'),
+    organization: 'Universidad Rey Juan Carlos',
+    dates: L('Jan 2025 – Present', 'Ene 2025 – Actualidad'),
+    description: L(
+      'The SCARA Project aims to combine advanced control systems with AI-based decision making so that our robot can play chess autonomously. It currently plays tic-tac-toe, as shown in the demo.',
+      'El proyecto SCARA busca combinar sistemas avanzados de control con toma de decisiones basada en inteligencia artificial para que nuestro robot juegue al ajedrez de forma autónoma. De momento juega al 3 en raya, como se ve en la demo.',
+    ),
+    link: {
+      url: 'https://robotech-urjc.github.io/mainweb/',
+      label: L('Visit RoboTech website', 'Visitar la web de RoboTech'),
+    },
+    media: [
+      video('scara-demo', '4r0j4g5fImk', 'RoboTech SCARA Robot Autonomously playing tic-tac-toe', 'Robot SCARA de RoboTech jugando al 3 en raya de forma autónoma'),
+      image(
+        'scarav1-2.jpg',
+        'SCARA robot arm on a workbench above a three-by-three game board',
+        'Brazo robótico SCARA sobre una mesa de trabajo, encima de un tablero de tres por tres',
+      ),
+    ],
+  },
+  {
+    id: 'tsb',
+    model: 'sp01',
+    title: L('Técnico Solar Boat', 'Técnico Solar Boat'),
+    role: L('Autonomous Systems Member — Mapping Lead', 'Miembro de Sistemas Autónomos — Mapping Lead'),
+    dates: L('Aug 2025 – Mar 2026', 'Ago 2025 – Mar 2026'),
+    description: L(
+      'Responsible for the mapping implementation within the autonomous navigation stack.',
+      'Responsable de la implementación del mapping dentro de la arquitectura de navegación autónoma del proyecto.',
+    ),
+    link: {
+      url: 'https://tecnicosolarboat.com/',
+      label: L('Visit Técnico Solar Boat website', 'Visitar la web de Técnico Solar Boat'),
+    },
+    media: [
+      image(
+        'inflationlayeradded.png',
+        'Costmap visualisation with an inflation layer around detected obstacles',
+        'Visualización de un costmap con una capa de inflación alrededor de los obstáculos detectados',
+      ),
+      image(
+        'tsbsimulation.png',
+        'Simulation of the autonomous boat on dark water with marker buoys ahead',
+        'Simulación del barco autónomo sobre agua oscura con boyas de referencia al frente',
+      ),
+      video('tsb-mapping', '_bkvL-_BGiE', 'Mapping Test 02', 'Prueba de mapping 02'),
+      image(
+        'sp01.jpg',
+        'White SP01 solar catamaran with a shark mouth painted on its bow, resting on shallow water',
+        'Catamarán solar SP01 blanco, con una boca de tiburón pintada en la proa, sobre aguas poco profundas',
+      ),
+      image(
+        'sp012.jpg',
+        'SP01 on the water among red, green and yellow buoys, under the text "Njord challenge 2nd Place"',
+        'SP01 en el agua entre boyas rojas, verdes y amarillas, bajo el texto "Njord challenge 2nd Place"',
+      ),
+    ],
+  },
+]
+
+export const projects = [
+  {
+    id: 'so101-tidy',
+    model: 'so101',
+    title: L('Autonomous Table-Tidying with a LeRobot SO-101 Arm', 'Ordenado autónomo de una mesa con un brazo LeRobot SO-101'),
+    subtitle: L('ERH Physical AI Hackathon, Black Forest Labs track: 2nd place', 'ERH Physical AI Hackathon, track de Black Forest Labs: 2.º puesto'),
+    description: L(
+      'Developed a robotic manipulation pipeline combining a Vision-Language Model (VLM) for high-level task decomposition with FLUX 3 Action, a fine-tuned World Action Model (WAM), enabling a physical LeRobot SO-101 arm to perform autonomous tabletop-cleanup tasks using teleoperated demonstrations.',
+      'Desarrollo de un pipeline de manipulación que combina un Vision-Language Model (VLM) para la descomposición de tareas de alto nivel con FLUX 3 Action, un World Action Model (WAM) con fine-tuning, para que un brazo físico LeRobot SO-101 ordene una mesa de forma autónoma a partir de demostraciones teleoperadas.',
+    ),
+    media: [
+      image(
+        'best_moments_grid.gif',
+        'Animated grid of the SO-101 arm performing pick and place tasks on a table',
+        'Cuadrícula animada del brazo SO-101 haciendo tareas de coger y colocar sobre una mesa',
+        'best_moments_grid-still.jpg',
+      ),
+      video('erh-demo', 'CDUgXpPN3KQ', 'ERH Physical AI Hackathon - Recording demonstrations until 5 am', 'ERH Physical AI Hackathon: grabando demostraciones hasta las 5 de la mañana'),
+    ],
+  },
+  {
+    id: 'go2-inspection',
+    model: 'go2',
+    title: L('Autonomous Inspection and Companion Unitree Go2', 'Inspección autónoma y compañía con un Unitree Go2'),
+    subtitle: L('Europe Embodied 48H Hackathon', 'Hackathon de 48 h Europe Embodied'),
+    description: L(
+      'Developed an autonomous inspection and human–robot interaction prototype using a Unitree Go2. The system combined VLM-based task planning, Nav2 autonomous navigation and speech-based interaction to support operators in exploring and inspecting industrial environments.',
+      'Desarrollo de un prototipo de inspección autónoma e interacción humano-robot con un Unitree Go2. El sistema combinaba planificación de tareas con un VLM, navegación autónoma con Nav2 e interacción por voz para ayudar a los operarios a explorar e inspeccionar entornos industriales.',
+    ),
+    media: [
+      image(
+        'eeq1.jpg',
+        'Unitree Go2 quadruped robot standing on a cardboard box',
+        'Robot cuadrúpedo Unitree Go2 de pie sobre una caja de cartón',
+      ),
+    ],
+  },
   {
     id: 'car',
     model: 'humblebeev2',
@@ -136,26 +207,23 @@ export const projects = [
   },
 ]
 
+// The event itself. What was built there, with its robot, is under `projects`.
 export const hackathons = [
   {
     id: 'erh',
-    model: 'so101',
     title: L('European Robotics House Physical AI Hackathon', 'European Robotics House Physical AI Hackathon'),
+    role: L('2nd place, Black Forest Labs track', '2.º puesto, track de Black Forest Labs'),
+    organization: 'Zurich',
+    dates: L('Oct 2026', 'Oct 2026'),
     description: L(
-      'Teaching a LeRobot SO-101 arm to tidy a messy table using the FLUX 3 Action World Action Model.',
-      'Enseñar a un brazo LeRobot SO-101 a ordenar una mesa desordenada mediante el modelo FLUX 3 Action World Action Model.',
+      'Physical AI hackathon at the European Robotics House, where our team worked on robot manipulation in the Black Forest Labs track.',
+      'Hackathon de Physical AI en la European Robotics House, donde nuestro equipo trabajó en manipulación robótica dentro del track de Black Forest Labs.',
     ),
     media: [
       image(
         'erh_hack_podium.jpg',
         'Group photo of six people at the hackathon awards',
         'Foto de grupo de seis personas en la entrega de premios del hackathon',
-      ),
-      image(
-        'best_moments_grid.gif',
-        'Animated grid of the SO-101 arm performing pick and place tasks on a table',
-        'Cuadrícula animada del brazo SO-101 haciendo tareas de coger y colocar sobre una mesa',
-        'best_moments_grid-still.jpg',
       ),
       image(
         'erh_house.jpg',
@@ -167,35 +235,23 @@ export const hackathons = [
         'Team of three people next to the blue SO-101 arms on their work table',
         'Equipo de tres personas junto a los brazos SO-101 azules en su mesa de trabajo',
       ),
-      video('erh-demo', 'CDUgXpPN3KQ', 'ERH Physical AI Hackathon - Recording demonstrations until 5 am', 'ERH Physical AI Hackathon: grabando demostraciones hasta las 5 de la mañana'),
     ],
   },
   {
     id: 'embodied',
-    model: 'go2',
     title: L('Europe Embodied — 48h Hackathon', 'Europe Embodied — Hackathon de 48 h'),
     subtitle: L('Wendy Challenge', 'Wendy Challenge'),
+    organization: 'Munich',
+    dates: L('Jun 2026', 'Jun 2026'),
     description: L(
-      'Quadruped robot autonomous navigation and human-robot interaction for factory inspection.',
-      'Navegación autónoma con un robot cuadrúpedo e interacción humano-robot para inspección en fábricas.',
+      '48-hour robotics hackathon in Munich, where our team took part in the Wendy Challenge on factory inspection with a quadruped robot.',
+      'Hackathon de robótica de 48 horas en Múnich, donde nuestro equipo participó en el Wendy Challenge sobre inspección de fábricas con un robot cuadrúpedo.',
     ),
-    credit: {
-      text: L(
-        '3D model: "Robot dog Unitree Go2" by C. Yamahata, CC BY 4.0 (adapted: legs posed)',
-        'Modelo 3D: "Robot dog Unitree Go2" de C. Yamahata, CC BY 4.0 (adaptado: patas flexionadas)',
-      ),
-      url: 'https://sketchfab.com/3d-models/robot-dog-unitree-go2-7af84eb9ba834f27bbac818a8b96e2da',
-    },
     media: [
       image(
         'ee1.jpg',
         'Justo working closely on a project between cardboard boxes and metal shelves',
         'Justo trabajando de cerca en un proyecto entre cajas de cartón y estanterías metálicas',
-      ),
-      image(
-        'eeq1.jpg',
-        'Unitree Go2 quadruped robot standing on a cardboard box',
-        'Robot cuadrúpedo Unitree Go2 de pie sobre una caja de cartón',
       ),
       image(
         'ee2.jpg',
@@ -206,8 +262,8 @@ export const hackathons = [
   },
   {
     id: 'ai',
-    model: null,
     title: L('AI Hackathon', 'AI Hackathon'),
+    dates: L('Apr 2026', 'Abr 2026'),
     description: L(
       'Image classification model fine-tuning and Atari Boxing agent training.',
       'Ajuste fino de un modelo de clasificación de imágenes y entrenamiento de un agente para Atari Boxing.',
@@ -232,8 +288,8 @@ export const hackathons = [
   },
   {
     id: 'mapfre',
-    model: null,
     title: L('Mapfre Hackathon', 'Mapfre Hackathon'),
+    dates: L('Jul 2025', 'Jul 2025'),
     description: L('Mental Health Care App.', 'Aplicación para el cuidado de la salud mental.'),
     media: [
       image(
@@ -254,30 +310,9 @@ export const hackathons = [
     ],
   },
   {
-    id: 'openred',
-    model: null,
-    title: L('Openred Hackathon', 'Openred Hackathon'),
-    description: L(
-      'Gamma radiation data collection and upload to a database.',
-      'Recopilación de datos de radiación gamma y su subida a una base de datos.',
-    ),
-    media: [
-      image(
-        'radiacodehackaton.jpg',
-        'Four people posing with a hackathon prize cheque',
-        'Cuatro personas posando con el cheque de premio del hackathon',
-      ),
-      image(
-        'radiacodeapp1.png',
-        'App showing counts per second, dose, temperature and GPS readings',
-        'Aplicación que muestra lecturas de cuentas por segundo, dosis, temperatura y GPS',
-      ),
-    ],
-  },
-  {
     id: 'qubic',
-    model: null,
     title: L('Qubic and Vottun Hackathon', 'Hackathon de Qubic y Vottun'),
+    dates: L('Mar 2025', 'Mar 2025'),
     description: L('Crypto QR Transfers.', 'Transferencias de criptomonedas mediante códigos QR.'),
     media: [
       image(
@@ -297,13 +332,33 @@ export const hackathons = [
       ),
     ],
   },
+  {
+    id: 'openred',
+    title: L('Openred Hackathon', 'Openred Hackathon'),
+    dates: L('Feb 2025', 'Feb 2025'),
+    description: L(
+      'Gamma radiation data collection and upload to a database.',
+      'Recopilación de datos de radiación gamma y su subida a una base de datos.',
+    ),
+    media: [
+      image(
+        'radiacodehackaton.jpg',
+        'Four people posing with a hackathon prize cheque',
+        'Cuatro personas posando con el cheque de premio del hackathon',
+      ),
+      image(
+        'radiacodeapp1.png',
+        'App showing counts per second, dose, temperature and GPS readings',
+        'Aplicación que muestra lecturas de cuentas por segundo, dosis, temperatura y GPS',
+      ),
+    ],
+  },
 ]
 
 // Education has no photos yet: add them to `media` when they are available.
 export const education = [
   {
     id: 'urjc',
-    model: null,
     title: L('Universidad Rey Juan Carlos', 'Universidad Rey Juan Carlos'),
     role: L('B.Sc. Robotics Software Engineering', 'Grado en Ingeniería de Robótica Software'),
     dates: L('2023 – Present', '2023 – Actualidad'),
@@ -315,7 +370,6 @@ export const education = [
   },
   {
     id: 'ist',
-    model: null,
     title: L('Instituto Superior Técnico', 'Instituto Superior Técnico'),
     role: L(
       'Erasmus Exchange Student, MSc Electrical and Computer Engineering',
@@ -330,7 +384,6 @@ export const education = [
   },
   {
     id: 'uestc',
-    model: null,
     title: L(
       'University of Electronic Science and Technology of China (UESTC)',
       'University of Electronic Science and Technology of China (UESTC)',
@@ -345,8 +398,11 @@ export const education = [
   },
 ]
 
+// Sections with one entry at a time. The order of the page and of the rail is set in
+// App.jsx and stations.js.
 export const carouselSections = [
-  { id: 'experience', entries: experience },
+  { id: 'research', entries: research },
+  { id: 'responsibility', entries: responsibility },
   { id: 'projects', entries: projects },
   { id: 'hackathons', entries: hackathons },
   { id: 'education', entries: education },

@@ -10,6 +10,9 @@
 // Files ending in -posed come from scripts/pose-glb.mjs: same model, legs bent. Files
 // ending in -lite from scripts/compress-glb.mjs: same shapes, smaller and fewer draw calls.
 // legged: touches the floor at small points, so it gets a contact shadow.
+//
+// Sources: go2 is "Robot dog Unitree Go2" by C. Yamahata, CC BY 4.0, legs posed,
+// https://sketchfab.com/3d-models/robot-dog-unitree-go2-7af84eb9ba834f27bbac818a8b96e2da
 export const MODELS = {
   coco1: { file: 'coco1-posed.glb', scale: 2.795, offset: [0.08, 0.66, -0.001], rotationY: -0.5, height: 1.05, radius: 0.9, draco: true, legged: true },
   scara: { file: 'scara.glb', scale: 2.112, offset: [0.232, 0.074, -0.054], rotationY: -0.3, height: 0.98, radius: 0.74 },

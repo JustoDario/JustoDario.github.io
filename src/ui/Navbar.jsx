@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageProvider.jsx'
 import { CloseIcon, MenuIcon } from './icons.jsx'
 
-const LINKS = ['about', 'experience', 'projects', 'hackathons', 'education', 'skills', 'contact']
+const LINKS = ['about', 'research', 'publications', 'responsibility', 'projects', 'hackathons', 'education', 'skills', 'contact']
 
 export default function Navbar() {
   const { t, toggle } = useLanguage()

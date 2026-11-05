@@ -6,7 +6,7 @@ import Hero from './ui/Hero.jsx'
 import MainCarousel from './ui/MainCarousel.jsx'
 import ModelStatus from './ui/ModelStatus.jsx'
 import SkipLink from './ui/SkipLink.jsx'
-import { About, Contact, Section, Skills } from './ui/Sections.jsx'
+import { About, Contact, Publications, Section, Skills } from './ui/Sections.jsx'
 import { LanguageProvider } from './i18n/LanguageProvider.jsx'
 import { NavigationProvider } from './state/NavigationProvider.jsx'
 import { carouselSections } from './data/entries.js'
@@ -17,6 +17,15 @@ const DebugPanel = lazy(() => import('./scene/Debug.jsx').then((m) => ({ default
 
 const params = new URLSearchParams(window.location.search)
 const debug = params.has('debug')
+
+function CarouselSection({ id, wide }) {
+  const { entries } = carouselSections.find((section) => section.id === id)
+  return (
+    <Section id={id} carousel wide={wide}>
+      <MainCarousel sectionId={id} entries={entries} />
+    </Section>
+  )
+}
 
 export default function App() {
   // The text comes first: the 3D code and the robot only start once it is on screen.
@@ -42,11 +51,12 @@ export default function App() {
           <main id="main" tabIndex={-1}>
             <Hero />
             <About />
-            {carouselSections.map(({ id, entries }) => (
-              <Section key={id} id={id} carousel>
-                <MainCarousel sectionId={id} entries={entries} />
-              </Section>
-            ))}
+            <CarouselSection id="research" />
+            <Publications />
+            <CarouselSection id="responsibility" />
+            <CarouselSection id="projects" />
+            <CarouselSection id="hackathons" wide />
+            <CarouselSection id="education" wide />
             <Skills />
             <Contact />
           </main>

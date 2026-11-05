@@ -46,6 +46,8 @@ photo radiacodehackaton.jpeg  radiacodehackaton.jpg   1920
 photo qubichackaton.jpeg      qubichackaton.jpg       1920
 photo demoqubic1.jpg          demoqubic1.jpg          1920
 photo demoqubic2.jpg          demoqubic2.jpg          1920
+photo sp01.jpeg               sp01.jpg                1920
+photo sp012.png               sp012.jpg               1920
 photo mylatestphoto.jpeg      mylatestphoto.jpg       900
 photo pythonlogo.jpeg         pythonlogo.jpg          256
 
