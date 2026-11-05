@@ -13,8 +13,9 @@ import { advanceSpin, spinOf } from './robotSpin.js'
 const OUT_OF_SIGHT_Y = -50
 
 // In the upright layout's short band each robot is centred by its own height, or tall
-// ones would touch the navbar and short ones sit low. Elsewhere they share the floor.
-export const robotLift = (model) => (isUpright() ? LOOK_AT_HEIGHT - model.height / 2 : 0)
+// ones would touch the navbar and short ones sit low. Elsewhere they share the floor,
+// unless `lift` moves a tall one and its floor to sit better in the frame.
+export const robotLift = (model) => (isUpright() ? LOOK_AT_HEIGHT - model.height / 2 : (model.lift ?? 0))
 
 // One exhibit. Stations without a model are not mounted at all.
 export default function RobotStation({ station, warm, layout }) {

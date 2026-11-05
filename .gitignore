@@ -4,3 +4,5 @@ dist/
 /3d/
 *.local
 .DS_Store
+# Originals of the new media, up to 167 MB each. scripts/optimize-projectmedia.sh makes the site versions.
+/assets/projectmedia/

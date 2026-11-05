@@ -19,31 +19,35 @@ const VID = (slug) => `video:${slug}`
 // id, model, media in the exact order on the site.
 const MANIFEST = {
   research: [
+    ['thesis', 'g1', []],
     ['quadruped', 'coco1', [
       VID('coco-icra'), VID('coco-control'), VID('coco-redesign'),
       'cocov2_photo1.jpg', 'cocov2_summit1.jpg', 'cocov2_photo2.jpg', 'coco_summit.jpg', 'cocov1.jpg',
       VID('coco-ik'), VID('coco-trot'), 'rpycoco.png',
     ]],
-    ['thesis', 'g1', []],
   ],
   responsibility: [
     ['scara', 'scara', [VID('scara-demo'), 'scarav1-2.jpg']],
+    ['tsb', 'sp01', [VID('tsb-mapping'), 'sp01.jpg', 'sp012.jpg', 'inflationlayeradded.png', 'tsbsimulation.png']],
     ['treasurer', null, []],
-    ['tsb', 'sp01', ['inflationlayeradded.png', 'tsbsimulation.png', VID('tsb-mapping'), 'sp01.jpg', 'sp012.jpg']],
   ],
   projects: [
     ['so101-tidy', 'so101', ['best_moments_grid.gif', VID('erh-demo')]],
-    ['go2-inspection', 'go2', ['eeq1.jpg']],
+    ['go2-inspection', 'go2', ['eeq1.jpg', VID('go2-test1'), VID('go2-test2')]],
     ['biped', 'stairclimber', []],
-    ['ur5', 'ur5', []],
-    ['delivery', 'kobuki', []],
-    ['car', 'humblebeev2', ['rcv1.jpg', 'rcv2.jpg', 'rc3.jpg', VID('car-esp32')]],
-    ['line-follower', 'linefollower', []],
+    ['ur5', 'ur5', [VID('ur5-moving'), 'ur5-program.jpg']],
+    ['delivery', 'kobuki', [VID('delivery-test')]],
+    ['car', 'humblebeev2', ['rcv1.jpg', 'rcv2.jpg', 'rc3.jpg', VID('car-esp32'), VID('car-test')]],
+    ['line-follower', 'linefollower', [VID('linefollower-test')]],
     ['rover', 'turtlerover', []],
-    ['rescue', 'drone', []],
-    ['cleaning', 'roomba', []],
-    ['parking', 'robotaxi', []],
+    ['rescue', 'drone', [VID('rescue-sim')]],
+    ['cleaning', 'roomba', [VID('cleaning-sim')]],
+    ['parking', 'robotaxi', [VID('parking-sim')]],
     ['f1', 'f1car', []],
+    ['undocumented', null, [
+      'prototype1.jpg', 'prototype2.jpg', 'prototype3.jpg', 'undocumented1.jpg', 'undocumented2.jpg',
+      VID('proto-plot'), VID('proto-sensor'),
+    ]],
   ],
   hackathons: [
     ['erh', null, ['erh_hack_podium.jpg', 'erh_house.jpg', 'erh_hack_team.jpg']],
@@ -56,7 +60,7 @@ const MANIFEST = {
   education: [
     ['urjc', null, []],
     ['ist', null, []],
-    ['uestc', null, []],
+    ['uestc', null, ['uestc2.jpg', 'uestc1.jpg', 'uestc3.jpg']],
   ],
 }
 
@@ -141,7 +145,7 @@ for (const [sectionId, expected] of Object.entries(MANIFEST)) {
       if (m.type === 'video') localised(m.title, `${where} video ${i} title`)
       if (m.type === 'video') {
         checkImage(m.poster, `${where} video ${i} poster`)
-        if (!/^[\w-]{11}$/.test(m.youtube ?? '')) fail(`${where} video ${i}: bad YouTube id`)
+        if (m.youtube !== null && !/^[\w-]{11}$/.test(m.youtube ?? '')) fail(`${where} video ${i}: bad YouTube id`)
         for (const codec of ['av1', 'h264']) {
           const path = pub(`video/${m.slug}.${codec}.mp4`)
           if (!existsSync(path)) fail(`${where}: video file not found: ${m.slug}.${codec}.mp4`)
@@ -158,7 +162,7 @@ for (const [sectionId, expected] of Object.entries(MANIFEST)) {
 
 for (const item of publications) {
   for (const key of ['status', 'role', 'venue', 'collaboration']) localised(item[key], `publication ${item.id} ${key}`)
-  localised(item.link.label, `publication ${item.id} link label`)
+  if (item.media.map((m) => m.slug).join() !== 'coco-icra') fail(`publication ${item.id}: must play the supplementary video`)
   if (item.status.en !== 'Manuscript submitted') fail(`publication ${item.id}: status must stay "Manuscript submitted" until that changes`)
 }
 

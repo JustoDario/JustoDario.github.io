@@ -38,7 +38,7 @@ export const MODELS = {
   humblebeev2: { file: 'humblebeev2.glb', scale: 1.271, offset: [-0.001, 0.0, 0.0], rotationY: 0.9, height: 0.50, radius: 0.9, uprightScale: 1.15 },
   so101: { file: 'so101-lite.glb', scale: 4.4, offset: [-0.048, -0.009, -0.068], rotationY: 0.9, height: 1.23, radius: 0.55 },
   go2: { file: 'go2-posed.glb', scale: 2.09, offset: [0.001, 0.698, 0.036], rotationY: 1.05, height: 0.88, radius: 0.81, legged: true },
-  g1: { file: 'unitreeg1-sitting.glb', scale: 0.44, offset: [0.13, -0.006, -0.25], rotationY: -0.3, height: 1.25, radius: 0.65, legged: true, dance: { standAt: 3.43 }, upright: { scale: 0.6, offset: [-0.139, -0.643, -0.45], rotationY: -0.5, height: 1.04, radius: 0.66 } },
+  g1: { file: 'unitreeg1-sitting.glb', scale: 0.44, offset: [0.13, -0.006, -0.25], rotationY: -0.3, height: 1.25, radius: 0.65, lift: -0.3, legged: true, dance: { standAt: 3.43 }, upright: { scale: 0.6, offset: [-0.139, -0.643, -0.45], rotationY: -0.5, height: 1.04, radius: 0.66 } },
   stairclimber: { file: 'stairclimber-lite.glb', scale: 4.7, offset: [-0.345, 1.245, -0.404], rotationY: -0.5, height: 1.19, radius: 0.77, legged: true },
   ur5: { file: 'UR5.glb', scale: 0.0021, offset: [-0.105, 0, -0.036], rotation: [Math.PI / 2, 0, 0], rotationY: -0.5, height: 1.21, radius: 0.76 },
   kobuki: { file: 'kobuki.glb', scale: 2.2, offset: [0, 0.257, 0], rotationY: -0.5, height: 1.19, radius: 0.55 },

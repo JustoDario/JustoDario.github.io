@@ -121,7 +121,7 @@ function Video({ item, active }) {
           </span>
         </button>
       )}
-      {failed && (
+      {failed && item.youtube && (
         <a
           className="media__fallback"
           href={`https://www.youtube.com/watch?v=${item.youtube}`}

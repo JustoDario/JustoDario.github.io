@@ -5,6 +5,27 @@ import { L, image, video } from './media.js'
 
 export const research = [
   {
+    id: 'thesis',
+    model: 'g1',
+    title: L(
+      "Bachelor's Thesis: Integration of Foundation Models with Hierarchical Whole-Body Control for Generalist and Safe Humanoid Loco-Manipulation",
+      'TFG: Integración de modelos fundacionales con Whole-Body Control jerárquico para loco-manipulación humanoide generalista y segura',
+    ),
+    role: L('Supervisor: Francisco Martín Rico, URJC', 'Tutor: Francisco Martín Rico, URJC'),
+    dates: L('Sep 2026 – Present', 'Sep 2026 – Actualidad'),
+    note: L(
+      'Platform: Unitree R1 humanoid robot. The 3D model shown is a Unitree G1, for illustration.',
+      'Plataforma: robot humanoide Unitree R1. El modelo 3D mostrado es un Unitree G1, a modo ilustrativo.',
+    ),
+    description: L(
+      'Exploring the integration of foundation-model architectures, including Vision-Language-Action (VLA) models, World Action Models (WAMs) and Video Action Models (VAMs), into humanoid loco-manipulation. The approach aims to leverage their generalisation capabilities for high-level manipulation and motion generation, translating model outputs into intermediate task-space and body-pose objectives handled by a hierarchical Whole-Body Control (WBC) framework. This framework acts as a feasibility-aware execution and safety layer, coordinating whole-body motion while accounting for physical constraints and dynamic balance.',
+      'Exploración de la integración de arquitecturas de modelos fundacionales, incluidos los Vision-Language-Action (VLA), World Action Models (WAM) y Video Action Models (VAM), en la loco-manipulación humanoide. El enfoque busca aprovechar su capacidad de generalización para la manipulación de alto nivel y la generación de movimiento, traduciendo sus salidas en objetivos intermedios en espacio de tarea y de postura del cuerpo gestionados por un framework jerárquico de Whole-Body Control (WBC). Este framework actúa como capa de ejecución y seguridad consciente de la viabilidad, coordinando el movimiento de todo el cuerpo y teniendo en cuenta las restricciones físicas y el equilibrio dinámico.',
+    ),
+    // Pending: attach photos, then drop noMedia and fill media.
+    noMedia: true,
+    media: [],
+  },
+  {
     id: 'quadruped',
     model: 'coco1',
     title: L('12-DOF ROS 2 Quadruped Robot — COCO', 'Robot cuadrúpedo ROS 2 de 12 GDL — COCO'),
@@ -68,25 +89,6 @@ export const research = [
       ),
     ],
   },
-  {
-    id: 'thesis',
-    model: 'g1',
-    title: L(
-      "Bachelor's Thesis: Integration of Foundation Models with Hierarchical Whole-Body Control for Generalist and Safe Humanoid Loco-Manipulation",
-      'TFG: Integración de modelos fundacionales con Whole-Body Control jerárquico para loco-manipulación humanoide generalista y segura',
-    ),
-    role: L('Supervisor: Francisco Martín Rico, URJC', 'Tutor: Francisco Martín Rico, URJC'),
-    dates: L('Sep 2026 – Present', 'Sep 2026 – Actualidad'),
-    note: L(
-      'Platform: Unitree R1 humanoid robot. The 3D model shown is a Unitree G1, for illustration.',
-      'Plataforma: robot humanoide Unitree R1. El modelo 3D mostrado es un Unitree G1, a modo ilustrativo.',
-    ),
-    description: L(
-      'Exploring the integration of foundation-model architectures, including Vision-Language-Action (VLA) models, World Action Models (WAMs) and Video Action Models (VAMs), into humanoid loco-manipulation. The approach aims to leverage their generalisation capabilities for high-level manipulation and motion generation, translating model outputs into intermediate task-space and body-pose objectives handled by a hierarchical Whole-Body Control (WBC) framework. This framework acts as a feasibility-aware execution and safety layer, coordinating whole-body motion while accounting for physical constraints and dynamic balance.',
-      'Exploración de la integración de arquitecturas de modelos fundacionales, incluidos los Vision-Language-Action (VLA), World Action Models (WAM) y Video Action Models (VAM), en la loco-manipulación humanoide. El enfoque busca aprovechar su capacidad de generalización para la manipulación de alto nivel y la generación de movimiento, traduciendo sus salidas en objetivos intermedios en espacio de tarea y de postura del cuerpo gestionados por un framework jerárquico de Whole-Body Control (WBC). Este framework actúa como capa de ejecución y seguridad consciente de la viabilidad, coordinando el movimiento de todo el cuerpo y teniendo en cuenta las restricciones físicas y el equilibrio dinámico.',
-    ),
-    media: [],
-  },
 ]
 
 // Not a carousel: a compact panel with its own station on the rail.
@@ -104,10 +106,7 @@ export const publications = [
       'International research collaboration with Fan Mo Lab, University of Electronic Science and Technology of China (UESTC).',
       'Colaboración internacional de investigación con Fan Mo Lab, University of Electronic Science and Technology of China (UESTC).',
     ),
-    link: {
-      url: 'https://youtu.be/cN7WDKmJhnM',
-      label: L('Supplementary video', 'Vídeo suplementario'),
-    },
+    media: [video('coco-icra', 'cN7WDKmJhnM', 'Supplementary video', 'Vídeo suplementario')],
   },
 ]
 
@@ -151,18 +150,6 @@ export const responsibility = [
     ],
   },
   {
-    id: 'treasurer',
-    title: L('Association Treasurer', 'Tesorero de la asociación'),
-    organization: 'RoboTech URJC',
-    dates: L('Jun 2025 – Present', 'Jun 2025 – Actualidad'),
-    description: L(
-      "Manage the association's budget and purchasing decisions, supporting project teams through component selection and cost/performance trade-off assessments.",
-      'Gestión del presupuesto y las compras de la asociación, ayudando a los equipos de proyecto en la selección de componentes y la valoración de compromisos entre coste y prestaciones.',
-    ),
-    noMedia: true,
-    media: [],
-  },
-  {
     id: 'tsb',
     model: 'sp01',
     title: L('Autonomous Systems – Mapping Lead', 'Sistemas Autónomos – Mapping Lead'),
@@ -177,16 +164,6 @@ export const responsibility = [
       label: L('Visit Técnico Solar Boat website', 'Visitar la web de Técnico Solar Boat'),
     },
     media: [
-      image(
-        'inflationlayeradded.png',
-        'Costmap visualisation with an inflation layer around detected obstacles',
-        'Visualización de un costmap con una capa de inflación alrededor de los obstáculos detectados',
-      ),
-      image(
-        'tsbsimulation.png',
-        'Simulation of the autonomous boat on dark water with marker buoys ahead',
-        'Simulación del barco autónomo sobre agua oscura con boyas de referencia al frente',
-      ),
       video('tsb-mapping', '_bkvL-_BGiE', 'Mapping Test 02', 'Prueba de mapping 02'),
       image(
         'sp01.jpg',
@@ -198,7 +175,29 @@ export const responsibility = [
         'SP01 on the water among red, green and yellow buoys, under the text "Njord challenge 2nd Place"',
         'SP01 en el agua entre boyas rojas, verdes y amarillas, bajo el texto "Njord challenge 2nd Place"',
       ),
+      image(
+        'inflationlayeradded.png',
+        'Costmap visualisation with an inflation layer around detected obstacles',
+        'Visualización de un costmap con una capa de inflación alrededor de los obstáculos detectados',
+      ),
+      image(
+        'tsbsimulation.png',
+        'Simulation of the autonomous boat on dark water with marker buoys ahead',
+        'Simulación del barco autónomo sobre agua oscura con boyas de referencia al frente',
+      ),
     ],
+  },
+  {
+    id: 'treasurer',
+    title: L('Association Treasurer', 'Tesorero de la asociación'),
+    organization: 'RoboTech URJC',
+    dates: L('Jun 2025 – Present', 'Jun 2025 – Actualidad'),
+    description: L(
+      "Manage the association's budget and purchasing decisions, supporting project teams through component selection and cost/performance trade-off assessments.",
+      'Gestión del presupuesto y las compras de la asociación, ayudando a los equipos de proyecto en la selección de componentes y la valoración de compromisos entre coste y prestaciones.',
+    ),
+    noMedia: true,
+    media: [],
   },
 ]
 
@@ -237,6 +236,8 @@ export const projects = [
         'Unitree Go2 quadruped robot standing on a cardboard box',
         'Robot cuadrúpedo Unitree Go2 de pie sobre una caja de cartón',
       ),
+      video('go2-test1', null, 'Unitree Go2 test on the hackathon floor', 'Prueba del Unitree Go2 en el hackathon'),
+      video('go2-test2', null, 'Unitree Go2 test on the hackathon floor, second clip', 'Prueba del Unitree Go2 en el hackathon, segundo clip'),
     ],
   },
   {
@@ -259,7 +260,14 @@ export const projects = [
       'Programming and execution of motion routines using a UR5 industrial manipulator, gaining practical experience with industrial robot control and task programming.',
       'Programación y ejecución de rutinas de movimiento con un manipulador industrial UR5, adquiriendo experiencia práctica en control de robots industriales y programación de tareas.',
     ),
-    media: [],
+    media: [
+      video('ur5-moving', null, 'UR5 running a motion routine over a whiteboard', 'UR5 ejecutando una rutina de movimiento sobre una pizarra'),
+      image(
+        'ur5-program.jpg',
+        'Computer screen with an industrial robot arm in a simulator, its programmed paths drawn over a table with coloured blocks',
+        'Pantalla de ordenador con un brazo robótico industrial en un simulador, con sus trayectorias programadas sobre una mesa con bloques de colores',
+      ),
+    ],
   },
   {
     id: 'delivery',
@@ -269,7 +277,9 @@ export const projects = [
       'Development of an autonomous delivery robot capable of navigating to a specified destination using Nav2. At the destination, the robot communicates with the recipient and requests the delivery password through a human–robot interaction interface. The application involves providing the robot with the recipient, destination and delivery password before starting the delivery task.',
       'Desarrollo de un robot de reparto autónomo capaz de navegar hasta un destino indicado con Nav2. Al llegar, el robot se comunica con el destinatario y le pide la contraseña de entrega mediante una interfaz de interacción humano-robot. Antes de iniciar el reparto se le indican el destinatario, el destino y la contraseña.',
     ),
-    media: [],
+    media: [
+      video('delivery-test', null, 'Autonomous delivery test', 'Prueba de reparto autónomo'),
+    ],
   },
   {
     id: 'car',
@@ -293,6 +303,7 @@ export const projects = [
         'Coche con una luz brillante encendida, junto a un mando con joystick sobre un suelo de baldosas',
       ),
       video('car-esp32', 'l9EiiZqZ7Z4', 'Teleoperated Car - Esp32 camera web server video', 'Coche teleoperado: vídeo del servidor web de la cámara Esp32'),
+      video('car-test', null, 'Driving test with the joystick controller', 'Prueba de conducción con el mando de joystick'),
     ],
   },
   {
@@ -304,7 +315,9 @@ export const projects = [
       'Development of a line-following robot for a timed circuit challenge, with the objective of completing the track as quickly as possible while remaining on the designated path.',
       'Desarrollo de un robot siguelíneas para un reto de circuito cronometrado, con el objetivo de completar la pista lo más rápido posible sin salirse del recorrido.',
     ),
-    media: [],
+    media: [
+      video('linefollower-test', null, 'Line-following test run', 'Prueba del robot siguelíneas en el circuito'),
+    ],
   },
   {
     id: 'rover',
@@ -327,7 +340,9 @@ export const projects = [
       'Programming of a simulated rescue drone to autonomously sweep a designated maritime area in search of survivors, in the Unibotics educational simulation environment.',
       'Programación de un dron de rescate simulado para barrer de forma autónoma una zona marítima en busca de supervivientes, en el entorno educativo de simulación Unibotics.',
     ),
-    media: [],
+    media: [
+      video('rescue-sim', null, 'Simulated drone sweeping the area in search of survivors', 'Dron simulado barriendo la zona en busca de supervivientes'),
+    ],
   },
   {
     id: 'cleaning',
@@ -338,7 +353,9 @@ export const projects = [
       'Implementation and evaluation of autonomous coverage algorithms for a simulated cleaning robot tasked with covering an indoor environment, in the Unibotics educational simulation environment.',
       'Implementación y evaluación de algoritmos de cobertura autónoma para un robot de limpieza simulado que debe cubrir un entorno interior, en el entorno educativo de simulación Unibotics.',
     ),
-    media: [],
+    media: [
+      video('cleaning-sim', null, 'Simulated cleaning robot covering the map', 'Robot de limpieza simulado cubriendo el mapa'),
+    ],
   },
   {
     id: 'parking',
@@ -349,7 +366,9 @@ export const projects = [
       'Development of an autonomous parking system for a simulated vehicle using 3D LiDAR perception to navigate and perform the parking manoeuvre, in the Unibotics educational simulation environment.',
       'Desarrollo de un sistema de aparcamiento autónomo para un vehículo simulado que usa percepción con LiDAR 3D para navegar y realizar la maniobra, en el entorno educativo de simulación Unibotics.',
     ),
-    media: [],
+    media: [
+      video('parking-sim', null, 'Simulated parking manoeuvre', 'Maniobra de aparcamiento simulada'),
+    ],
   },
   {
     id: 'f1',
@@ -361,6 +380,43 @@ export const projects = [
       'Aplicación de técnicas de machine learning para controlar un F1 simulado, con el objetivo de minimizar el tiempo por vuelta sin salirse de los límites de la pista, en el entorno educativo de simulación Unibotics.',
     ),
     media: [],
+  },
+  {
+    id: 'undocumented',
+    title: L('Many more undocumented/unfinished projects ...', 'Muchos más proyectos sin documentar o sin terminar ...'),
+    description: L(
+      'Discarded prototypes and experiments that never got a page of their own.',
+      'Prototipos descartados y experimentos que nunca llegaron a tener su propia página.',
+    ),
+    media: [
+      image(
+        'prototype1.jpg',
+        'Very early quadruped prototype made of cardboard, wooden sticks, tape and servos',
+        'Prototipo muy temprano de cuadrúpedo hecho con cartón, palos de madera, cinta y servos',
+      ),
+      image(
+        'prototype2.jpg',
+        'Black 3D-printed robot leg parts mounted on blue servos',
+        'Piezas negras de pierna robótica impresas en 3D y montadas sobre servos azules',
+      ),
+      image(
+        'prototype3.jpg',
+        'ESP32 camera board on a breadboard held in one hand, with jumper wires',
+        'Placa ESP32 con cámara sobre una protoboard, sostenida con una mano, con cables de conexión',
+      ),
+      image(
+        'undocumented1.jpg',
+        'Blue modular circuit blocks connected to multimeters on a lab table',
+        'Bloques azules de circuito modular conectados a multímetros en una mesa de laboratorio',
+      ),
+      image(
+        'undocumented2.jpg',
+        'Lab bench setup with a metal stand, a cylindrical component and a digital display',
+        'Montaje en una mesa de laboratorio con un soporte metálico, un componente cilíndrico y una pantalla digital',
+      ),
+      video('proto-plot', null, 'Vehicle on a three-lane highway map, plotted live', 'Vehículo en un mapa de autopista de tres carriles, representado en directo'),
+      video('proto-sensor', null, 'Testing a small sensor board by hand', 'Probando a mano una pequeña placa de sensor'),
+    ],
   },
 ]
 
@@ -551,7 +607,23 @@ export const education = [
       'Participated in an international summer programme combining academic lectures, hands-on workshops and industry visits in robotics, artificial intelligence and advanced manufacturing. Explored topics including intelligent robotic systems, Graph Neural Networks, soft robotics, AI applications in renewable energy, and robot design and manufacturing.',
       'Participación en un programa internacional de verano que combina clases, talleres prácticos y visitas a empresas sobre robótica, inteligencia artificial y fabricación avanzada. Temas tratados: sistemas robóticos inteligentes, Graph Neural Networks, robótica blanda, aplicaciones de la IA en energías renovables y diseño y fabricación de robots.',
     ),
-    media: [],
+    media: [
+      image(
+        'uestc2.jpg',
+        'Group photo of the summer school participants in matching blue T-shirts, in front of a UESTC 2026 banner',
+        'Foto de grupo de los participantes de la escuela de verano con camisetas azules iguales, delante de un cartel de UESTC 2026',
+      ),
+      image(
+        'uestc1.jpg',
+        'Rows of blue industrial robot arms in a factory hall',
+        'Filas de brazos robóticos industriales azules en una nave de fábrica',
+      ),
+      image(
+        'uestc3.jpg',
+        'Yellow industrial robot arm on a production floor',
+        'Brazo robótico industrial amarillo en una planta de producción',
+      ),
+    ],
   },
 ]
 
