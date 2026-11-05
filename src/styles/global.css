@@ -1005,6 +1005,11 @@ h1 {
     align-items: flex-start;
   }
 
+  /* The last one fills the pane, to reach the top of it. Nothing below it can move. */
+  #contact {
+    min-height: 100%;
+  }
+
   a,
   button,
   video {
