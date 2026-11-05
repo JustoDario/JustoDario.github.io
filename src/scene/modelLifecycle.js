@@ -6,7 +6,9 @@ export const modelUrl = (file) => assetUrl(`3d/${file}`)
 
 // Removes export helpers from a loaded glTF once per load: instanced marker
 // cubes and duplicated *_collision meshes. Hidden objects would still count in
-// Box3 and in the draw calls, so they are removed rather than hidden.
+// Box3 and in the draw calls, so they are removed rather than hidden. Only cubes:
+// instancing also holds real parts, like the wheels of the rover.
+const MARKER_VERTICES = 24
 const sanitized = new WeakSet()
 
 export function sanitize(gltf) {
@@ -15,7 +17,8 @@ export function sanitize(gltf) {
 
   const helpers = []
   gltf.scene.traverse((node) => {
-    if (node.isInstancedMesh || /_collision$/.test(node.name)) helpers.push(node)
+    const marker = node.isInstancedMesh && node.geometry.attributes.position.count <= MARKER_VERTICES
+    if (marker || /_collision$/.test(node.name)) helpers.push(node)
   })
   helpers.forEach((node) => node.removeFromParent())
   return gltf

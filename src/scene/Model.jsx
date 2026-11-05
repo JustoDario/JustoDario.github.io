@@ -1,9 +1,10 @@
-import { Component, Suspense, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
+import { Component, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 import { clone as cloneWithSkeletons } from 'three/examples/jsm/utils/SkeletonUtils.js'
 import { assetUrl } from '../lib/assetUrl.js'
+import { useUpright } from '../lib/layout.js'
 import { note } from '../lib/diagnostics.js'
 import { getModelStatus, reportModelError, reportModelLoaded, setModelCacheClear, subscribeModelStatus } from '../state/modelStatus.js'
 import { debugEnabled } from './Debug.jsx'
@@ -67,6 +68,7 @@ const ENTRANCE_SCALE = 0.8
 const ENTRANCE_TURN = 0.5
 
 const SWAY_SPEED = 0.35
+const DANCE_SPEED = 1
 const SWAY_AMOUNT = 0.14
 
 // One at a time, so several models arriving together do not add up to one long frame.
@@ -118,6 +120,33 @@ function LoadedModel({ model, warm, isShown }) {
     return cloneWithSkeletons(clean) // a plain clone would leave skinned meshes on the bones of the original
   }, [gltf, model.file])
   useWarmUp(scene, warm)
+
+  // Skinned parts move far from where their bounds were measured.
+  useEffect(() => {
+    scene.traverse((node) => {
+      if (node.isSkinnedMesh) node.frustumCulled = false
+    })
+  }, [scene])
+
+  // Only with a dance and in the wide layout. Set up here, so that the shadow bakes this pose;
+  // stopping puts back the pose saved in the file.
+  const upright = useUpright()
+  const dances = Boolean(model.dance) && !upright
+  const mixer = useRef(null)
+  useLayoutEffect(() => {
+    if (!dances) return undefined
+    const dance = new THREE.AnimationMixer(scene)
+    dance.clipAction(gltf.animations[0]).play()
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    dance.setTime(still ? model.dance.standAt : 0)
+    scene.updateMatrixWorld(true)
+    mixer.current = still ? null : dance
+    return () => {
+      mixer.current = null
+      dance.stopAllAction()
+      dance.uncacheRoot(scene)
+    }
+  }, [dances, scene, gltf, model.dance])
   useEffect(() => {
     note(`${model.file} decoded`)
     reportModelLoaded(model.file)
@@ -128,8 +157,9 @@ function LoadedModel({ model, warm, isShown }) {
   const wasShown = useRef(false)
   const entranceStart = useRef(null)
   const reduced = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, [])
-  useFrame(({ clock, invalidate }) => {
+  useFrame(({ clock, invalidate }, delta) => {
     if (reduced) return
+    if (isShown()) mixer.current?.update(delta * DANCE_SPEED)
     group.current.rotation.y = model.rotationY + Math.sin(clock.elapsedTime * SWAY_SPEED) * SWAY_AMOUNT
 
     const shown = isShown()

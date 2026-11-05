@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { MODELS } from '../data/models.js'
-import { isUpright } from '../lib/layout.js'
+import { forLayout, MODELS } from '../data/models.js'
+import { isUpright, useUpright } from '../lib/layout.js'
 import { Halo } from './Atmosphere.jsx'
 import BakedShadow from './BakedShadow.jsx'
 import Model from './Model.jsx'
@@ -18,7 +18,8 @@ export const robotLift = (model) => (isUpright() ? LOOK_AT_HEIGHT - model.height
 
 // One exhibit. Stations without a model are not mounted at all.
 export default function RobotStation({ station, warm, layout }) {
-  const model = MODELS[station.model]
+  const upright = useUpright()
+  const model = forLayout(MODELS[station.model], upright)
   const group = useRef()
   const turntable = useRef()
 

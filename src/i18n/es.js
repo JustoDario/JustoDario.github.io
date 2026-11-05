@@ -19,7 +19,7 @@ export const es = {
   'hero.cv': 'Abrir CV',
   'hero.next': 'Ir a Sobre mí',
   'section.about': 'Sobre mí',
-  'section.research': 'Experiencia investigadora',
+  'section.research': 'Experiencia en Investigación',
   'section.publications': 'Publicaciones',
   'section.responsibility': 'Puestos de responsabilidad',
   'section.projects': 'Proyectos relevantes',

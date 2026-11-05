@@ -3,7 +3,7 @@ import { en } from './en.js'
 import { es } from './es.js'
 
 const dictionaries = { en, es }
-const STORAGE_KEY = 'portfolioLang' // same key as the previous site
+const STORAGE_KEY = 'portfolioLanguage'
 
 function readStored() {
   try {

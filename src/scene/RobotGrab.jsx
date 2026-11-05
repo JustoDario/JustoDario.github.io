@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import * as THREE from 'three'
-import { MODELS } from '../data/models.js'
+import { forLayout, MODELS } from '../data/models.js'
+import { isUpright } from '../lib/layout.js'
 import { debugEnabled } from './Debug.jsx'
 import { robotLift } from './RobotStation.jsx'
 import { spinOf } from './robotSpin.js'
@@ -108,7 +109,7 @@ export default function RobotGrab({ station, ready }) {
       return
     }
     camera.updateMatrixWorld()
-    const box = screenBox(MODELS[station.model], station.x, camera, size)
+    const box = screenBox(forLayout(MODELS[station.model], isUpright()), station.x, camera, size)
     for (const [side, value] of Object.entries(box)) grab.style[side] = `${value}px`
   }, [ready, station, camera, size])
 

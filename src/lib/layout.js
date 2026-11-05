@@ -1,8 +1,18 @@
+import { useSyncExternalStore } from 'react'
+
 // The two page layouts. Upright screens keep the robot in the top half and scroll a pane
 // below it; everything else scrolls the page. Same breakpoints as the CSS.
 export const UPRIGHT_QUERY = '(max-width: 960px) and (orientation: portrait), (max-width: 639px)'
 
 export const isUpright = () => window.matchMedia(UPRIGHT_QUERY).matches
+
+const subscribeUpright = (listener) => {
+  const query = window.matchMedia(UPRIGHT_QUERY)
+  query.addEventListener('change', listener)
+  return () => query.removeEventListener('change', listener)
+}
+
+export const useUpright = () => useSyncExternalStore(subscribeUpright, isUpright)
 
 const pane = () => document.getElementById('main')
 
