@@ -16,8 +16,8 @@ VIDEO=public/video
 SRGB=/usr/share/color/icc/colord/sRGB.icc
 HEIC_JPEGS=${HEIC_JPEGS:?folder with the decoded HEIC files}
 
-photo() { # source destination
-  convert "$1[0]" -auto-orient -profile "$SRGB" -resize '1920x1920>' -strip \
+photo() { # source destination [degrees]
+  convert "$1[0]" -auto-orient -rotate "${3:-0}" -profile "$SRGB" -resize '1920x1920>' -strip \
     -sampling-factor 4:2:0 -interlace Plane -quality 82 "$MEDIA/$2"
 }
 
@@ -76,7 +76,7 @@ wait
 }
 
 second() {
-  photo "$HEIC_JPEGS/biped1.jpg"     biped1.jpg
+  photo "$HEIC_JPEGS/biped1.jpg"     biped1.jpg       -90  # lying down, as it was shot
   photo "$A/ee3.JPG"                 ee3.jpg
   photo "$A/eehack.JPG"              eehack.jpg
   photo "$A/eesummit.png"            eesummit.jpg     # a JPEG despite its name

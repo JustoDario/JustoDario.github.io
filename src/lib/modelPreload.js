@@ -33,12 +33,31 @@ async function download(url) {
   return bytes / Math.max((performance.now() - start) / 1000, 0.001)
 }
 
+// A photo on screen still loading goes first: on a phone line the robots of later stations
+// would otherwise take its bandwidth. Gives up waiting after a while, as a broken image
+// must not stop the rest for good.
+const PHOTO_WAIT_MS = 15000
+function photosSettled() {
+  const loading = () =>
+    [...document.querySelectorAll('.media__frame img')].some((img) => {
+      if (img.complete) return false
+      const box = img.getBoundingClientRect()
+      return box.bottom > 0 && box.top < window.innerHeight
+    })
+  return new Promise((resolve) => {
+    const end = performance.now() + PHOTO_WAIT_MS
+    const check = () => (!loading() || performance.now() > end ? resolve() : setTimeout(check, 250))
+    check()
+  })
+}
+
 function prefetchOneByOne() {
   const idle = window.requestIdleCallback ?? ((callback) => setTimeout(callback, 200))
   const files = [...new Set(Object.values(MODELS).map((model) => model.file))]
   const next = async () => {
     const file = files.shift()
     if (!file) return
+    await photosSettled()
     const speed = await download(modelFileUrl(file)).catch(() => 0)
     if (speed >= MIN_PREFETCH_BYTES_PER_SECOND) idle(next) // on a slow line, leave it for the visitor
   }

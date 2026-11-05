@@ -1,0 +1,883 @@
+{
+ "aia_conf.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/aia_conf-537.webp",
+    537
+   ]
+  ]
+ },
+ "atari_aia.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/atari_aia-640.jpg",
+    640
+   ],
+   [
+    "v/atari_aia-960.jpg",
+    960
+   ],
+   [
+    "v/atari_aia-1280.jpg",
+    1280
+   ],
+   [
+    "atari_aia.jpg",
+    1920
+   ]
+  ]
+ },
+ "best_moments_grid.gif": {
+  "type": "image/avif",
+  "files": [
+   [
+    "v/best_moments_grid.avif",
+    0
+   ]
+  ]
+ },
+ "biped1.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/biped1-640.jpg",
+    640
+   ],
+   [
+    "v/biped1-960.jpg",
+    960
+   ],
+   [
+    "v/biped1-1280.jpg",
+    1280
+   ],
+   [
+    "biped1.jpg",
+    1920
+   ]
+  ]
+ },
+ "coco_summit.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/coco_summit-640.jpg",
+    640
+   ],
+   [
+    "v/coco_summit-960.jpg",
+    960
+   ],
+   [
+    "v/coco_summit-1280.jpg",
+    1280
+   ],
+   [
+    "coco_summit.jpg",
+    1920
+   ]
+  ]
+ },
+ "cocov1.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/cocov1-640.jpg",
+    640
+   ],
+   [
+    "cocov1.jpg",
+    771
+   ]
+  ]
+ },
+ "cocov2_photo1.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/cocov2_photo1-640.jpg",
+    640
+   ],
+   [
+    "v/cocov2_photo1-960.jpg",
+    960
+   ],
+   [
+    "v/cocov2_photo1-1280.jpg",
+    1280
+   ],
+   [
+    "cocov2_photo1.jpg",
+    1440
+   ]
+  ]
+ },
+ "cocov2_photo2.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/cocov2_photo2-640.jpg",
+    640
+   ],
+   [
+    "v/cocov2_photo2-960.jpg",
+    960
+   ],
+   [
+    "v/cocov2_photo2-1280.jpg",
+    1280
+   ],
+   [
+    "cocov2_photo2.jpg",
+    1440
+   ]
+  ]
+ },
+ "cocov2_summit1.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/cocov2_summit1-640.jpg",
+    640
+   ],
+   [
+    "v/cocov2_summit1-960.jpg",
+    960
+   ],
+   [
+    "v/cocov2_summit1-1280.jpg",
+    1280
+   ],
+   [
+    "cocov2_summit1.jpg",
+    1440
+   ]
+  ]
+ },
+ "ee1.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/ee1-640.jpg",
+    640
+   ],
+   [
+    "v/ee1-960.jpg",
+    960
+   ],
+   [
+    "ee1.jpg",
+    1280
+   ]
+  ]
+ },
+ "ee2.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/ee2-640.jpg",
+    640
+   ],
+   [
+    "v/ee2-960.jpg",
+    960
+   ],
+   [
+    "ee2.jpg",
+    1280
+   ]
+  ]
+ },
+ "ee3.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/ee3-640.jpg",
+    640
+   ],
+   [
+    "v/ee3-960.jpg",
+    960
+   ],
+   [
+    "v/ee3-1280.jpg",
+    1280
+   ],
+   [
+    "ee3.jpg",
+    1920
+   ]
+  ]
+ },
+ "eehack.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/eehack-640.jpg",
+    640
+   ],
+   [
+    "v/eehack-960.jpg",
+    960
+   ],
+   [
+    "v/eehack-1280.jpg",
+    1280
+   ],
+   [
+    "eehack.jpg",
+    1920
+   ]
+  ]
+ },
+ "eehackarch.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/eehackarch-640.webp",
+    640
+   ],
+   [
+    "v/eehackarch-960.webp",
+    960
+   ],
+   [
+    "v/eehackarch-1319.webp",
+    1319
+   ]
+  ]
+ },
+ "eeq1.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/eeq1-640.jpg",
+    640
+   ],
+   [
+    "v/eeq1-960.jpg",
+    960
+   ],
+   [
+    "eeq1.jpg",
+    1280
+   ]
+  ]
+ },
+ "eesummit.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/eesummit-640.jpg",
+    640
+   ],
+   [
+    "v/eesummit-960.jpg",
+    960
+   ],
+   [
+    "v/eesummit-1280.jpg",
+    1280
+   ],
+   [
+    "eesummit.jpg",
+    1920
+   ]
+  ]
+ },
+ "erh_hack_podium.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/erh_hack_podium-640.jpg",
+    640
+   ],
+   [
+    "v/erh_hack_podium-960.jpg",
+    960
+   ],
+   [
+    "v/erh_hack_podium-1280.jpg",
+    1280
+   ],
+   [
+    "erh_hack_podium.jpg",
+    1920
+   ]
+  ]
+ },
+ "erh_hack_team.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/erh_hack_team-640.jpg",
+    640
+   ],
+   [
+    "v/erh_hack_team-960.jpg",
+    960
+   ],
+   [
+    "v/erh_hack_team-1280.jpg",
+    1280
+   ],
+   [
+    "erh_hack_team.jpg",
+    1920
+   ]
+  ]
+ },
+ "erh_house.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/erh_house-640.jpg",
+    640
+   ],
+   [
+    "v/erh_house-960.jpg",
+    960
+   ],
+   [
+    "v/erh_house-1280.jpg",
+    1280
+   ],
+   [
+    "erh_house.jpg",
+    1440
+   ]
+  ]
+ },
+ "erharch.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/erharch-640.webp",
+    640
+   ],
+   [
+    "v/erharch-1691.webp",
+    1691
+   ]
+  ]
+ },
+ "erhsimvideo2.gif": {
+  "type": "image/avif",
+  "files": [
+   [
+    "v/erhsimvideo2.avif",
+    0
+   ]
+  ]
+ },
+ "erhsimvsreal.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/erhsimvsreal-536.webp",
+    536
+   ]
+  ]
+ },
+ "hackatonaiayo.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/hackatonaiayo-640.jpg",
+    640
+   ],
+   [
+    "v/hackatonaiayo-960.jpg",
+    960
+   ],
+   [
+    "v/hackatonaiayo-1280.jpg",
+    1280
+   ],
+   [
+    "hackatonaiayo.jpg",
+    1920
+   ]
+  ]
+ },
+ "inflationlayeradded.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/inflationlayeradded-640.webp",
+    640
+   ],
+   [
+    "v/inflationlayeradded-960.webp",
+    960
+   ],
+   [
+    "v/inflationlayeradded-1280.webp",
+    1280
+   ],
+   [
+    "v/inflationlayeradded-1330.webp",
+    1330
+   ]
+  ]
+ },
+ "ist-logo.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/ist-logo-498.webp",
+    498
+   ]
+  ]
+ },
+ "mapfreapp1.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/mapfreapp1-669.webp",
+    669
+   ]
+  ]
+ },
+ "prototype1.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/prototype1-640.jpg",
+    640
+   ],
+   [
+    "v/prototype1-960.jpg",
+    960
+   ],
+   [
+    "v/prototype1-1280.jpg",
+    1280
+   ],
+   [
+    "prototype1.jpg",
+    1440
+   ]
+  ]
+ },
+ "prototype2.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/prototype2-640.jpg",
+    640
+   ],
+   [
+    "v/prototype2-960.jpg",
+    960
+   ],
+   [
+    "prototype2.jpg",
+    1080
+   ]
+  ]
+ },
+ "prototype3.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/prototype3-640.jpg",
+    640
+   ],
+   [
+    "v/prototype3-960.jpg",
+    960
+   ],
+   [
+    "v/prototype3-1280.jpg",
+    1280
+   ],
+   [
+    "prototype3.jpg",
+    1440
+   ]
+  ]
+ },
+ "qubichackaton.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/qubichackaton-640.jpg",
+    640
+   ],
+   [
+    "v/qubichackaton-960.jpg",
+    960
+   ],
+   [
+    "qubichackaton.jpg",
+    1280
+   ]
+  ]
+ },
+ "radiacodeapp1.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/radiacodeapp1-640.webp",
+    640
+   ],
+   [
+    "v/radiacodeapp1-1265.webp",
+    1265
+   ]
+  ]
+ },
+ "radiacodehackaton.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/radiacodehackaton-640.jpg",
+    640
+   ],
+   [
+    "v/radiacodehackaton-960.jpg",
+    960
+   ],
+   [
+    "v/radiacodehackaton-1280.jpg",
+    1280
+   ],
+   [
+    "radiacodehackaton.jpg",
+    1600
+   ]
+  ]
+ },
+ "rc3.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/rc3-640.jpg",
+    640
+   ],
+   [
+    "v/rc3-960.jpg",
+    960
+   ],
+   [
+    "v/rc3-1280.jpg",
+    1280
+   ],
+   [
+    "rc3.jpg",
+    1440
+   ]
+  ]
+ },
+ "rcv1.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/rcv1-640.jpg",
+    640
+   ],
+   [
+    "v/rcv1-960.jpg",
+    960
+   ],
+   [
+    "v/rcv1-1280.jpg",
+    1280
+   ],
+   [
+    "rcv1.jpg",
+    1440
+   ]
+  ]
+ },
+ "rcv2.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/rcv2-640.jpg",
+    640
+   ],
+   [
+    "v/rcv2-960.jpg",
+    960
+   ],
+   [
+    "v/rcv2-1280.jpg",
+    1280
+   ],
+   [
+    "rcv2.jpg",
+    1440
+   ]
+  ]
+ },
+ "rpycoco.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/rpycoco-640.webp",
+    640
+   ],
+   [
+    "v/rpycoco-960.webp",
+    960
+   ],
+   [
+    "v/rpycoco-1280.webp",
+    1280
+   ],
+   [
+    "v/rpycoco-1920.webp",
+    1920
+   ],
+   [
+    "v/rpycoco-2600.webp",
+    2600
+   ]
+  ]
+ },
+ "scarav1-2.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/scarav1-2-640.jpg",
+    640
+   ],
+   [
+    "scarav1-2.jpg",
+    920
+   ]
+  ]
+ },
+ "sp012.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/sp012-640.jpg",
+    640
+   ],
+   [
+    "v/sp012-960.jpg",
+    960
+   ],
+   [
+    "v/sp012-1280.jpg",
+    1280
+   ],
+   [
+    "sp012.jpg",
+    1600
+   ]
+  ]
+ },
+ "tsbsimulation.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/tsbsimulation-640.webp",
+    640
+   ],
+   [
+    "v/tsbsimulation-960.webp",
+    960
+   ],
+   [
+    "v/tsbsimulation-1280.webp",
+    1280
+   ],
+   [
+    "v/tsbsimulation-1376.webp",
+    1376
+   ]
+  ]
+ },
+ "uestc-campus.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/uestc-campus-640.jpg",
+    640
+   ],
+   [
+    "uestc-campus.jpg",
+    700
+   ]
+  ]
+ },
+ "uestc1.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/uestc1-640.jpg",
+    640
+   ],
+   [
+    "v/uestc1-960.jpg",
+    960
+   ],
+   [
+    "v/uestc1-1280.jpg",
+    1280
+   ],
+   [
+    "uestc1.jpg",
+    1600
+   ]
+  ]
+ },
+ "uestc2.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/uestc2-640.jpg",
+    640
+   ],
+   [
+    "v/uestc2-960.jpg",
+    960
+   ],
+   [
+    "v/uestc2-1280.jpg",
+    1280
+   ],
+   [
+    "uestc2.jpg",
+    1920
+   ]
+  ]
+ },
+ "uestc3.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/uestc3-640.jpg",
+    640
+   ],
+   [
+    "v/uestc3-960.jpg",
+    960
+   ],
+   [
+    "uestc3.jpg",
+    1200
+   ]
+  ]
+ },
+ "undocumented1.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/undocumented1-640.jpg",
+    640
+   ],
+   [
+    "v/undocumented1-960.jpg",
+    960
+   ],
+   [
+    "v/undocumented1-1280.jpg",
+    1280
+   ],
+   [
+    "undocumented1.jpg",
+    1920
+   ]
+  ]
+ },
+ "undocumented2.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/undocumented2-640.jpg",
+    640
+   ],
+   [
+    "v/undocumented2-960.jpg",
+    960
+   ],
+   [
+    "v/undocumented2-1280.jpg",
+    1280
+   ],
+   [
+    "undocumented2.jpg",
+    1440
+   ]
+  ]
+ },
+ "ur5-program.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/ur5-program-640.jpg",
+    640
+   ],
+   [
+    "v/ur5-program-960.jpg",
+    960
+   ],
+   [
+    "v/ur5-program-1280.jpg",
+    1280
+   ],
+   [
+    "ur5-program.jpg",
+    1920
+   ]
+  ]
+ },
+ "urjc-logo.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/urjc-logo-384.webp",
+    384
+   ]
+  ]
+ },
+ "urjchackaton1.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/urjchackaton1-640.jpg",
+    640
+   ],
+   [
+    "v/urjchackaton1-960.jpg",
+    960
+   ],
+   [
+    "v/urjchackaton1-1280.jpg",
+    1280
+   ],
+   [
+    "urjchackaton1.jpg",
+    1920
+   ]
+  ]
+ },
+ "urjchackaton2.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/urjchackaton2-640.jpg",
+    640
+   ],
+   [
+    "v/urjchackaton2-960.jpg",
+    960
+   ],
+   [
+    "v/urjchackaton2-1280.jpg",
+    1280
+   ],
+   [
+    "urjchackaton2.jpg",
+    1920
+   ]
+  ]
+ }
+}

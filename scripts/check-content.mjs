@@ -168,6 +168,12 @@ for (const item of publications) {
   if (item.status.en !== 'Manuscript submitted') fail(`publication ${item.id}: status must stay "Manuscript submitted" until that changes`)
 }
 
+// Lighter copies of the images: each one listed must exist. A missing entry is fine.
+const variants = JSON.parse(readFileSync(join(ROOT, 'src/data/imageVariants.json'), 'utf8'))
+for (const [file, { files }] of Object.entries(variants)) {
+  for (const [name] of files) if (!existsSync(pub(`media/${name}`))) fail(`image copy of ${file} not found: public/media/${name}`)
+}
+
 for (const [id, model] of Object.entries(MODELS)) {
   if (!existsSync(pub(`3d/${model.file}`))) fail(`model ${id}: file not found: public/3d/${model.file}`)
 }

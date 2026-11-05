@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import imageVariants from '../data/imageVariants.json'
 import { useLanguage } from '../i18n/LanguageProvider.jsx'
 import { assetUrl } from '../lib/assetUrl.js'
 import { note } from '../lib/diagnostics.js'
@@ -7,6 +8,29 @@ import CarouselControls, { useArrowKeys, useSwipe } from './CarouselControls.jsx
 import { ExternalIcon, PlayIcon } from './icons.jsx'
 
 const previewUrl = (item) => assetUrl(`media/${item.poster ?? item.file}`)
+// Lighter copies from scripts/image-variants.mjs; the browser picks the smallest one still as
+// sharp as the frame, which is at most ~660 px wide beside the text and ~92% of narrower
+// screens. Images without copies are served as they are.
+const SIZES = '(min-width: 961px) 670px, 92vw'
+const variantsOf = (item) => {
+  const variants = imageVariants[item.file]
+  if (!variants) return null
+  const srcSet = variants.files.map(([name, width]) => assetUrl(`media/${name}`) + (width ? ` ${width}w` : '')).join(', ')
+  return { type: variants.type, srcSet }
+}
+
+// The same choice the frame will make, so that preloading never fetches a second copy.
+function preloadImage(item) {
+  const picture = document.createElement('picture')
+  const variants = variantsOf(item)
+  const img = document.createElement('img')
+  img.sizes = SIZES
+  if (variants?.type) picture.append(Object.assign(document.createElement('source'), { type: variants.type, srcset: variants.srcSet, sizes: SIZES }))
+  else if (variants) img.srcset = variants.srcSet
+  picture.append(img)
+  img.src = previewUrl(item)
+}
+
 const videoUrl = (item, codec) => assetUrl(`video/${item.slug}.${codec}.mp4`)
 
 // Nothing downloads until play. A video that asks for autoplay starts by itself,
@@ -146,7 +170,9 @@ export default function MediaCarousel({ media, index, onChange, active }) {
 
   const next = media[index + 1]
   useEffect(() => {
-    if (active && next) new Image().src = previewUrl(next)
+    if (!active || !next) return
+    if (next.type === 'video') new Image().src = previewUrl(next)
+    else if (!(next.still && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) preloadImage(next)
   }, [active, next])
 
   if (media.length === 0) {
@@ -157,6 +183,7 @@ export default function MediaCarousel({ media, index, onChange, active }) {
     )
   }
   const item = media[index]
+  const variants = item.type === 'image' ? variantsOf(item) : null
 
   return (
     <div className="media" role="group" aria-label={t('media.label')} {...swipe} {...arrows}>
@@ -166,7 +193,14 @@ export default function MediaCarousel({ media, index, onChange, active }) {
         ) : (
           <picture key={item.file}>
             {item.still && <source media="(prefers-reduced-motion: reduce)" srcSet={assetUrl(`media/${item.still}`)} />}
-            <img src={previewUrl(item)} alt={l(item.alt)} loading="lazy" />
+            {variants?.type && <source type={variants.type} srcSet={variants.srcSet} sizes={SIZES} />}
+            <img
+              src={previewUrl(item)}
+              srcSet={variants && !variants.type ? variants.srcSet : undefined}
+              sizes={variants ? SIZES : undefined}
+              alt={l(item.alt)}
+              loading="lazy"
+            />
           </picture>
         )}
       </div>
