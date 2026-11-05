@@ -2,6 +2,7 @@ import { Component, Suspense, useEffect, useMemo, useRef, useState, useSyncExter
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
+import { clone as cloneWithSkeletons } from 'three/examples/jsm/utils/SkeletonUtils.js'
 import { assetUrl } from '../lib/assetUrl.js'
 import { note } from '../lib/diagnostics.js'
 import { getModelStatus, reportModelError, reportModelLoaded, setModelCacheClear, subscribeModelStatus } from '../state/modelStatus.js'
@@ -114,7 +115,7 @@ function LoadedModel({ model, warm, isShown }) {
       window.__modelBounds = { ...window.__modelBounds, [model.file]: { min: min.toArray(), max: max.toArray() } }
     }
     noteModelLoaded(model.file, gltf)
-    return clean.clone(true)
+    return cloneWithSkeletons(clean) // a plain clone would leave skinned meshes on the bones of the original
   }, [gltf, model.file])
   useWarmUp(scene, warm)
   useEffect(() => {
@@ -147,7 +148,7 @@ function LoadedModel({ model, warm, isShown }) {
   return (
     <group ref={group} rotation-y={model.rotationY}>
       <group ref={entrance}>
-        <primitive object={scene} scale={model.scale} position={model.offset} />
+        <primitive object={scene} scale={model.scale} position={model.offset} rotation={model.rotation ?? [0, 0, 0]} />
       </group>
     </group>
   )

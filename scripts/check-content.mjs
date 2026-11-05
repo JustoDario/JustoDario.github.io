@@ -24,15 +24,26 @@ const MANIFEST = {
       'cocov2_photo1.jpg', 'cocov2_summit1.jpg', 'cocov2_photo2.jpg', 'coco_summit.jpg', 'cocov1.jpg',
       VID('coco-ik'), VID('coco-trot'), 'rpycoco.png',
     ]],
+    ['thesis', 'g1', []],
   ],
   responsibility: [
-    ['robotech', 'scara', [VID('scara-demo'), 'scarav1-2.jpg']],
+    ['scara', 'scara', [VID('scara-demo'), 'scarav1-2.jpg']],
+    ['treasurer', null, []],
     ['tsb', 'sp01', ['inflationlayeradded.png', 'tsbsimulation.png', VID('tsb-mapping'), 'sp01.jpg', 'sp012.jpg']],
   ],
   projects: [
     ['so101-tidy', 'so101', ['best_moments_grid.gif', VID('erh-demo')]],
     ['go2-inspection', 'go2', ['eeq1.jpg']],
+    ['biped', 'stairclimber', []],
+    ['ur5', 'ur5', []],
+    ['delivery', 'kobuki', []],
     ['car', 'humblebeev2', ['rcv1.jpg', 'rcv2.jpg', 'rc3.jpg', VID('car-esp32')]],
+    ['line-follower', 'linefollower', []],
+    ['rover', 'turtlerover', []],
+    ['rescue', 'drone', []],
+    ['cleaning', 'roomba', []],
+    ['parking', 'robotaxi', []],
+    ['f1', 'f1car', []],
   ],
   hackathons: [
     ['erh', null, ['erh_hack_podium.jpg', 'erh_house.jpg', 'erh_hack_team.jpg']],
@@ -50,9 +61,12 @@ const MANIFEST = {
 }
 
 const REQUIRED_LINKS = {
-  robotech: 'https://robotech-urjc.github.io/mainweb/',
+  scara: 'https://robotech-urjc.github.io/mainweb/',
   tsb: 'https://tecnicosolarboat.com/',
 }
+
+// Never to be presented as physical robots.
+const SIMULATED = ['rover', 'rescue', 'cleaning', 'parking', 'f1']
 
 const errors = []
 const fail = (message) => errors.push(message)
@@ -107,11 +121,12 @@ for (const [sectionId, expected] of Object.entries(MANIFEST)) {
 
     localised(entry.title, `${where} title`)
     localised(entry.description, `${where} description`)
-    for (const key of ['role', 'dates', 'subtitle', 'research']) {
+    for (const key of ['role', 'dates', 'subtitle', 'note']) {
       if (entry[key]) localised(entry[key], `${where} ${key}`)
     }
     entry.highlights?.forEach((h, i) => localised(h, `${where} highlight ${i}`))
 
+    if (Boolean(entry.simulated) !== SIMULATED.includes(id)) fail(`${where}: simulated label is wrong`)
     if ((entry.model ?? null) !== model) fail(`${where}: model is ${entry.model}, expected ${model}`)
     if (model && !existsSync(pub(`3d/${MODELS[model]?.file}`))) fail(`${where}: no file for model ${model}`)
 
@@ -145,6 +160,10 @@ for (const item of publications) {
   for (const key of ['status', 'role', 'venue', 'collaboration']) localised(item[key], `publication ${item.id} ${key}`)
   localised(item.link.label, `publication ${item.id} link label`)
   if (item.status.en !== 'Manuscript submitted') fail(`publication ${item.id}: status must stay "Manuscript submitted" until that changes`)
+}
+
+for (const [id, model] of Object.entries(MODELS)) {
+  if (!existsSync(pub(`3d/${model.file}`))) fail(`model ${id}: file not found: public/3d/${model.file}`)
 }
 
 // Profile, skills and interface strings.

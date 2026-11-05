@@ -12,7 +12,7 @@ const entryStations = (section) =>
 const list = [
   { id: 'home', section: 'home', model: 'coco1' },
   ...entryStations('research'),
-  { id: 'publications', section: 'publications', model: null },
+  { id: 'publications', section: 'publications', model: 'cocoGo2' },
   ...entryStations('responsibility'),
   ...entryStations('projects'),
   { id: 'end', section: 'end', model: null },

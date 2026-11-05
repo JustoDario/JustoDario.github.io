@@ -30,6 +30,8 @@ export const en = {
   'carousel.previous': 'Previous entry',
   'carousel.next': 'Next entry',
   'media.label': 'Photos and videos',
+  'media.empty': 'Photos and videos coming soon',
+  'entry.simulated': 'Simulated',
   'media.previous': 'Previous photo or video',
   'media.next': 'Next photo or video',
   'media.play': 'Play video',

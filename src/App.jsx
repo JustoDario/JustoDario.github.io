@@ -18,11 +18,11 @@ const DebugPanel = lazy(() => import('./scene/Debug.jsx').then((m) => ({ default
 const params = new URLSearchParams(window.location.search)
 const debug = params.has('debug')
 
-function CarouselSection({ id, wide }) {
+function CarouselSection({ id, wide, split }) {
   const { entries } = carouselSections.find((section) => section.id === id)
   return (
     <Section id={id} carousel wide={wide}>
-      <MainCarousel sectionId={id} entries={entries} />
+      <MainCarousel sectionId={id} entries={entries} split={split} />
     </Section>
   )
 }
@@ -56,7 +56,7 @@ export default function App() {
             <CarouselSection id="responsibility" />
             <CarouselSection id="projects" />
             <CarouselSection id="hackathons" wide />
-            <CarouselSection id="education" wide />
+            <CarouselSection id="education" wide split />
             <Skills />
             <Contact />
           </main>

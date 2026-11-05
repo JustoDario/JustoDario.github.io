@@ -179,10 +179,18 @@ export function NavigationProvider({ children }) {
     document.querySelector('.space-bg')?.classList.toggle('is-paused', videoPlaying)
   }, [videoPlaying])
 
+  const station = stationFor(stationSection, state.entries[stationSection] ?? 0)
+
+  // No robot from here on, so upright screens give its band back to the content.
+  const withoutRobot = station.id === 'end'
+  useEffect(() => {
+    document.documentElement.classList.toggle('no-robot', withoutRobot)
+  }, [withoutRobot])
+
   const value = useMemo(
     () => ({
       activeSection,
-      station: stationFor(stationSection, state.entries[stationSection] ?? 0),
+      station,
       approaching: approachingSection && stationFor(approachingSection, state.entries[approachingSection] ?? 0),
       videoPlaying,
       setVideoPlaying,
@@ -193,7 +201,7 @@ export function NavigationProvider({ children }) {
       setMediaIndex: (entryId, index) =>
         setState((current) => ({ ...current, media: { ...current.media, [entryId]: index } })),
     }),
-    [activeSection, stationSection, approachingSection, videoPlaying, state],
+    [activeSection, station, stationSection, approachingSection, videoPlaying, state],
   )
 
   return <NavigationContext.Provider value={value}>{children}</NavigationContext.Provider>

@@ -7,16 +7,29 @@ export const research = [
   {
     id: 'quadruped',
     model: 'coco1',
-    title: L('Quadruped Robot', 'Robot cuadrúpedo'),
-    subtitle: L('Coco, the robot cat', 'Coco, el robot gato'),
+    title: L('12-DOF ROS 2 Quadruped Robot — COCO', 'Robot cuadrúpedo ROS 2 de 12 GDL — COCO'),
     description: L(
-      '12-DOF servo-actuated quadruped robot developed in ROS 2. A personal project that I design and build from scratch.',
-      'Robot cuadrúpedo de 12 grados de libertad, accionado por servomotores y desarrollado con ROS 2. Un proyecto personal que diseño y construyo desde cero.',
+      'Designed and built a 12-DOF quadruped robot from scratch, covering electronics, CAD, 3D printing and the ROS 2 control architecture.',
+      'Diseño y construcción desde cero de un robot cuadrúpedo de 12 GDL, incluyendo electrónica, CAD, impresión 3D y la arquitectura de control en ROS 2.',
     ),
-    research: L(
-      'Associated research: "A Reactive Single-Step Horizon Control Pipeline for Robust Quadruped Locomotion under Actuation Uncertainty". First author, submitted to IEEE ICRA 2027 (decision pending).',
-      'Investigación asociada: "A Reactive Single-Step Horizon Control Pipeline for Robust Quadruped Locomotion under Actuation Uncertainty". Primer autor, enviado a IEEE ICRA 2027 (pendiente de decisión).',
-    ),
+    highlights: [
+      L(
+        'Identified hardware limitations in the initial design, particularly an off-centred centre of mass and servo backlash.',
+        'Identificación de limitaciones de hardware en el diseño inicial, en particular un centro de masas descentrado y el backlash de los servos.',
+      ),
+      L(
+        'Developed a reactive single-step horizon control pipeline to compensate for actuation uncertainty.',
+        'Desarrollo de un pipeline de control reactivo de horizonte de un solo paso para compensar la incertidumbre de actuación.',
+      ),
+      L(
+        'Resulted in a first-author manuscript submitted to ICRA 2027.',
+        'Dio lugar a un manuscrito como primer autor enviado a ICRA 2027.',
+      ),
+      L(
+        'Presented at the Europe Embodied Summit 2026 in Munich.',
+        'Presentado en el Europe Embodied Summit 2026 de Múnich.',
+      ),
+    ],
     media: [
       video('coco-icra', 'cN7WDKmJhnM', 'Quadruped Locomotion under Actuation Uncertainty - ICRA 2027 Submission', 'Quadruped Locomotion under Actuation Uncertainty - Envío a ICRA 2027'),
       video('coco-control', '6V8-M2vEC8k', 'Coco mov control v2.0', 'Control de movimiento de Coco v2.0'),
@@ -55,6 +68,25 @@ export const research = [
       ),
     ],
   },
+  {
+    id: 'thesis',
+    model: 'g1',
+    title: L(
+      "Bachelor's Thesis: Integration of Foundation Models with Hierarchical Whole-Body Control for Generalist and Safe Humanoid Loco-Manipulation",
+      'TFG: Integración de modelos fundacionales con Whole-Body Control jerárquico para loco-manipulación humanoide generalista y segura',
+    ),
+    role: L('Supervisor: Francisco Martín Rico, URJC', 'Tutor: Francisco Martín Rico, URJC'),
+    dates: L('Sep 2026 – Present', 'Sep 2026 – Actualidad'),
+    note: L(
+      'Platform: Unitree R1 humanoid robot. The 3D model shown is a Unitree G1, for illustration.',
+      'Plataforma: robot humanoide Unitree R1. El modelo 3D mostrado es un Unitree G1, a modo ilustrativo.',
+    ),
+    description: L(
+      'Exploring the integration of foundation-model architectures, including Vision-Language-Action (VLA) models, World Action Models (WAMs) and Video Action Models (VAMs), into humanoid loco-manipulation. The approach aims to leverage their generalisation capabilities for high-level manipulation and motion generation, translating model outputs into intermediate task-space and body-pose objectives handled by a hierarchical Whole-Body Control (WBC) framework. This framework acts as a feasibility-aware execution and safety layer, coordinating whole-body motion while accounting for physical constraints and dynamic balance.',
+      'Exploración de la integración de arquitecturas de modelos fundacionales, incluidos los Vision-Language-Action (VLA), World Action Models (WAM) y Video Action Models (VAM), en la loco-manipulación humanoide. El enfoque busca aprovechar su capacidad de generalización para la manipulación de alto nivel y la generación de movimiento, traduciendo sus salidas en objetivos intermedios en espacio de tarea y de postura del cuerpo gestionados por un framework jerárquico de Whole-Body Control (WBC). Este framework actúa como capa de ejecución y seguridad consciente de la viabilidad, coordinando el movimiento de todo el cuerpo y teniendo en cuenta las restricciones físicas y el equilibrio dinámico.',
+    ),
+    media: [],
+  },
 ]
 
 // Not a carousel: a compact panel with its own station on the rail.
@@ -81,16 +113,30 @@ export const publications = [
 
 export const responsibility = [
   {
-    id: 'robotech',
+    id: 'scara',
     model: 'scara',
-    title: L('RoboTech Student Association', 'RoboTech Student Association'),
-    role: L('Treasurer & SCARA Project Lead', 'Tesorero y líder del proyecto SCARA'),
-    organization: 'Universidad Rey Juan Carlos',
+    title: L('SCARA Project Lead', 'Líder del proyecto SCARA'),
+    organization: 'RoboTech URJC',
     dates: L('Jan 2025 – Present', 'Ene 2025 – Actualidad'),
     description: L(
-      'The SCARA Project aims to combine advanced control systems with AI-based decision making so that our robot can play chess autonomously. It currently plays tic-tac-toe, as shown in the demo.',
-      'El proyecto SCARA busca combinar sistemas avanzados de control con toma de decisiones basada en inteligencia artificial para que nuestro robot juegue al ajedrez de forma autónoma. De momento juega al 3 en raya, como se ve en la demo.',
+      'Leading a student team developing a 4-DOF SCARA robotic arm.',
+      'Liderazgo de un equipo de estudiantes que desarrolla un brazo robótico SCARA de 4 GDL.',
     ),
+    highlights: [
+      L('Implemented forward and inverse kinematics.', 'Implementación de la cinemática directa e inversa.'),
+      L(
+        'Integrated control, computer vision and decision-making algorithms.',
+        'Integración de algoritmos de control, visión por computador y toma de decisiones.',
+      ),
+      L(
+        'Developed an Arduino-based demonstration in which the robot plays Connect-3 against a human.',
+        'Desarrollo de una demostración con Arduino en la que el robot juega al 3 en raya contra una persona.',
+      ),
+      L(
+        'Ongoing migration towards ROS 2 and MoveIt, together with an end-effector redesign for the autonomous chess-playing project.',
+        'Migración en curso a ROS 2 y MoveIt, junto con el rediseño del efector final para el proyecto de ajedrez autónomo.',
+      ),
+    ],
     link: {
       url: 'https://robotech-urjc.github.io/mainweb/',
       label: L('Visit RoboTech website', 'Visitar la web de RoboTech'),
@@ -105,14 +151,26 @@ export const responsibility = [
     ],
   },
   {
+    id: 'treasurer',
+    title: L('Association Treasurer', 'Tesorero de la asociación'),
+    organization: 'RoboTech URJC',
+    dates: L('Jun 2025 – Present', 'Jun 2025 – Actualidad'),
+    description: L(
+      "Manage the association's budget and purchasing decisions, supporting project teams through component selection and cost/performance trade-off assessments.",
+      'Gestión del presupuesto y las compras de la asociación, ayudando a los equipos de proyecto en la selección de componentes y la valoración de compromisos entre coste y prestaciones.',
+    ),
+    noMedia: true,
+    media: [],
+  },
+  {
     id: 'tsb',
     model: 'sp01',
-    title: L('Técnico Solar Boat', 'Técnico Solar Boat'),
-    role: L('Autonomous Systems Member — Mapping Lead', 'Miembro de Sistemas Autónomos — Mapping Lead'),
-    dates: L('Aug 2025 – Mar 2026', 'Ago 2025 – Mar 2026'),
+    title: L('Autonomous Systems – Mapping Lead', 'Sistemas Autónomos – Mapping Lead'),
+    organization: 'Técnico Solar Boat',
+    dates: L('Oct 2025 – Apr 2026', 'Oct 2025 – Abr 2026'),
     description: L(
-      'Responsible for the mapping implementation within the autonomous navigation stack.',
-      'Responsable de la implementación del mapping dentro de la arquitectura de navegación autónoma del proyecto.',
+      'Responsible for the mapping implementation within the ROS 2 autonomous navigation stack of the SP01 vessel. Developed an initial LiDAR point-cloud-based OccupancyGrid pipeline and designed a layered GridMap costmap integrating dynamic occupancy updates, obstacle inflation and buoy-constrained navigable corridors based on camera–LiDAR perception.',
+      'Responsable de la implementación del mapping en el stack de navegación autónoma en ROS 2 del barco SP01. Desarrollo de un primer pipeline de OccupancyGrid a partir de nubes de puntos LiDAR y diseño de un costmap por capas con GridMap que integra actualizaciones dinámicas de ocupación, inflado de obstáculos y corredores navegables delimitados por boyas a partir de percepción cámara–LiDAR.',
     ),
     link: {
       url: 'https://tecnicosolarboat.com/',
@@ -182,6 +240,38 @@ export const projects = [
     ],
   },
   {
+    id: 'biped',
+    model: 'stairclimber',
+    title: L('Biped Stair-Climbing Robot', 'Robot bípedo para subir escaleras'),
+    subtitle: L('Mechatronics course project', 'Proyecto de la asignatura de mecatrónica'),
+    description: L(
+      'Design of a bipedal robot for stair climbing as part of a mechatronics course project, focusing on its mechanical configuration and actuation system.',
+      'Diseño de un robot bípedo para subir escaleras en un proyecto de la asignatura de mecatrónica, centrado en su configuración mecánica y su sistema de actuación.',
+    ),
+    note: L('Details on the mechanical design, actuators, kinematics and control are coming soon.', 'Próximamente, más detalles sobre el diseño mecánico, los actuadores, la cinemática y el control.'),
+    media: [],
+  },
+  {
+    id: 'ur5',
+    model: 'ur5',
+    title: L('Industrial Robot Programming and Motion Control — UR5', 'Programación y control de movimiento de un robot industrial — UR5'),
+    description: L(
+      'Programming and execution of motion routines using a UR5 industrial manipulator, gaining practical experience with industrial robot control and task programming.',
+      'Programación y ejecución de rutinas de movimiento con un manipulador industrial UR5, adquiriendo experiencia práctica en control de robots industriales y programación de tareas.',
+    ),
+    media: [],
+  },
+  {
+    id: 'delivery',
+    model: 'kobuki',
+    title: L('Autonomous Delivery Robot — Nav2 and Human-Robot Interaction', 'Robot de reparto autónomo — Nav2 e interacción humano-robot'),
+    description: L(
+      'Development of an autonomous delivery robot capable of navigating to a specified destination using Nav2. At the destination, the robot communicates with the recipient and requests the delivery password through a human–robot interaction interface. The application involves providing the robot with the recipient, destination and delivery password before starting the delivery task.',
+      'Desarrollo de un robot de reparto autónomo capaz de navegar hasta un destino indicado con Nav2. Al llegar, el robot se comunica con el destinatario y le pide la contraseña de entrega mediante una interfaz de interacción humano-robot. Antes de iniciar el reparto se le indican el destinatario, el destino y la contraseña.',
+    ),
+    media: [],
+  },
+  {
     id: 'car',
     model: 'humblebeev2',
     title: L('Teleoperated Car', 'Coche teledirigido'),
@@ -204,6 +294,73 @@ export const projects = [
       ),
       video('car-esp32', 'l9EiiZqZ7Z4', 'Teleoperated Car - Esp32 camera web server video', 'Coche teleoperado: vídeo del servidor web de la cámara Esp32'),
     ],
+  },
+  {
+    id: 'line-follower',
+    model: 'linefollower',
+    title: L('Autonomous Line-Following Robot', 'Robot siguelíneas autónomo'),
+    subtitle: L('Introductory Programming course final project', 'Proyecto final de la asignatura de Introducción a la Programación'),
+    description: L(
+      'Development of a line-following robot for a timed circuit challenge, with the objective of completing the track as quickly as possible while remaining on the designated path.',
+      'Desarrollo de un robot siguelíneas para un reto de circuito cronometrado, con el objetivo de completar la pista lo más rápido posible sin salirse del recorrido.',
+    ),
+    media: [],
+  },
+  {
+    id: 'rover',
+    model: 'turtlerover',
+    title: L('Mobile Rover Platform with SCARA Arm — CAD and Simulation', 'Plataforma rover con brazo SCARA — CAD y simulación'),
+    subtitle: L('Robot Modelling and Simulation course project', 'Proyecto de la asignatura de Modelado y Simulación de Robots'),
+    simulated: true,
+    description: L(
+      'Designed a mobile rover platform equipped with a SCARA manipulator from scratch in 3D, generated its URDF model and integrated it into a ROS 2/Gazebo simulation using ROS 2 Control and MoveIt.',
+      'Diseño desde cero en 3D de una plataforma móvil tipo rover con un manipulador SCARA, generación de su modelo URDF e integración en una simulación con ROS 2 y Gazebo usando ROS 2 Control y MoveIt.',
+    ),
+    media: [],
+  },
+  {
+    id: 'rescue',
+    model: 'drone',
+    title: L('Autonomous Maritime Search and Rescue', 'Búsqueda y rescate marítimo autónomo'),
+    simulated: true,
+    description: L(
+      'Programming of a simulated rescue drone to autonomously sweep a designated maritime area in search of survivors, in the Unibotics educational simulation environment.',
+      'Programación de un dron de rescate simulado para barrer de forma autónoma una zona marítima en busca de supervivientes, en el entorno educativo de simulación Unibotics.',
+    ),
+    media: [],
+  },
+  {
+    id: 'cleaning',
+    model: 'roomba',
+    title: L('Autonomous Cleaning Robot — Coverage Planning', 'Robot de limpieza autónomo — Planificación de cobertura'),
+    simulated: true,
+    description: L(
+      'Implementation and evaluation of autonomous coverage algorithms for a simulated cleaning robot tasked with covering an indoor environment, in the Unibotics educational simulation environment.',
+      'Implementación y evaluación de algoritmos de cobertura autónoma para un robot de limpieza simulado que debe cubrir un entorno interior, en el entorno educativo de simulación Unibotics.',
+    ),
+    media: [],
+  },
+  {
+    id: 'parking',
+    model: 'robotaxi',
+    title: L('LiDAR-Based Autonomous Parking', 'Aparcamiento autónomo con LiDAR'),
+    simulated: true,
+    description: L(
+      'Development of an autonomous parking system for a simulated vehicle using 3D LiDAR perception to navigate and perform the parking manoeuvre, in the Unibotics educational simulation environment.',
+      'Desarrollo de un sistema de aparcamiento autónomo para un vehículo simulado que usa percepción con LiDAR 3D para navegar y realizar la maniobra, en el entorno educativo de simulación Unibotics.',
+    ),
+    media: [],
+  },
+  {
+    id: 'f1',
+    model: 'f1car',
+    title: L('Learning-Based Autonomous F1 Racing', 'F1 autónomo basado en aprendizaje'),
+    simulated: true,
+    description: L(
+      'Application of machine-learning techniques to control a simulated F1 car, aiming to minimize lap time while keeping the vehicle within track boundaries, in the Unibotics educational simulation environment.',
+      'Aplicación de técnicas de machine learning para controlar un F1 simulado, con el objetivo de minimizar el tiempo por vuelta sin salirse de los límites de la pista, en el entorno educativo de simulación Unibotics.',
+    ),
+    media: [],
   },
 ]
 
@@ -355,13 +512,14 @@ export const hackathons = [
   },
 ]
 
-// Education has no photos yet: add them to `media` when they are available.
+// Logos and photos go in `media` once they are available.
 export const education = [
   {
     id: 'urjc',
     title: L('Universidad Rey Juan Carlos', 'Universidad Rey Juan Carlos'),
     role: L('B.Sc. Robotics Software Engineering', 'Grado en Ingeniería de Robótica Software'),
-    dates: L('2023 – Present', '2023 – Actualidad'),
+    organization: 'Madrid, Spain',
+    dates: L('Sep 2023 – Expected Jun 2027', 'Sep 2023 – Previsto jun 2027'),
     description: L(
       'Focus on control, robot software architecture, embedded systems and programming (ROS 2, C++).',
       'Formación centrada en control, arquitectura de software para robots, sistemas embebidos y programación (ROS 2, C++).',
@@ -370,15 +528,13 @@ export const education = [
   },
   {
     id: 'ist',
-    title: L('Instituto Superior Técnico', 'Instituto Superior Técnico'),
-    role: L(
-      'Erasmus Exchange Student, MSc Electrical and Computer Engineering',
-      'Estudiante de intercambio Erasmus, MSc Electrical and Computer Engineering',
-    ),
-    dates: L('Sept 2025 – Feb 2026', 'Sept 2025 – Feb 2026'),
+    title: L('Instituto Superior Técnico — Universidade de Lisboa', 'Instituto Superior Técnico — Universidade de Lisboa'),
+    role: L('Erasmus+ Exchange Programme', 'Programa de intercambio Erasmus+'),
+    organization: 'Lisbon, Portugal',
+    dates: L('Sep 2025 – Feb 2026', 'Sep 2025 – Feb 2026'),
     description: L(
-      'Erasmus exchange semester at Instituto Superior Técnico, where I studied courses from the MSc in Electrical and Computer Engineering focusing on robotics.',
-      'Semestre de intercambio Erasmus en el Instituto Superior Técnico, donde cursé asignaturas del máster en Electrical and Computer Engineering, con especial atención a la robótica.',
+      "Undertook MSc-level coursework in Electrical and Computer Engineering, focusing on robotics, during the third year of my Bachelor's degree.",
+      'Cursé asignaturas de máster en Electrical and Computer Engineering, centradas en robótica, durante el tercer año del grado.',
     ),
     media: [],
   },
@@ -388,11 +544,12 @@ export const education = [
       'University of Electronic Science and Technology of China (UESTC)',
       'University of Electronic Science and Technology of China (UESTC)',
     ),
-    role: L('SMEE International Summer School', 'SMEE International Summer School'),
-    dates: L('July 2026', 'Julio 2026'),
+    role: L('UESTC 2026 SMEE International Robotics Summer School', 'UESTC 2026 SMEE International Robotics Summer School'),
+    organization: 'Chengdu, China',
+    dates: L('Jul 2026', 'Jul 2026'),
     description: L(
-      'International summer school focused on creativity, robots and future technologies, mechatronics, robotics and automation engineering.',
-      'Escuela internacional de verano centrada en creatividad, robots y tecnologías del futuro, mecatrónica, robótica e ingeniería de automatización.',
+      'Participated in an international summer programme combining academic lectures, hands-on workshops and industry visits in robotics, artificial intelligence and advanced manufacturing. Explored topics including intelligent robotic systems, Graph Neural Networks, soft robotics, AI applications in renewable energy, and robot design and manufacturing.',
+      'Participación en un programa internacional de verano que combina clases, talleres prácticos y visitas a empresas sobre robótica, inteligencia artificial y fabricación avanzada. Temas tratados: sistemas robóticos inteligentes, Graph Neural Networks, robótica blanda, aplicaciones de la IA en energías renovables y diseño y fabricación de robots.',
     ),
     media: [],
   },

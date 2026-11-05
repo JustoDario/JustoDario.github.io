@@ -149,7 +149,13 @@ export default function MediaCarousel({ media, index, onChange, active }) {
     if (active && next) new Image().src = previewUrl(next)
   }, [active, next])
 
-  if (media.length === 0) return null
+  if (media.length === 0) {
+    return (
+      <div className="media" role="group" aria-label={t('media.label')}>
+        <div className="media__frame media__frame--empty">{t('media.empty')}</div>
+      </div>
+    )
+  }
   const item = media[index]
 
   return (

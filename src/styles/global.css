@@ -178,17 +178,17 @@ picture {
     width: min(92vw, 1200px);
   }
 
-  .section--wide .entry {
+  .section--wide .entry:has(> .media) {
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
     column-gap: 2rem;
     align-content: start;
   }
 
-  .section--wide .entry > * {
+  .section--wide .entry:has(> .media) > * {
     grid-column: 2;
   }
 
-  .section--wide .entry > .media {
+  .section--wide .entry:has(> .media) > .media {
     grid-column: 1;
     grid-row: 1 / span 6;
     width: 100%;
@@ -414,6 +414,13 @@ h1 {
   position: relative;
 }
 
+/* A long title wraps before it reaches the controls beside it. */
+@media (min-width: 961px) {
+  .section--carousel h2 {
+    padding-right: 10rem;
+  }
+}
+
 .main-carousel > .carousel-controls {
   position: absolute;
   top: 0;
@@ -423,6 +430,7 @@ h1 {
 .main-carousel,
 .media {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
   min-width: 0;
 }
@@ -475,6 +483,21 @@ h1 {
   text-align: center;
   font-variant-numeric: tabular-nums;
   color: var(--ink-soft);
+}
+
+.entry > .media {
+  width: 100%;
+}
+
+.media__frame--empty {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  border: 1px dashed var(--panel-border);
 }
 
 /* A fixed frame: changing medium never moves the controls below it. */
@@ -560,6 +583,7 @@ h1 {
 
 .entry {
   display: grid;
+  grid-template-columns: minmax(0, 1fr); /* a tall empty frame must not widen the panel */
   justify-items: start;
   gap: 0.9rem;
 }
@@ -579,6 +603,11 @@ h1 {
   color: var(--ink-soft);
 }
 
+.tag--header {
+  display: inline-block;
+  margin-top: 0.4rem;
+}
+
 .tag {
   padding: 0.15rem 0.6rem;
   font-size: 0.75rem;
@@ -586,6 +615,22 @@ h1 {
   color: var(--accent);
   border: 1px solid currentColor;
   border-radius: 999px;
+}
+
+/* Education: the media in a box of its own, beside the text. */
+.entry-split {
+  display: grid;
+  gap: 1rem;
+}
+
+.entry-split .entry {
+  align-content: start;
+}
+
+@media (min-width: 961px) {
+  .entry-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
 }
 
 .entry__highlights {
@@ -900,10 +945,23 @@ h1 {
   :root {
     --canvas-height: 100svh;
     --robot-band: calc((100svh - var(--nav-height)) * 0.35); /* UPRIGHT_BAND_SHARE */
+    /* Not 100% of the pane: the pane grows where the robot leaves, and this must not move
+       every section above the one on show. */
+    --section-min-height: calc((100svh - var(--nav-height)) * 0.65);
+  }
+
+  .no-3d,
+  .no-robot {
+    --robot-band: 0px;
   }
 
   .no-3d {
-    --robot-band: 0px;
+    --section-min-height: 100%;
+  }
+
+  /* From Events on, the pane takes the band of the robot, without a jump. */
+  main {
+    transition: top 0.35s ease;
   }
 
   /* Nothing scrolls under the robot here, so a swipe in any direction can turn it. */
@@ -941,7 +999,7 @@ h1 {
   }
 
   .section {
-    min-height: 100%;
+    min-height: var(--section-min-height);
     padding: calc(var(--pane-fade) + 0.2rem) 1rem 2.5rem; /* at rest, nothing is faded */
     justify-content: center;
     align-items: flex-start;

@@ -8,7 +8,7 @@ const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)'
 
 // One entry of a section at a time, so only the entry on show loads its media. Changing
 // entry fades the old page out while the new one rises from below.
-export default function MainCarousel({ sectionId, entries }) {
+export default function MainCarousel({ sectionId, entries, split }) {
   const { t } = useLanguage()
   const { activeSection, entryIndex, setEntryIndex } = useNavigation()
   const index = entryIndex(sectionId)
@@ -49,11 +49,11 @@ export default function MainCarousel({ sectionId, entries }) {
       >
         {/* Keyed here, so that each new page starts its own animation. */}
         <div key={entry.id} className="page page--current">
-          <InfoPanel entry={entry} active={active} />
+          <InfoPanel entry={entry} active={active} split={split} />
         </div>
         {leaving && (
           <div className="page page--old" inert>
-            <InfoPanel key={leaving.id} entry={leaving} active={false} />
+            <InfoPanel key={leaving.id} entry={leaving} active={false} split={split} />
           </div>
         )}
       </div>
