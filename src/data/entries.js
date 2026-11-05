@@ -219,6 +219,24 @@ export const projects = [
         'best_moments_grid-still.jpg',
       ),
       video('erh-demo', 'CDUgXpPN3KQ', 'ERH Physical AI Hackathon - Recording demonstrations until 5 am', 'ERH Physical AI Hackathon: grabando demostraciones hasta las 5 de la mañana'),
+      image(
+        'erharch.png',
+        'Pipeline diagram: an instruction goes to a VLM planner, which passes subtasks to the FLUX 3 Action policy that drives the SO-101 arm, with camera feedback and teleoperated demonstrations for fine-tuning',
+        'Diagrama del pipeline: una instrucción llega a un planificador VLM, que pasa subtareas a la política FLUX 3 Action que mueve el brazo SO-101, con realimentación de cámaras y demostraciones teleoperadas para el fine-tuning',
+      ),
+      video('erh-cup', null, 'SO-101 arm picking up a cup, top and wrist camera views', 'Brazo SO-101 cogiendo un vaso, vistas de la cámara superior y de la muñeca'),
+      video('erh-snickers', null, 'SO-101 arm placing chocolate bars, top and wrist camera views', 'Brazo SO-101 colocando barritas de chocolate, vistas de la cámara superior y de la muñeca'),
+      image(
+        'erhsimvideo2.gif',
+        'Simulated SO-101 arm picking up a chocolate bar on a table with cups and a plate',
+        'Brazo SO-101 simulado cogiendo una barrita de chocolate en una mesa con vasos y un plato',
+        'erhsimvideo2-still.jpg',
+      ),
+      image(
+        'erhsimvsreal.png',
+        'Real and simulated camera views of the same tabletop scene, side by side',
+        'Vistas de cámara reales y simuladas de la misma escena sobre la mesa, una al lado de la otra',
+      ),
     ],
   },
   {
@@ -238,6 +256,12 @@ export const projects = [
       ),
       video('go2-test1', null, 'Unitree Go2 test on the hackathon floor', 'Prueba del Unitree Go2 en el hackathon'),
       video('go2-test2', null, 'Unitree Go2 test on the hackathon floor, second clip', 'Prueba del Unitree Go2 en el hackathon, segundo clip'),
+      image(
+        'eehackarch.png',
+        'System architecture diagram: speech-to-text, a Vision-Language Model, PlanSys2 planning and Nav2 navigation feeding the Unitree Go2',
+        'Diagrama de arquitectura del sistema: speech-to-text, un Vision-Language Model, planificación con PlanSys2 y navegación con Nav2 sobre el Unitree Go2',
+      ),
+      video('go2-test3', null, 'Driving the Go2 from a laptop among the cardboard boxes', 'Manejando el Go2 desde un portátil entre las cajas de cartón'),
     ],
   },
   {
@@ -250,7 +274,13 @@ export const projects = [
       'Diseño de un robot bípedo para subir escaleras en un proyecto de la asignatura de mecatrónica, centrado en su configuración mecánica y su sistema de actuación.',
     ),
     note: L('Details on the mechanical design, actuators, kinematics and control are coming soon.', 'Próximamente, más detalles sobre el diseño mecánico, los actuadores, la cinemática y el control.'),
-    media: [],
+    media: [
+      image(
+        'biped1.jpg',
+        'White 3D-printed biped leg part with bearings, screws and a screwdriver on a blue work mat',
+        'Pieza blanca de pierna del bípedo impresa en 3D, con rodamientos, tornillos y un destornillador sobre una alfombrilla azul',
+      ),
+    ],
   },
   {
     id: 'ur5',
@@ -379,6 +409,7 @@ export const projects = [
       'Application of machine-learning techniques to control a simulated F1 car, aiming to minimize lap time while keeping the vehicle within track boundaries, in the Unibotics educational simulation environment.',
       'Aplicación de técnicas de machine learning para controlar un F1 simulado, con el objetivo de minimizar el tiempo por vuelta sin salirse de los límites de la pista, en el entorno educativo de simulación Unibotics.',
     ),
+    noMedia: true,
     media: [],
   },
   {
@@ -448,6 +479,7 @@ export const hackathons = [
         'Team of three people next to the blue SO-101 arms on their work table',
         'Equipo de tres personas junto a los brazos SO-101 azules en su mesa de trabajo',
       ),
+      video('erh-timelapse', null, 'Hackathon timelapse', 'Timelapse del hackathon'),
     ],
   },
   {
@@ -470,6 +502,21 @@ export const hackathons = [
         'ee2.jpg',
         'Justo presenting and gesturing behind a laptop, with cardboard boxes behind him',
         'Justo presentando y gesticulando tras un portátil, con cajas de cartón detrás',
+      ),
+      image(
+        'ee3.jpg',
+        'Justo talking with two people next to the work table among cardboard boxes',
+        'Justo hablando con dos personas junto a la mesa de trabajo, entre cajas de cartón',
+      ),
+      image(
+        'eehack.jpg',
+        'Group photo of the hackathon participants in a large room',
+        'Foto de grupo de los participantes del hackathon en una sala grande',
+      ),
+      image(
+        'eesummit.jpg',
+        'Participants gathered on stage under the Europe Embodied screen',
+        'Participantes reunidos en el escenario bajo la pantalla de Europe Embodied',
       ),
     ],
   },
@@ -580,7 +627,10 @@ export const education = [
       'Focus on control, robot software architecture, embedded systems and programming (ROS 2, C++).',
       'Formación centrada en control, arquitectura de software para robots, sistemas embebidos y programación (ROS 2, C++).',
     ),
-    media: [],
+    media: [
+      image('urjc-logo.png', 'Universidad Rey Juan Carlos logo', 'Logotipo de la Universidad Rey Juan Carlos'),
+      image('urjc-campus.jpg', 'Rectorate building of Universidad Rey Juan Carlos', 'Edificio del Rectorado de la Universidad Rey Juan Carlos'),
+    ],
   },
   {
     id: 'ist',
@@ -592,7 +642,10 @@ export const education = [
       "Undertook MSc-level coursework in Electrical and Computer Engineering, focusing on robotics, during the third year of my Bachelor's degree.",
       'Cursé asignaturas de máster en Electrical and Computer Engineering, centradas en robótica, durante el tercer año del grado.',
     ),
-    media: [],
+    media: [
+      image('ist-logo.png', 'Técnico Lisboa logo', 'Logotipo de Técnico Lisboa'),
+      image('ist-campus.jpg', 'Instituto Superior Técnico main building with a large @tecnico sign in front', 'Edificio principal del Instituto Superior Técnico con un gran letrero @tecnico delante'),
+    ],
   },
   {
     id: 'uestc',
@@ -608,6 +661,8 @@ export const education = [
       'Participación en un programa internacional de verano que combina clases, talleres prácticos y visitas a empresas sobre robótica, inteligencia artificial y fabricación avanzada. Temas tratados: sistemas robóticos inteligentes, Graph Neural Networks, robótica blanda, aplicaciones de la IA en energías renovables y diseño y fabricación de robots.',
     ),
     media: [
+      image('uestc-logo.jpg', 'UESTC emblem', 'Emblema de la UESTC'),
+      image('uestc-campus.jpg', 'UESTC campus building', 'Edificio del campus de la UESTC'),
       image(
         'uestc2.jpg',
         'Group photo of the summer school participants in matching blue T-shirts, in front of a UESTC 2026 banner',

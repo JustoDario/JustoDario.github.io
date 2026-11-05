@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# Generates the site's versions of the originals in assets/projectmedia/, which are too
-# heavy for the repository and stay out of it. Output is committed. Run from the root.
+# Generates the site's versions of the media added after optimize-media.sh: the originals
+# in assets/projectmedia/ (too heavy for the repository, they stay out of it) and some in
+# assets/. Output is committed. Run from the root. `./optimize-projectmedia.sh second`
+# only does the second batch.
 # Needs ffmpeg and ImageMagick 6. The HEIC files must be decoded first into $HEIC_JPEGS
 # (same names, .jpg), for instance with the npm package heic-convert in a temporary folder.
 #
@@ -8,6 +10,7 @@
 set -euo pipefail
 
 SRC=assets/projectmedia
+A=assets
 MEDIA=public/media
 VIDEO=public/video
 SRGB=/usr/share/color/icc/colord/sRGB.icc
@@ -18,11 +21,20 @@ photo() { # source destination
     -sampling-factor 4:2:0 -interlace Plane -quality 82 "$MEDIA/$2"
 }
 
-# Same limits as the videos already on the site: 720p at 30 fps, AV1 first, H.264 as fallback.
-FIT="scale='if(gt(iw,ih),min(1280,iw),-2)':'if(gt(iw,ih),-2,min(1280,ih))',fps=30,format=yuv420p"
+# Diagrams and logos: lossless, and IST1 is transparent.
+png() { # source destination
+  convert "$1[0]" -resize '1920x1920>' -strip "$MEDIA/$2"
+}
+
+# Same limits as the videos already on the site: 720p, at most 30 fps (slower sources keep
+# theirs), AV1 first, H.264 as fallback.
+SCALE="scale='if(gt(iw,ih),min(1280,iw),-2)':'if(gt(iw,ih),-2,min(1280,ih))'"
 
 clip() { # source slug poster-second [audio]
-  local audio_av1=(-an) audio_h264=(-an)
+  local audio_av1=(-an) audio_h264=(-an) FIT="$SCALE,format=yuv420p"
+  local rate
+  rate=$(ffprobe -v error -select_streams v:0 -show_entries stream=avg_frame_rate -of csv=p=0 "$SRC/$1")
+  if awk "BEGIN { exit !($rate > 30.5) }"; then FIT="$SCALE,fps=30,format=yuv420p"; fi
   if [ "${4:-}" = audio ]; then
     audio_av1=(-c:a libopus -b:a 80k)
     audio_h264=(-c:a aac -b:a 96k)
@@ -35,6 +47,7 @@ clip() { # source slug poster-second [audio]
   echo "$2 done"
 }
 
+first() {
 photo "$SRC/industrialrobotprogramming.JPG" ur5-program.jpg
 photo "$SRC/uestc1.jpeg"                    uestc1.jpg
 photo "$SRC/uestc2.JPG"                     uestc2.jpg
@@ -60,3 +73,33 @@ clip autoparking.mp4           parking-sim        40 &
 clip undocumented3.MOV         proto-plot         4 &
 clip undocumented4.MOV         proto-sensor       25 &
 wait
+}
+
+second() {
+  photo "$HEIC_JPEGS/biped1.jpg"     biped1.jpg
+  photo "$A/ee3.JPG"                 ee3.jpg
+  photo "$A/eehack.JPG"              eehack.jpg
+  photo "$A/eesummit.png"            eesummit.jpg     # a JPEG despite its name
+  png   "$A/eehackarch.png"          eehackarch.png
+  png   "$A/erharch.png"             erharch.png
+  png   "$A/erhsimvsreal.png"        erhsimvsreal.png
+  photo "$A/uestc1.jpeg"             uestc-logo.jpg
+  photo "$A/uestc2.jpg"              uestc-campus.jpg
+  png   "$A/urjc.avif"               urjc-logo.png
+  photo "$SRC/urjc2.jpeg"            urjc-campus.jpg
+  png   "$SRC/IST1.png"              ist-logo.png
+  photo "$SRC/ist2.jpeg"             ist-campus.jpg
+  # Kept byte for byte like best_moments_grid.gif, with a still for reduced motion.
+  cp "$A/erhsimvideo2.gif" "$MEDIA/erhsimvideo2.gif"
+  convert "$A/erhsimvideo2.gif[0]" -strip -quality 82 "$MEDIA/erhsimvideo2-still.jpg"
+
+  # Clips are from the assets/ root: SRC is relative to it here.
+  SRC=$A
+  clip eehackvideo1.mov  go2-test3    10 &
+  clip erhcup2.MP4       erh-cup      20 &
+  clip erhsnicker1.MP4   erh-snickers 20 &
+  clip erhtimelapse.MP4  erh-timelapse 7 &
+  wait
+}
+
+if [ "${1:-}" = second ]; then second; else first; second; fi

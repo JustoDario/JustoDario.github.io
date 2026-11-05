@@ -32,9 +32,11 @@ const MANIFEST = {
     ['treasurer', null, []],
   ],
   projects: [
-    ['so101-tidy', 'so101', ['best_moments_grid.gif', VID('erh-demo')]],
-    ['go2-inspection', 'go2', ['eeq1.jpg', VID('go2-test1'), VID('go2-test2')]],
-    ['biped', 'stairclimber', []],
+    ['so101-tidy', 'so101', [
+      'best_moments_grid.gif', VID('erh-demo'), 'erharch.png', VID('erh-cup'), VID('erh-snickers'), 'erhsimvideo2.gif', 'erhsimvsreal.png',
+    ]],
+    ['go2-inspection', 'go2', ['eeq1.jpg', VID('go2-test1'), VID('go2-test2'), 'eehackarch.png', VID('go2-test3')]],
+    ['biped', 'stairclimber', ['biped1.jpg']],
     ['ur5', 'ur5', [VID('ur5-moving'), 'ur5-program.jpg']],
     ['delivery', 'kobuki', [VID('delivery-test')]],
     ['car', 'humblebeev2', ['rcv1.jpg', 'rcv2.jpg', 'rc3.jpg', VID('car-esp32'), VID('car-test')]],
@@ -50,17 +52,17 @@ const MANIFEST = {
     ]],
   ],
   hackathons: [
-    ['erh', null, ['erh_hack_podium.jpg', 'erh_house.jpg', 'erh_hack_team.jpg']],
-    ['embodied', null, ['ee1.jpg', 'ee2.jpg']],
+    ['erh', null, ['erh_hack_podium.jpg', 'erh_house.jpg', 'erh_hack_team.jpg', VID('erh-timelapse')]],
+    ['embodied', null, ['ee1.jpg', 'ee2.jpg', 'ee3.jpg', 'eehack.jpg', 'eesummit.jpg']],
     ['ai', null, ['hackatonaiayo.jpg', 'atari_aia.jpg', 'aia_conf.png']],
     ['mapfre', null, ['urjchackaton1.jpg', 'urjchackaton2.jpg', 'mapfreapp1.png']],
     ['qubic', null, ['qubichackaton.jpg', 'demoqubic1.jpg', 'demoqubic2.jpg']],
     ['openred', null, ['radiacodehackaton.jpg', 'radiacodeapp1.png']],
   ],
   education: [
-    ['urjc', null, []],
-    ['ist', null, []],
-    ['uestc', null, ['uestc2.jpg', 'uestc1.jpg', 'uestc3.jpg']],
+    ['urjc', null, ['urjc-logo.png', 'urjc-campus.jpg']],
+    ['ist', null, ['ist-logo.png', 'ist-campus.jpg']],
+    ['uestc', null, ['uestc-logo.jpg', 'uestc-campus.jpg', 'uestc2.jpg', 'uestc1.jpg', 'uestc3.jpg']],
   ],
 }
 
@@ -105,7 +107,7 @@ function checkImage(file, where) {
 
 // Sections and entries against the manifest.
 const seen = new Set()
-if (inject) carouselSections[0].entries[0].media.find((m) => m.file).file = 'does-not-exist.jpg'
+if (inject) carouselSections.flatMap((s) => s.entries).flatMap((e) => e.media).find((m) => m.file).file = 'does-not-exist.jpg'
 
 for (const [sectionId, expected] of Object.entries(MANIFEST)) {
   const section = carouselSections.find((s) => s.id === sectionId)
