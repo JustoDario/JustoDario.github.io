@@ -41,7 +41,7 @@ const MANIFEST = {
     ['delivery', 'kobuki', [VID('delivery-test')]],
     ['car', 'humblebeev2', ['rcv1.jpg', 'rcv2.jpg', 'rc3.jpg', VID('car-esp32'), VID('car-test')]],
     ['line-follower', 'linefollower', [VID('linefollower-test')]],
-    ['rover', 'turtlerover', []],
+    ['rover', 'turtlerover', ['turtle-render.jpg', 'tr-rviz.png', 'tr-simulation.png', 'tr-seq1.png', 'tr-seq2.png', 'tr-seq3.png', 'tr-seq4.png']],
     ['rescue', 'drone', [VID('rescue-sim')]],
     ['cleaning', 'roomba', [VID('cleaning-sim')]],
     ['parking', 'robotaxi', [VID('parking-sim')]],

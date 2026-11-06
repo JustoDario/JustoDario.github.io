@@ -673,6 +673,68 @@
    ]
   ]
  },
+ "tr-rviz.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/tr-rviz-640.webp",
+    640
+   ],
+   [
+    "v/tr-rviz-960.webp",
+    960
+   ],
+   [
+    "v/tr-rviz-1849.webp",
+    1849
+   ]
+  ]
+ },
+ "tr-seq1.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/tr-seq1-917.webp",
+    917
+   ]
+  ]
+ },
+ "tr-seq2.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/tr-seq2-917.webp",
+    917
+   ]
+  ]
+ },
+ "tr-seq3.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/tr-seq3-917.webp",
+    917
+   ]
+  ]
+ },
+ "tr-seq4.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/tr-seq4-917.webp",
+    917
+   ]
+  ]
+ },
+ "tr-simulation.png": {
+  "type": "image/webp",
+  "files": [
+   [
+    "v/tr-simulation-821.webp",
+    821
+   ]
+  ]
+ },
  "tsbsimulation.png": {
   "type": "image/webp",
   "files": [
@@ -691,6 +753,27 @@
    [
     "v/tsbsimulation-1376.webp",
     1376
+   ]
+  ]
+ },
+ "turtle-render.jpg": {
+  "type": null,
+  "files": [
+   [
+    "v/turtle-render-640.jpg",
+    640
+   ],
+   [
+    "v/turtle-render-960.jpg",
+    960
+   ],
+   [
+    "v/turtle-render-1280.jpg",
+    1280
+   ],
+   [
+    "turtle-render.jpg",
+    1920
    ]
   ]
  },

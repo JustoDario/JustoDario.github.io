@@ -2,7 +2,7 @@
 # Generates the site's versions of the media added after optimize-media.sh: the originals
 # in assets/projectmedia/ (too heavy for the repository, they stay out of it) and some in
 # assets/. Output is committed. Run from the root. `./optimize-projectmedia.sh second`
-# only does the second batch.
+# (or `third`) only does that batch.
 # Needs ffmpeg and ImageMagick 6. The HEIC files must be decoded first into $HEIC_JPEGS
 # (same names, .jpg), for instance with the npm package heic-convert in a temporary folder.
 #
@@ -102,4 +102,16 @@ second() {
   wait
 }
 
-if [ "${1:-}" = second ]; then second; else first; second; fi
+# The turtle rover: a Blender render (a photo for the encoder) and screenshots, lossless.
+third() {
+  photo "$A/turtle_bot.png"    turtle-render.jpg
+  png   "$A/tr_rviz.png"       tr-rviz.png
+  png   "$A/tr_simulation.png" tr-simulation.png
+  for n in 1 2 3 4; do png "$A/tr_seq$n.png" "tr-seq$n.png"; done
+}
+
+case "${1:-}" in
+  second) second ;;
+  third) third ;;
+  *) first; second; third ;;
+esac

@@ -359,7 +359,43 @@ export const projects = [
       'Designed a mobile rover platform equipped with a SCARA manipulator from scratch in 3D, generated its URDF model and integrated it into a ROS 2/Gazebo simulation using ROS 2 Control and MoveIt.',
       'Diseño desde cero en 3D de una plataforma móvil tipo rover con un manipulador SCARA, generación de su modelo URDF e integración en una simulación con ROS 2 y Gazebo usando ROS 2 Control y MoveIt.',
     ),
-    media: [],
+    media: [
+      image(
+        'turtle-render.jpg',
+        'Blender render of the rover on dry grass: a six-wheeled green frame under an orange turtle shell, with a white arm whose gripper reaches into a black cargo box',
+        'Render en Blender del rover sobre hierba seca: un chasis verde de seis ruedas bajo un caparazón naranja de tortuga, con un brazo blanco cuya pinza llega a una caja de carga negra',
+      ),
+      image(
+        'tr-rviz.png',
+        'The rover URDF model in RViz, with a Joint State Publisher window moving each wheel joint',
+        'El modelo URDF del rover en RViz, con una ventana de Joint State Publisher que mueve cada articulación de las ruedas',
+      ),
+      image(
+        'tr-simulation.png',
+        'The rover in a Gazebo world beside a ruined building, with red, green and blue cubes on the ground around it',
+        'El rover en un mundo de Gazebo junto a un edificio en ruinas, con cubos rojo, verde y azul en el suelo a su alrededor',
+      ),
+      image(
+        'tr-seq1.png',
+        'Pick-and-place in Gazebo, 1 of 4: the arm reaches down and grips the green cube',
+        'Pick-and-place en Gazebo, 1 de 4: el brazo baja y agarra el cubo verde',
+      ),
+      image(
+        'tr-seq2.png',
+        'Pick-and-place in Gazebo, 2 of 4: the arm lifts the green cube over the shell',
+        'Pick-and-place en Gazebo, 2 de 4: el brazo levanta el cubo verde por encima del caparazón',
+      ),
+      image(
+        'tr-seq3.png',
+        'Pick-and-place in Gazebo, 3 of 4: the arm brings the green cube to the cargo box at the back',
+        'Pick-and-place en Gazebo, 3 de 4: el brazo lleva el cubo verde a la caja de carga trasera',
+      ),
+      image(
+        'tr-seq4.png',
+        'Pick-and-place in Gazebo, 4 of 4: the arm grips the blue cube next, with the red one still on the ground',
+        'Pick-and-place en Gazebo, 4 de 4: el brazo agarra después el cubo azul, con el rojo aún en el suelo',
+      ),
+    ],
   },
   {
     id: 'rescue',
