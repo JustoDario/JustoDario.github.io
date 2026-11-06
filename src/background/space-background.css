@@ -27,7 +27,7 @@
   --bg-graph:  #1d1e21;   /* graphite: where the fall starts          */
   --bg-steel:  #4a4c51;
   --bg-silver: #9a9ca1;
-  --bg-mist:   #cfd1d4;   /* light grey: the lit floor at the bottom  */
+  --bg-mist:   #babcbf;   /* light grey: the lit floor at the bottom  */
 
   /* ---- Effect controls -------------------------------------------------- */
   --motion-speed: 1;             /* 2 = twice as fast, 0.5 = half speed       */
@@ -72,16 +72,16 @@ html {
     linear-gradient(
       180deg,
       var(--bg-black) 0%,
-      var(--bg-coal) 26%,
-      #121315 36%,
-      var(--bg-graph) 46%,
-      #2c2d31 54%,
-      #3d3f43 61%,
-      var(--bg-steel) 66%,
-      #63656a 72%,
-      #7f8186 79%,
-      var(--bg-silver) 86%,
-      #b6b8bc 93%,
+      var(--bg-coal) 37%,
+      #121315 46%,
+      var(--bg-graph) 54%,
+      #2c2d31 61%,
+      #3d3f43 67%,
+      var(--bg-steel) 71%,
+      #63656a 76%,
+      #7f8186 82%,
+      var(--bg-silver) 88%,
+      #abadb1 94%,
       var(--bg-mist) 100%
     );
 }
@@ -115,7 +115,7 @@ html {
   left: -15vw;
   bottom: -32vh;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(236, 238, 241, 0.55) 0%, rgba(214, 216, 220, 0.22) 45%, transparent 100%);
+  background: radial-gradient(closest-side, rgba(236, 238, 241, 0.47) 0%, rgba(214, 216, 220, 0.19) 45%, transparent 100%);
   animation-name: light-floor;
   animation-duration: calc(40s / var(--motion-speed));
 }
@@ -219,7 +219,7 @@ html {
   .space-bg {
     background:
       radial-gradient(ellipse 90% 9% at 50% 36%, rgba(190, 193, 199, 0.32) 0%, transparent 100%),
-      linear-gradient(180deg, var(--bg-black) 0%, var(--bg-coal) 20%, #18191c 38%, var(--bg-graph) 55%, #2a2b2f 78%, #34363a 100%);
+      linear-gradient(180deg, var(--bg-black) 0%, var(--bg-coal) 32%, #18191c 47%, var(--bg-graph) 62%, #2a2b2f 81%, #34363a 100%);
   }
   .space-bg__light--floor,
   .space-bg__light--sheen {

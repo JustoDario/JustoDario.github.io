@@ -57,7 +57,7 @@ function makeBeam() {
   beamGeometry = new THREE.CylinderGeometry(0.06, SPOT_FLOOR_RADIUS, SPOT_HEIGHT, 128, 8, true)
   beamGeometry.translate(0, SPOT_HEIGHT / 2, 0)
   beamMaterial = new THREE.ShaderMaterial({
-    uniforms: { uColor: { value: new THREE.Color('#f4f1ea') }, uOpacity: { value: 0.42 } },
+    uniforms: { uColor: { value: new THREE.Color('#f4f1ea') }, uOpacity: { value: 0.48 } },
     vertexShader: /* glsl */ `
       varying vec3 vNormal;
       varying vec3 vView;
