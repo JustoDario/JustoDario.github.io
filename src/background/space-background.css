@@ -26,8 +26,8 @@
   --bg-coal:   #0c0d0f;
   --bg-graph:  #1d1e21;   /* graphite: where the fall starts          */
   --bg-steel:  #4a4c51;
-  --bg-silver: #9a9ca1;
-  --bg-mist:   #babcbf;   /* light grey: the lit floor at the bottom  */
+  --bg-silver: #6c6e73;
+  --bg-mist:   #818388;   /* light grey: the lit floor at the bottom  */
 
   /* ---- Effect controls -------------------------------------------------- */
   --motion-speed: 1;             /* 2 = twice as fast, 0.5 = half speed       */
@@ -78,10 +78,10 @@ html {
       #2c2d31 61%,
       #3d3f43 67%,
       var(--bg-steel) 71%,
-      #63656a 76%,
-      #7f8186 82%,
+      #55575c 76%,
+      #616368 82%,
       var(--bg-silver) 88%,
-      #abadb1 94%,
+      #77797e 94%,
       var(--bg-mist) 100%
     );
 }
@@ -115,7 +115,7 @@ html {
   left: -15vw;
   bottom: -32vh;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(236, 238, 241, 0.47) 0%, rgba(214, 216, 220, 0.19) 45%, transparent 100%);
+  background: radial-gradient(closest-side, rgba(236, 238, 241, 0.26) 0%, rgba(214, 216, 220, 0.1) 45%, transparent 100%);
   animation-name: light-floor;
   animation-duration: calc(40s / var(--motion-speed));
 }
