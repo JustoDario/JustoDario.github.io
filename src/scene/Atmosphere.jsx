@@ -49,7 +49,7 @@ export function Halo({ radius = 2.2, depth = 2, opacity = 0.2 }) {
 
 // Theatre spot over an exhibit. Where it shines from: high above the floor, a little
 // behind the robot, out of the frame. Shared by the beam and the real light.
-export const SPOT_HEIGHT = 4.2
+export const SPOT_HEIGHT = 2.4
 export const SPOT_BACK = -0.35
 export const SPOT_FLOOR_RADIUS = 1.35
 
@@ -85,7 +85,7 @@ function makeBeam() {
         float edge = pow(facing, 3.0);
         // Dissolves into the pool on the floor, so the far rim of the cone draws no line,
         // and into the dark above the frame.
-        float along = smoothstep(0.02, 0.32, vAlong) * (1.0 - smoothstep(0.78, 1.0, vAlong));
+        float along = smoothstep(0.02, 0.32, vAlong) * (1.0 - smoothstep(0.88, 1.0, vAlong));
         // A little noise, or 8-bit alpha shows the soft falloff as bands.
         float dither = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5;
         gl_FragColor = vec4(uColor, uOpacity * edge * along + dither / 255.0);
