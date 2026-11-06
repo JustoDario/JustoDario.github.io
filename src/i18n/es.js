@@ -15,6 +15,8 @@ export const es = {
   'nav.closeMenu': 'Cerrar menú',
   'nav.language': 'Switch to English',
   'nav.languageShort': 'EN',
+  'nav.toLight': 'Cambiar a modo claro',
+  'nav.toDark': 'Cambiar a modo oscuro',
   'hero.viewWork': 'Ver mis proyectos',
   'hero.cv': 'Abrir CV',
   'hero.next': 'Ir a Sobre mí',

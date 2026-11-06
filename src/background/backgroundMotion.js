@@ -10,9 +10,29 @@ const ramp = (a, b, x) => {
 }
 const wave = (x) => Math.sin(Math.PI * x)
 
-// p = scroll progress, 0 (top) to 1 (bottom). Units: vw/vh, degrees.
+// p = scroll progress, 0 (top) to 1 (bottom). Units: vw/vh, degrees. Only the layers of
+// the theme on show are in the DOM; the rest are filtered out.
 const sceneFor = ($) =>
   [
+    // Light theme (pearl): glass sheets, drifting lights and colour washes.
+    { el: $('.space-bg__sheet--tl'),
+      at: (p) => ({ x: -5 * p, y: -16 * ramp(0, 1, p), r: 9 * p, s: 1 + 0.08 * p, o: 1 - 0.55 * ramp(0.35, 0.9, p) }) },
+    { el: $('.space-bg__sheet--r'),
+      at: (p) => ({ x: -5 * wave(p), y: -22 * p, r: -7 * p, s: 1 + 0.06 * wave(p) }) },
+    { el: $('.space-bg__sheet--br'),
+      at: (p) => ({ x: -7 * wave(p), y: -20 * wave(p), r: 5 * wave(p), s: 1 + 0.05 * wave(p) }) },
+    { el: $('.space-bg__sheet--bl'),
+      at: (p) => {
+        const t = ramp(0.12, 0.65, p)
+        return { x: -6 * (1 - t), y: 28 * (1 - t) - 6 * ramp(0.65, 1, p), r: -8 * (1 - t), s: 1, o: t * (1 - 0.3 * ramp(0.85, 1, p)) }
+      } },
+    { el: $('.space-bg__light--a'), at: (p) => ({ x: 0, y: -4 * wave(p), s: 1 + 0.08 * wave(p) }) },
+    { el: $('.space-bg__light--b'), at: (p) => ({ x: 34 * p, y: 8 * wave(p) }) },
+    { el: $('.space-bg__light--c'), at: (p) => ({ x: -8 * wave(p), y: -34 * p }) },
+    { el: $('.space-bg__light--d'), at: (p) => ({ x: 18 * p, y: -26 * p, s: 1 + 0.1 * wave(p) }) },
+    { el: $('.space-bg__tint--lavender'), at: (p) => ({ o: 0.9 * wave(p) }) },
+    { el: $('.space-bg__tint--ice'), at: (p) => ({ o: 0.85 * ramp(0.55, 1, p) }) },
+    // Dark theme (studio).
     { el: $('.space-bg__light--sheen'), at: (p) => ({ x: -26 * p, y: 4 * wave(p) }) },
     { el: $('.space-bg__light--rim'), at: (p) => ({ x: 20 * p, y: 6 * wave(p), s: 1 + 0.12 * wave(p) }) },
     { el: $('.space-bg__light--floor'), at: (p) => ({ x: -6 * wave(p), s: 1 + 0.06 * wave(p) }) },
@@ -20,11 +40,14 @@ const sceneFor = ($) =>
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-// Set by the camera rig. Only moves the container, so it cannot fight the
+// Set by the camera rig. Only moves the containers, so it cannot fight the
 // per-layer `translate` values written by the scroll choreography.
+// The last value is kept: a theme change rebuilds the layers while the camera is still.
 let applyParallax = () => {}
-export const setBackgroundParallax = (railProgress) => applyParallax(railProgress)
+let lastParallax = 0
+export const setBackgroundParallax = (railProgress) => applyParallax((lastParallax = railProgress))
 
+const PARALLAX_GLASS_VW = 9
 const PARALLAX_LIGHTS_VW = 4
 
 export function startBackgroundMotion(root) {
@@ -32,11 +55,14 @@ export function startBackgroundMotion(root) {
 
   const $ = (sel) => root.querySelector(sel)
   const SCENE = sceneFor($)
+  const glass = $('.space-bg__glass')
   const lights = $('.space-bg__lights')
 
   applyParallax = (p) => {
+    if (glass) glass.style.translate = `${(-PARALLAX_GLASS_VW * p).toFixed(3)}vw 0`
     lights.style.translate = `${(-PARALLAX_LIGHTS_VW * p).toFixed(3)}vw 0`
   }
+  applyParallax(lastParallax)
 
   const EASE = 0.075
   let vw = 0

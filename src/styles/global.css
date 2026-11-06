@@ -144,6 +144,12 @@ picture {
   cursor: pointer;
 }
 
+.navbar__theme {
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+}
+
 .navbar__menu {
   display: none;
 }
@@ -1111,5 +1117,157 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* ==========================================================================
+   Light theme (html[data-theme='light']): the previous pearl palette, tag
+   bg-v1-pearl. Only what differs from the studio palette above.
+   ========================================================================== */
+:root[data-theme='light'] {
+  --ink: #1c2436;
+  --ink-soft: #46526b;
+  --accent: #34498f;
+  --accent-ink: #ffffff;
+  --panel: rgba(255, 255, 255, 0.92);
+  --panel-border: rgba(143, 163, 208, 0.45);
+  --control: rgba(255, 255, 255, 0.7);
+  --control-hover: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme='light'] .navbar {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme='light'] .panel {
+  box-shadow: 0 12px 40px rgba(60, 76, 120, 0.14);
+}
+
+[data-theme='light'] .hero__photo {
+  border-color: #fff;
+  box-shadow: 0 8px 24px rgba(60, 76, 120, 0.25);
+}
+
+[data-theme='light'] h1 {
+  background: none;
+  color: inherit;
+}
+
+[data-theme='light'] .hero__subtitle {
+  border-image: none;
+  border-top-color: var(--accent);
+}
+
+[data-theme='light'] .hero__next {
+  color: var(--accent);
+}
+
+[data-theme='light'] .button {
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: var(--accent);
+}
+
+[data-theme='light'] .button:hover {
+  background: #fff;
+}
+
+[data-theme='light'] .button--primary {
+  color: var(--accent-ink);
+  background: var(--accent);
+}
+
+[data-theme='light'] .button--primary:hover {
+  background: #2a3c78;
+}
+
+[data-theme='light'] .carousel-controls__button {
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: var(--panel-border);
+}
+
+[data-theme='light'] .carousel-controls__button:not([aria-disabled='true']):hover {
+  background: #fff;
+}
+
+[data-theme='light'] .carousel-controls__button[aria-disabled='true'] {
+  color: #7c869c;
+}
+
+[data-theme='light'] .media__frame {
+  background: rgba(28, 36, 54, 0.08);
+}
+
+[data-theme='light'] .media__video {
+  background: #10141f;
+}
+
+[data-theme='light'] .media__play {
+  background: rgba(28, 36, 54, 0.78);
+}
+
+[data-theme='light'] .media__fallback {
+  background: rgba(28, 36, 54, 0.85);
+}
+
+[data-theme='light'] .media__start:hover .media__play {
+  color: #fff;
+}
+
+[data-theme='light'] .terminal {
+  color: #dfe6f5;
+  background: #141a2c;
+  border-color: #2c3550;
+}
+
+[data-theme='light'] .terminal__bar {
+  background: #1f2740;
+}
+
+[data-theme='light'] .terminal__bar span {
+  background: #47526f;
+}
+
+[data-theme='light'] .terminal__bar code,
+[data-theme='light'] .terminal__line--comment {
+  color: #aab5cf;
+}
+
+[data-theme='light'] .terminal__line--dim {
+  color: #8d98b4;
+}
+
+[data-theme='light'] .terminal .button:not(.button--primary) {
+  color: #dfe6f5;
+  border-color: #6f7c9e;
+}
+
+[data-theme='light'] .terminal .button:not(.button--primary):hover {
+  background: #1f2740;
+}
+
+[data-theme='light'] .terminal .button--primary {
+  background: #4d68c4;
+  border-color: #4d68c4;
+}
+
+[data-theme='light'] .terminal .button--primary:hover {
+  background: #5d78d6;
+}
+
+[data-theme='light'] .terminal .icon-link,
+[data-theme='light'] .contact__status {
+  color: #dfe6f5;
+}
+
+[data-theme='light'] .robot-loader {
+  border-color: rgba(52, 73, 143, 0.18);
+  border-top-color: var(--accent);
+}
+
+@media (max-width: 960px) {
+  [data-theme='light'] .navbar__links {
+    background: rgba(255, 255, 255, 0.96);
   }
 }

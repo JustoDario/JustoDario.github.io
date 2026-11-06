@@ -100,7 +100,7 @@ function Exhibition() {
   return (
     <>
       <CameraRig onArrive={setArrivedAt} layout={layout} />
-      <StageLights layout={layout} />
+      <StageLights />
       <RobotGrab station={station} ready={!traveling && Boolean(loaded[MODELS[station.model]?.file])} />
       {STATIONS.filter((s) => kept.current.has(s) && mayMount(s)).map((s) => (
         <RobotStation key={s.id} station={s} warm={!traveling && s !== station} layout={layout} />

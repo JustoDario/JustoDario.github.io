@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageProvider.jsx'
-import { CloseIcon, MenuIcon } from './icons.jsx'
+import { toggleTheme, useTheme } from '../state/theme.js'
+import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from './icons.jsx'
 
 const LINKS = ['about', 'research', 'publications', 'responsibility', 'projects', 'hackathons', 'education', 'skills', 'contact']
 
 export default function Navbar() {
   const { t, toggle } = useLanguage()
+  const theme = useTheme()
   const [open, setOpen] = useState(false)
   const nav = useRef(null)
   const toggleButton = useRef(null)
@@ -55,6 +57,17 @@ export default function Navbar() {
           onClick={() => setOpen((value) => !value)}
         >
           {open ? <CloseIcon /> : <MenuIcon />}
+        </button>
+        {/* Shows the mode it switches to: the sun in the dark, the moon in the light. */}
+        <button
+          type="button"
+          className="navbar__button navbar__theme"
+          data-testid="theme-toggle"
+          aria-label={t(theme === 'dark' ? 'nav.toLight' : 'nav.toDark')}
+          title={t(theme === 'dark' ? 'nav.toLight' : 'nav.toDark')}
+          onClick={toggleTheme}
+        >
+          {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
         </button>
         <button
           type="button"

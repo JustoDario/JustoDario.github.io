@@ -25,10 +25,12 @@ export default function BakedShadow({ size = 5, far = 1.6, blur = 2.2, opacity =
 
     const depth = new THREE.MeshDepthMaterial({ depthTest: false, depthWrite: false })
     depth.onBeforeCompile = (shader) => {
-      shader.uniforms.uColor = { value: new THREE.Color(color) }
-      shader.fragmentShader = shader.fragmentShader
-        .replace('void main() {', 'uniform vec3 uColor;\nvoid main() {')
-        .replace('vec4( vec3( 1.0 - fragCoordZ ), opacity );', 'vec4( uColor, 1.0 - fragCoordZ );')
+      // Only the alpha is used (alphaOnlyMap): the colour comes from the plane's material,
+      // so a theme change recolours the shadow without baking it again.
+      shader.fragmentShader = shader.fragmentShader.replace(
+        'vec4( vec3( 1.0 - fragCoordZ ), opacity );',
+        'vec4( vec3( 0.0 ), 1.0 - fragCoordZ );',
+      )
     }
 
     const horizontal = new THREE.ShaderMaterial({ ...HorizontalBlurShader, depthTest: false, transparent: false })
@@ -46,7 +48,7 @@ export default function BakedShadow({ size = 5, far = 1.6, blur = 2.2, opacity =
     camera.up.set(0, 0, 1)
 
     return { target, targetBlur, depth, horizontal, vertical, quad, quadGeometry, quadCamera, camera }
-  }, [resolution, size, far, color])
+  }, [resolution, size, far])
 
   useEffect(
     () => () => {

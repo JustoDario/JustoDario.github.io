@@ -2,7 +2,8 @@ import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { forLayout, MODELS } from '../data/models.js'
 import { isUpright, useUpright } from '../lib/layout.js'
-import { Halo, SpotBeam } from './Atmosphere.jsx'
+import { useTheme } from '../state/theme.js'
+import { Halo } from './Atmosphere.jsx'
 import BakedShadow from './BakedShadow.jsx'
 import Model from './Model.jsx'
 import { LOOK_AT_HEIGHT } from './rail.js'
@@ -20,6 +21,8 @@ export const robotLift = (model) => (isUpright() ? LOOK_AT_HEIGHT - model.height
 // One exhibit. Stations without a model are not mounted at all.
 export default function RobotStation({ station, warm, layout }) {
   const upright = useUpright()
+  const light = useTheme() === 'light'
+  const shadow = light ? '#2a3550' : '#000000'
   const model = forLayout(MODELS[station.model], upright)
   const group = useRef()
   const turntable = useRef()
@@ -39,15 +42,15 @@ export default function RobotStation({ station, warm, layout }) {
 
   return (
     <group ref={group} position={place()}>
-      <Halo />
-      <SpotBeam />
+      {/* The light theme lights each robot from its own pool; the dark one, from the stage spot. */}
+      {light && <Halo kind="pearl" radius={2.6} depth={1} opacity={1} />}
       {/* The shadow turns with the robot: it was baked once, with the robot at rest. */}
       <group ref={turntable}>
         <Model model={model} warm={warm} isShown={() => layout.current.has(station.id)}>
-          <BakedShadow />
+          <BakedShadow color={shadow} />
           {/* Thin legs vanish in the blur of the main shadow, which makes a robot look
               like it floats. This one only sees what is close to the floor. */}
-          {model.legged && <BakedShadow far={0.3} blur={0.9} opacity={0.8} />}
+          {model.legged && <BakedShadow far={0.3} blur={0.9} opacity={0.8} color={shadow} />}
         </Model>
       </group>
     </group>
