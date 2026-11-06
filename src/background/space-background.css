@@ -24,10 +24,7 @@
   /* ---- Colours ---------------------------------------------------------- */
   --bg-black:  #030304;   /* top of the backdrop                      */
   --bg-coal:   #0c0d0f;
-  --bg-graph:  #1d1e21;   /* graphite: where the fall starts          */
-  --bg-steel:  #3f4145;
-  --bg-silver: #5c5e62;
-  --bg-mist:   #6e6f74;   /* light grey: the lit floor at the bottom  */
+  --bg-graph:  #1d1e21;
 
   /* ---- Effect controls -------------------------------------------------- */
   --motion-speed: 1;             /* 2 = twice as fast, 0.5 = half speed       */
@@ -64,25 +61,36 @@ html {
   user-select: none;
   contain: strict;
 
-  /* 1. Base: black that holds for the top third, then a long eased fall to light
-     grey. Many stops approximate an ease-in curve, so the fall has no visible knee.
-     A diagonal shadow from the top right (like the hex-bolt reference) on top. */
+  /* 1. Base: black that holds for the top fifth, then one smooth eased fall to mid
+     grey: every stop follows the same curve (smootherstep blended with a power ease,
+     generated, not hand-tuned), so no stretch of it is steeper than the rest. Any
+     change: regenerate the whole list. A diagonal shadow from the top right (like
+     the hex-bolt reference) on top. */
   background:
     linear-gradient(212deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 22%, transparent 48%),
     linear-gradient(
       180deg,
-      var(--bg-black) 0%,
-      var(--bg-coal) 37%,
-      #121315 46%,
-      var(--bg-graph) 54%,
-      #2c2d31 61%,
-      #3d3f43 67%,
-      var(--bg-steel) 71%,
-      #484a4e 76%,
-      #525458 82%,
-      var(--bg-silver) 88%,
-      #65676b 94%,
-      var(--bg-mist) 100%
+      #030306 0%,
+      #030306 5%,
+      #030306 10%,
+      #030306 15%,
+      #030306 20%,
+      #040407 25%,
+      #060609 30%,
+      #0a0a0d 35%,
+      #0f0f12 40%,
+      #161619 45%,
+      #1e1e21 50%,
+      #27272a 55%,
+      #303033 60%,
+      #3a3a3d 65%,
+      #444447 70%,
+      #4d4d50 75%,
+      #555558 80%,
+      #5d5d60 85%,
+      #636366 90%,
+      #69696c 95%,
+      #6e6e71 100%
     );
 }
 
@@ -115,7 +123,7 @@ html {
   left: -15vw;
   bottom: -32vh;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(236, 238, 241, 0.22) 0%, rgba(214, 216, 220, 0.085) 45%, transparent 100%);
+  background: radial-gradient(closest-side, rgba(236, 238, 241, 0.14) 0%, rgba(214, 216, 220, 0.055) 45%, transparent 100%);
   animation-name: light-floor;
   animation-duration: calc(40s / var(--motion-speed));
 }

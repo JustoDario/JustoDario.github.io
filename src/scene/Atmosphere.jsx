@@ -14,9 +14,12 @@ function makeHaloTexture() {
   canvas.width = canvas.height = size
   const ctx = canvas.getContext('2d')
   const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2)
-  gradient.addColorStop(0, 'rgba(255,255,255,0.95)')
-  gradient.addColorStop(0.45, 'rgba(255,255,255,0.4)')
-  gradient.addColorStop(1, 'rgba(255,255,255,0)')
+  // Gaussian falloff: seen at a grazing angle the far half of the pool is squeezed into
+  // a thin band, and any steeper edge would read there as a horizon line.
+  for (let i = 0; i <= 16; i++) {
+    const r = i / 16
+    gradient.addColorStop(r, `rgba(255,255,255,${(Math.exp(-3.5 * r * r) * (1 - r)).toFixed(4)})`)
+  }
   ctx.fillStyle = gradient
   ctx.fillRect(0, 0, size, size)
   const texture = new THREE.CanvasTexture(canvas)
@@ -24,12 +27,14 @@ function makeHaloTexture() {
   return texture
 }
 
-// Pool of light on the invisible floor under an exhibit, where the spot lands.
-export function Halo({ radius = 2.1, opacity = 0.7 }) {
+// Pool of light on the invisible floor under an exhibit, where the spot lands. Long in
+// depth: the camera sees the floor at a grazing angle, which squeezes the far half of a
+// round pool into a few pixels, a step of light in the backdrop. `depth` undoes that.
+export function Halo({ radius = 2.2, depth = 2, opacity = 0.2 }) {
   haloTexture ??= makeHaloTexture() // one for all the stations
   return (
     <mesh position-y={0.001} rotation={[-Math.PI / 2, 0, 0]} layers={NO_SHADOW_LAYER} renderOrder={-1}>
-      <planeGeometry args={[radius * 2, radius * 2]} />
+      <planeGeometry args={[radius * 2, radius * 2 * depth]} />
       <meshBasicMaterial
         map={haloTexture}
         onBeforeCompile={alphaOnlyMap}
