@@ -13,7 +13,7 @@ const worldPosition = new THREE.Vector3()
 // reused as a texture. Own version instead of drei's ContactShadows: that one
 // blurs on a plane fixed at the world origin, so it comes out empty at any
 // station away from x = 0, and it never frees its render targets.
-export default function BakedShadow({ size = 5, far = 1.6, blur = 2.2, opacity = 0.55, color = '#2a3550', resolution = 512 }) {
+export default function BakedShadow({ size = 5, far = 1.6, blur = 2.2, opacity = 0.55, color = '#000000', resolution = 512 }) {
   const gl = useThree((state) => state.gl)
   const scene = useThree((state) => state.scene)
   const plane = useRef()

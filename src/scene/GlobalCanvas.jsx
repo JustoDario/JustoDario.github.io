@@ -13,6 +13,7 @@ import { Dust } from './Atmosphere.jsx'
 import { releaseModels } from './modelLifecycle.js'
 import RobotGrab from './RobotGrab.jsx'
 import RobotStation from './RobotStation.jsx'
+import StageLights from './StageLights.jsx'
 import { DebugProbe, debugEnabled } from './Debug.jsx'
 import { computeWindow, STATIONS } from './stations.js'
 
@@ -99,6 +100,7 @@ function Exhibition() {
   return (
     <>
       <CameraRig onArrive={setArrivedAt} layout={layout} />
+      <StageLights layout={layout} />
       <RobotGrab station={station} ready={!traveling && Boolean(loaded[MODELS[station.model]?.file])} />
       {STATIONS.filter((s) => kept.current.has(s) && mayMount(s)).map((s) => (
         <RobotStation key={s.id} station={s} warm={!traveling && s !== station} layout={layout} />

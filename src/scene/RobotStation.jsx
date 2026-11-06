@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { forLayout, MODELS } from '../data/models.js'
 import { isUpright, useUpright } from '../lib/layout.js'
-import { Halo } from './Atmosphere.jsx'
+import { Halo, SpotBeam } from './Atmosphere.jsx'
 import BakedShadow from './BakedShadow.jsx'
 import Model from './Model.jsx'
 import { LOOK_AT_HEIGHT } from './rail.js'
@@ -40,6 +40,7 @@ export default function RobotStation({ station, warm, layout }) {
   return (
     <group ref={group} position={place()}>
       <Halo />
+      <SpotBeam />
       {/* The shadow turns with the robot: it was baked once, with the robot at rest. */}
       <group ref={turntable}>
         <Model model={model} warm={warm} isShown={() => layout.current.has(station.id)}>
